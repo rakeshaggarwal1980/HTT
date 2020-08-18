@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "types": [],
+    "paths": {
+    }
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ],
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false,
+    "skipMetadataEmit": true,
+    "annotateForClosureCompiler":true
+  }
+}

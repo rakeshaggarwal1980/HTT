@@ -1,0 +1,79 @@
+# App Configuration
+name: toolbox-reference-angular
+
+# Contact Information
+contact:
+  responsible: DevOps
+  slack_channel: '#reference-apps'
+
+# Helm chart configuration
+helm:
+  chart: ace/web
+  version: ^4.0.0
+  cluster: kubernetes.maze-test
+  registry: evrydevopsprod.azurecr.io
+  repo: https://evry-ace.github.io/helm-charts/
+  repoName: ace
+
+  values:
+    liveness:
+      port: 80
+    readiness:
+      port: 80
+    service:
+      targetPort: 80
+    metrics:
+      enabled: false
+    podDisruptionBudget:
+      minAvailable: 1
+    replicaCount: 3      
+      
+environments:
+  dev:
+    cluster: kubernetes.maze-test
+    namespace: toolbox-dev
+    values:
+      metrics:
+        enabled: false
+      ingress:
+        enabled: true
+        hosts:
+          - toolbox-reference-angular.dev.maze.evry.site
+        tls:
+          - hosts:
+            - toolbox-reference-angular.dev.maze.evry.site
+            secretName: toolbox-reference-angular-dev
+      cert:
+        enabled: true
+  test:
+    cluster: kubernetes.maze-test
+    namespace: toolbox-test
+    values:
+      metrics:
+        enabled: false
+      ingress:
+        enabled: true
+        hosts:
+          - toolbox-reference-angular.test.maze.evry.site
+        tls:
+          - hosts:
+            - toolbox-reference-angular.test.maze.evry.site
+            secretName: toolbox-reference-angular-test
+      cert:
+        enabled: true
+  prod:
+    cluster: kubernetes.maze-prod
+    namespace: toolbox-prod
+    values:
+      metrics:
+        enabled: false
+      ingress:
+        enabled: true
+        hosts:
+          - toolbox-reference-angular.prod.maze.evry.site
+        tls:
+          - hosts:
+            - toolbox-reference-angular.prod.maze.evry.site
+            secretName: toolbox-reference-angular-prod
+      cert:
+        enabled: true
