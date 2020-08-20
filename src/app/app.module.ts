@@ -9,6 +9,7 @@ import { RequestListModule } from 'app/request-list/index.request-list';
 import { ErrorModule } from 'app/error/index.error';
 import { TableModule } from 'app/responsive_table/index.responsive';
 import { NavigationDestinationModule } from 'app/navigation-destination/index.navigation';
+import { ServiceModule } from 'app/shared/services/service.module';
 // translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RequestListModule,
     NavigationDestinationModule,
     TableModule,
+    ServiceModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

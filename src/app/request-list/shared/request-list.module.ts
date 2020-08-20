@@ -6,6 +6,9 @@ import { RequestListComponent } from 'app/request-list/request-list.component';
 import { RequestListRouterModule } from 'app/request-list/shared/request-list.route';
 import { SharedModule } from 'app/shared/shared.module';
 import { NgModule } from '@angular/core';
+import { RequestListService } from 'app/request-list/shared/request-list.service';
+import { CommonModule } from 'vendor/angular';
+import { from } from 'rxjs';
 
 
 @NgModule({
@@ -13,12 +16,13 @@ import { NgModule } from '@angular/core';
     TranslateModule,
     SharedModule,
     RequestListRouterModule,
+    CommonModule
   ],
   exports: [],
   declarations: [
     RequestListComponent
   ],
-  providers: [],
+  providers: [RequestListService],
 })
 export class RequestListModule {
 }
