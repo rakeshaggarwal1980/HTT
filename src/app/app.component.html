@@ -1,4 +1,4 @@
-<header class="mb-4 fixed-top">
+<header class="mb-4 fixed-top" [hidden]="router.url.endsWith('/')">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-12"><a href="javascript:void(0)"><img
@@ -10,16 +10,21 @@
         </div>
     </div>
 </header>
-<section class="middle-inner">
-        <router-outlet></router-outlet>
+<section class="middle-inner" [hidden]="router.url.indexOf('login')>-1">
+    <router-outlet></router-outlet>
 </section>
 
+<div *ngIf="router.url.indexOf('login')>-1">
+    <router-outlet></router-outlet>
+</div>
 <footer class="mt-5">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <a href="javascript:void(0)"><img src="../assets/images/footer-logo.png" alt="TietoEVRY" title="TietoEVRY" ></a>
-                <p>Tieto and EVRY merge to create the leading Nordic digital <br> services company, promoting openness, trust and diversity.</p>
+                <a href="javascript:void(0)"><img src="../assets/images/footer-logo.png" alt="TietoEVRY"
+                        title="TietoEVRY"></a>
+                <p>Tieto and EVRY merge to create the leading Nordic digital <br> services company, promoting openness,
+                    trust and diversity.</p>
             </div>
         </div>
     </div>

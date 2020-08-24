@@ -7,10 +7,10 @@
                     <th>Employee Name</th>
                     <th>Date Of Request</th>
                     <th>Action</th>
-                </tr>
+                </tr>0
                 <tr *ngFor="let request of Requests">
                     <td>{{request.employeeCode}}</td>
-                    <td> Kapil </td>
+                    <td> {{request.employee.name}} </td>
                     <td>{{request.dateOfRequest}}</td>
                     <td> <a href="javascript:void(0)" class="btn-primary action-btn">Accept</a>
                         <a href="javascript:void(0)" class="btn-primary action-btn">Decline</a></td>

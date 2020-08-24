@@ -1,5 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from 'vendor/angular';
 
 @Component({
   selector: 'evry-app-root',
@@ -7,7 +8,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private router: Router) {
     translate.addLangs(['en']);
     translate.setDefaultLang('en');
     translate.use('en');

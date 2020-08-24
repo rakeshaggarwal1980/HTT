@@ -1,0 +1,74 @@
+.login-main{  width:640px; margin: 70px auto 40px;}
+.login-main h6{ font-size: 30px; color: #F8F8F8; margin: 30px 0 60px; padding: 0;}
+.custom-input{ font-size:14px; color:#343434; background: #fffefe;; border:none; width:100%; border:1px solid #343434; height:40px; padding: 0 15px; margin-bottom: 20px; border-radius:0px;}
+.custom-select, .custom-date{ font-size:14px; color:#343434; background: #fffefe;; border:none; width:100%; border:1px solid #343434; height:40px; padding: 0 15px; margin-bottom: 20px; border-radius:0px;}
+.custom-input:focus{ outline: none;}
+  ::placeholder { 
+    color:#ECECEC;
+    opacity: 1; 
+  }
+.login-main { color:#FFFFFF; font-size: 16px;}
+.login-main a{ color: #0093FF; text-decoration: underline;}
+.login-main a:hover{ color: #3FC3E4; text-decoration: none;}
+.login-btn { background: #063752; border: none; padding: 16px 50px; color: #f5f5f5; font-size: 22px; text-align: center;}
+.login-btn:hover, .login-btn:focus{ outline: none; text-decoration: none; color: #FFFFFF; background: #2173a0; box-shadow: none;}
+.action-btn { background: #2173a0;  border: none; margin:0 20px 0 0; padding: 10px 30px; color: #f5f5f5; font-size: 16px; text-align: center;}
+.action-btn:hover, .action-btn:focus{ outline: none; text-decoration: none; color: #FFFFFF; background: #063752; box-shadow: none;}
+.top-text{ margin: 30px 0 60px 0;}
+.top-text h5{ font-size: 26px; color: #212122;}
+.top-text p{ font-size: 15px; color: #444444;}
+.white-color{ color:#333333;}
+.common-text{ color:#444444; font-size: 15px;}
+.align-text{float: right; text-align: right;}
+.ml-neg-2{ margin-left:-22px;}
+.middle-inner{ margin-bottom:40px; padding-top: 120px;}
+footer{ width:100%; float: left; margin-top: 20px; background: #063a54; padding: 20px 0;}
+footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
+
+.login-main{  width:640px; margin: 70px auto 40px;}
+.login-main h6{ font-size: 30px; color: #F8F8F8; margin: 30px 0 60px; padding: 0;}
+.custom-input{ font-size:16px; color:#F1F1F1; border:none; width:100%; background: rgba(239,239,239,.30); height:50px; padding: 0 15px; margin-bottom: 20px; border-radius:10px;}
+.custom-input:focus{ outline: none;}
+  ::placeholder { 
+    color:#ECECEC;
+    opacity: 1; 
+  }
+.login-main { color:#FFFFFF; font-size: 16px;}
+.login-main a{ color: #2fc5ff; text-decoration: underline;}
+.login-main a:hover{ color: #f5f5f5; text-decoration: none;}
+.login-main .btn-primary{ background: #FFFFFF; border: none; padding: 10px 70px; color: #063a54; font-size: 22px; text-align: center;}
+.login-main .btn-primary:hover, .login-main .btn-primary:focus{ outline: none; color: #FFFFFF; background: #063a54; box-shadow: none;}
+.btn-white, .btn-white:hover{ color: #fffefe;}
+.inner-textarea{ border:1px solid #343434;}
+
+
+/*=================== Media CSS ===================*/
+
+@media screen and (max-width:767px){
+    .login-main{
+        width:100%;
+    }
+
+    .mobile-inner, .align-text{
+      float: left;
+      text-align: left;
+      margin: 4px 0;
+    }
+
+    .mobile-inner, .ml-5{
+      margin-left: 0px !important;
+    }
+    .mobile-inner, .ml-neg-2{
+      margin: -21px 0 0 19px;
+    }
+
+    .fixed-top, .text-right{
+      padding-top:20px;
+    }
+}
+
+@media screen and (max-width:460px){
+  .middle-inner{
+    padding-top: 170px;
+  }
+}

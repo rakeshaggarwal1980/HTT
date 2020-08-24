@@ -1,34 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationService } from 'app/registration/shared/registration.service';
-import { Registration } from './shared/registration.model';
+import { LoginService } from 'app/login/shared/login.service';
 import { isNullOrUndefined } from 'util';
 
 
 @Component({
-  selector: 'evry-registration',
-  templateUrl: 'registration.component.html',
-  styleUrls: ['./shared/registration.component.scss'],
+  selector: 'evry-login',
+  templateUrl: 'login.component.html',
+  styleUrls: ['./shared/login.component.scss'],
 })
-export class RegistrationComponent implements OnInit {
-  today: Date;
-  registration: Registration = { id: 0, name: '', email: '', password: '', employeeCode: 0 };
+export class LoginComponent implements OnInit {
+  loginDetails: any = { email:'', password: '' };
 
-
-  constructor(private registrationService: RegistrationService) {
+  constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
-    this.today = new Date();
-
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('login-bg');
   }
 
-  onRegistrationClick() {
-    console.log('this is registration');
-    console.log(this.registration);
+  onLoginClick() {
+    console.log('this is login');
+    console.log(this.loginDetails);
 
     //this.isGetting = true;
-   localStorage.setItem('auth_token', '');
-    this.registrationService.createEmployee(this.registration).subscribe(
+
+    this.loginService.login(this.loginDetails).subscribe(
       data => {
         console.log('this is data');
         console.log(data);
@@ -36,9 +33,10 @@ export class RegistrationComponent implements OnInit {
         if (!isNullOrUndefined(data)) {
           // this.setLocalUserProfileData(data);
           //  this.dialog.closeAll();
-          console.log('registration data not null');
+          console.log('login data not null');
           //  this.navigateToURL();
           console.log(data);
+          localStorage.setItem('auth_token', data.body.token);
         } else {
           //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
         }

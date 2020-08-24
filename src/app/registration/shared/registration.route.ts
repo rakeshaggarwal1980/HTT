@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 const REGISTRATION_ROUTES: Routes = [
   {
-    path: '',
+    path: 'register',
     component: RegistrationComponent,
   },
 ];
