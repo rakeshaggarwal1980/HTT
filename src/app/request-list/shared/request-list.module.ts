@@ -11,6 +11,7 @@ import { CommonModule } from 'vendor/angular';
 import { from } from 'rxjs';
 
 
+
 @NgModule({
   imports: [
     TranslateModule,

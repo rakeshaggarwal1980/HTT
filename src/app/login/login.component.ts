@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/login/shared/login.service';
 import { isNullOrUndefined } from 'util';
+import { Router } from 'vendor/angular';
 
 
 @Component({
@@ -9,9 +10,9 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./shared/login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginDetails: any = { email:'', password: '' };
+  loginDetails: any = { email: '', password: '' };
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
@@ -36,7 +37,13 @@ export class LoginComponent implements OnInit {
           console.log('login data not null');
           //  this.navigateToURL();
           console.log(data);
-          localStorage.setItem('auth_token', data.body.token);
+          if (!isNullOrUndefined(data.body)) {
+            localStorage.setItem('auth_token', data.body.token);
+            console.log('this is user');
+            console.log(data.body);
+            localStorage.setItem('user', JSON.stringify(data.body));
+            this.router.navigateByUrl('/request');
+          }
         } else {
           //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
         }

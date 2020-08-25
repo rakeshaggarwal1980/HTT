@@ -11,6 +11,7 @@ import { TableModule } from 'app/responsive_table/index.responsive';
 import { NavigationDestinationModule } from 'app/navigation-destination/index.navigation';
 import { ServiceModule } from 'app/shared/services/service.module';
 import { LoginModule } from 'app/login/shared/login.module';
+import { RequestModule } from 'app/request/shared/request.module';
 // translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -34,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CovidFormModule,
     LoginModule,
     RequestListModule,
+    RequestModule,
     NavigationDestinationModule,
     TableModule,
     ServiceModule,

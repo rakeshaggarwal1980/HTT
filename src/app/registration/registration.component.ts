@@ -18,7 +18,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.today = new Date();
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('login-bg');
 
   }
 

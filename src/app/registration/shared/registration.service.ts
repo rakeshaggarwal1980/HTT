@@ -15,10 +15,11 @@ export class RegistrationService {
             id: 0,
             name: registration.name,
             email: registration.email,
-            empployeeCode: registration.employeeCode,
+            employeeCode: Number(registration.employeeCode),
             password: registration.password,
             status: EntityStatus.Active
         };
+        debugger;
         return this.apiClientService.Employee_Employee(employeeModel);
     }
 

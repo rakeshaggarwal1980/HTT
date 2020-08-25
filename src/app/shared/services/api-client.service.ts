@@ -95,5 +95,18 @@ export class ApiClientService {
         return this.sendRequest('/api/login', HTTP_REQUEST_TYPE.POST, JSON.stringify(loginDetails), null);
     }
 
+    
+/**
+     *
+     * @method
+     * @name 
+     * @param {request} any - object of request data
+     *
+     */
+
+    public Request_CreateRequest(request: any): Observable<any> {
+
+        return this.sendRequest('/api/request/request', HTTP_REQUEST_TYPE.POST, JSON.stringify(request), null);
+    }
 
 }

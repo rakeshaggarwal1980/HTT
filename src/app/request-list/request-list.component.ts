@@ -17,6 +17,8 @@ export class RequestListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllRequests();
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('login-bg');
   }
 
   getAllRequests() {
