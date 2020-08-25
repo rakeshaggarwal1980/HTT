@@ -12,8 +12,8 @@
                     <td>{{request.employeeCode}}</td>
                     <td> {{request.employee.name}} </td>
                     <td>{{request.dateOfRequest}}</td>
-                    <td> <a href="javascript:void(0)" class="btn-primary action-btn">Accept</a>
-                        <a href="javascript:void(0)" class="btn-primary action-btn">Decline</a></td>
+                    <td> <a href="javascript:void(0)" (click)="viewRequest(request)" class="btn-primary action-btn">View Request</a>
+                       </td>
                 </tr>
             </table>
         </div>

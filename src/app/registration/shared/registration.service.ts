@@ -1,4 +1,4 @@
-import { Injectable } from 'vendor/angular';
+import { Injectable } from '@angular/core';
 
 import { Registration } from 'app/registration/shared/registration.model';
 import { ApiClientService } from 'app/shared/services/api-client.service';

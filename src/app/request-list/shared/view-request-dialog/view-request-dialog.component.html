@@ -1,0 +1,46 @@
+<div mat-dialog-title>
+    <h4>View Request <strong>#{{data.request.requestNumber}}</strong>
+    <a class="float-right" (click)="dialogRef.close()">
+      <i class="material-icons">
+        clear
+      </i>
+    </a>
+  </h4>
+</div>
+<mat-dialog-content>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Request Number</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.request.requestNumber}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Employee Name</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.request.employee.name}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Employee code</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.request.employeeCode}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Date of request</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.request.dateOfRequest|date:'mediumDate'}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Request Status</strong></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="data.request.isApproved"><span class="green">Approved</span></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="data.request.isDeclined"><span class="red">isDeclined</span></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="!data.request.isApproved && !data.request.isDeclined"><span class="not-set">Undefined</span></div>
+
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong> Comments</strong></div>
+    <div class="col-md-9 col-sm-9 col-12"><textarea class="form-control inner-textarea" rows="3"></textarea></div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  
+    <a href="javascript:void(0)" class="btn btn-primary btn-success" (click)="takeAction(1)">Accept</a>
+    <a href="javascript:void(0)" class="btn btn-primary btn-danger" (click)="takeAction(0)">Decline</a>
+    <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" (click)="dialogRef.close()">Cancel</a>
+
+</mat-dialog-actions>

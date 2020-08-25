@@ -1,11 +1,7 @@
 import { Injectable, HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from 'vendor/angular';
-import { Observable, pipe } from 'rxJs';
-import { filter,map } from 'rxjs/operators';
-import { Registration } from 'app/registration/shared/registration.model';
-// import { Contact } from 'app/home/shared/contact/shared/model/contact.model';
-import { HTTP_REQUEST_TYPE, SORT_DIRECTION } from 'app/app.enum';
-// import { BomComment } from 'app/features/bom/shared/model/bom-comment.model';
-// import { Tabs } from '../../features/shared/shortcut-tabs/shared/tabs.interface';
+import { Observable } from 'rxJs';
+import { filter, map } from 'rxjs/operators';
+import { HTTP_REQUEST_TYPE } from 'app/app.enum';
 import { isNullOrUndefined } from 'util';
 
 @Injectable()
@@ -82,18 +78,28 @@ export class ApiClientService {
         return this.sendRequest('/api/request/requests', HTTP_REQUEST_TYPE.GET, null, queryParameters);
     }
 
-/**
-     *
-     * @method
-     * @name 
-     * @param {loginDetails} any - object of data i.e. email, password etc.
-     *
-     */
+    /**
+    *
+    * @method
+    * @name 
+    * @param {loginDetails} any - object of data i.e. email, password etc.
+    *
+    */
 
     public Login_Login(loginDetails: any): Observable<any> {
 
         return this.sendRequest('/api/login', HTTP_REQUEST_TYPE.POST, JSON.stringify(loginDetails), null);
     }
 
+
+    /**
+     *
+     * @method
+     * @name Request_Requests
+     *
+     */
+    public Request_PutRequest(request: any): Observable<any> {
+        return this.sendRequest('/api/request/requests', HTTP_REQUEST_TYPE.PUT, JSON.stringify(request), null);
+    }
 
 }
