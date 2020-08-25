@@ -21,9 +21,13 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles/main.scss"
-            ]
+            ],
+            "allowedCommonJsDependencies": [
+              "util"
+           ]
           },
           "configurations": {
             "production": {
@@ -69,6 +73,7 @@
             "karmaConfig": "./karma.conf.js",
             "tsConfig": "src/tsconfig.spec.json",
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles/main.scss"
             ],
