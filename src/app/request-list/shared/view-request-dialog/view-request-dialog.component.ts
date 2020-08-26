@@ -12,17 +12,17 @@ export class ViewRequestDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
         public requestListService: RequestListService) { }
     ngOnInit() {
-
+      console.log(this.data);
     }
 
-    takeAction(value) {
+    takeAction(value, comments) {
+        this.data.request.hrComments= comments;
         if (value === 1) {
             this.data.request.isApproved = true;
         } else if (value === 0) {
             this.data.request.isDeclined = true;
         }
-        this.updateRequest(this.data.request);
-       
+       this.updateRequest(this.data.request);  
     }
 
     updateRequest(request) {
