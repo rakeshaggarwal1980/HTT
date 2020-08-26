@@ -99,7 +99,7 @@ export class ApiClientService {
      *
      */
     public Request_PutRequest(request: any): Observable<any> {
-        return this.sendRequest('/api/request/requests', HTTP_REQUEST_TYPE.PUT, JSON.stringify(request), null);
+        return this.sendRequest('/api/request/request', HTTP_REQUEST_TYPE.PUT, JSON.stringify(request), null);
     }
 
 }

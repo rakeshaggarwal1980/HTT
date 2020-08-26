@@ -18,7 +18,7 @@
   </div>
   <div class="row mb-3">
     <div class="col-md-3 col-sm-3 col-12"><strong>Employee code</strong></div>
-    <div class="col-md-9 col-sm-9 col-12">{{data.request.employeeCode}}</div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.request.employee.employeeCode}}</div>
   </div>
   <div class="row mb-3">
     <div class="col-md-3 col-sm-3 col-12"><strong>Date of request</strong></div>
@@ -27,20 +27,24 @@
   <div class="row mb-3">
     <div class="col-md-3 col-sm-3 col-12"><strong>Request Status</strong></div>
     <div class="col-md-9 col-sm-9 col-12" *ngIf="data.request.isApproved"><span class="green">Approved</span></div>
-    <div class="col-md-9 col-sm-9 col-12" *ngIf="data.request.isDeclined"><span class="red">isDeclined</span></div>
-    <div class="col-md-9 col-sm-9 col-12" *ngIf="!data.request.isApproved && !data.request.isDeclined"><span class="not-set">Undefined</span></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="data.request.isDeclined"><span class="red">Declined</span></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="!data.request.isApproved && !data.request.isDeclined"><span class="not-set">Pending</span></div>
 
   </div>
 
   <div class="row mb-3">
     <div class="col-md-3 col-sm-3 col-12"><strong> Comments</strong></div>
-    <div class="col-md-9 col-sm-9 col-12"><textarea class="form-control inner-textarea" rows="3"></textarea></div>
+    <div class="col-md-9 col-sm-9 col-12">
+      <textarea ref-textarea [value]="data.request.hrComments" 
+      class="form-control inner-textarea" rows="3" 
+      [disabled]="data.request.isApproved || data.request.isDeclined"></textarea></div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   
-    <a href="javascript:void(0)" class="btn btn-primary btn-success" (click)="takeAction(1)">Accept</a>
-    <a href="javascript:void(0)" class="btn btn-primary btn-danger" (click)="takeAction(0)">Decline</a>
-    <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" (click)="dialogRef.close()">Cancel</a>
+    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined" class="btn btn-primary btn-success" (click)="takeAction(1,textarea.value)">Approve</a>
+    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined" class="btn btn-primary btn-danger" (click)="takeAction(0,textarea.value)">Decline</a>
+    
+    <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" (click)="dialogRef.close()">Close</a>
 
 </mat-dialog-actions>
