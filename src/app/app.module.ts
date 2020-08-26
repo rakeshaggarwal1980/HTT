@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from 'app/shared/index.shared';
 import { AppRouterModule } from 'app/app.routes';
 import { RegistrationModule } from 'app/registration/index.registration';
-import { CovidFormModule } from 'app/covid-form/index.covid-form';
+import { DeclarationFormModule } from 'app/declaration-form/index.declaration-form';
 import { RequestListModule } from 'app/request-list/index.request-list';
 import { ErrorModule } from 'app/error/index.error';
 import { TableModule } from 'app/responsive_table/index.responsive';
@@ -32,7 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     ErrorModule,
     RegistrationModule,
-    CovidFormModule,
+    DeclarationFormModule,
     LoginModule,
     RequestListModule,
     RequestModule,

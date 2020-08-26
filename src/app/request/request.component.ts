@@ -52,8 +52,7 @@ export class RequestComponent implements OnInit {
     console.log('this is request');
     console.log(this.request);
 
-    //this.isGetting = true;
-    localStorage.setItem('auth_token', '');
+    //this.isGetting = true;\
     let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
     this.request.requestNumber = random.toString();
     let user = JSON.parse(localStorage.getItem('user'));
@@ -63,7 +62,7 @@ export class RequestComponent implements OnInit {
     this.request.employeeId = user.userId;
     this.request.employee.id = user.userId;
     this.request.employee.email = user.email;
-    this.request.employee.password = '';
+    this.request.employee.password = '123456';
 
     this.requestService.createRequest(this.request).subscribe(
       data => {

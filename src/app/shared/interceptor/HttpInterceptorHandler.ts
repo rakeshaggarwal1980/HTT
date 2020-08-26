@@ -19,7 +19,7 @@ export class HttpInterceptorHandler implements HttpInterceptor {
       req.headers.append('Content-Type', 'application/json');
       req.headers.append('Authorization', `Bearer ${authToken}`);
     }
-
+debugger;
     return next.handle(req);
   }
 }
