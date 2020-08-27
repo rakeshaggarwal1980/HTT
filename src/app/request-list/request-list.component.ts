@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { RequestListService } from 'app/request-list/shared/request-list.service';
+import { Component, OnInit, Inject } from '@angular/core';
 import { isNullOrUndefined } from 'util';
-
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ViewRequestDialogComponent } from './shared/view-request-dialog/view-request-dialog.component';
+import { RequestListService } from 'app/request-list/shared/request-list.service';
 
 @Component({
   selector: 'evry-request-list',
@@ -10,9 +12,9 @@ import { isNullOrUndefined } from 'util';
 })
 export class RequestListComponent implements OnInit {
   Requests: any[] = [];
+  viewRequestDialogRef: MatDialogRef<ViewRequestDialogComponent> = null;
 
-
-  constructor(private requestListService: RequestListService) {
+  constructor(public dialog: MatDialog, private requestListService: RequestListService, private router: Router) {
   }
 
   ngOnInit() {
@@ -24,12 +26,7 @@ export class RequestListComponent implements OnInit {
   getAllRequests() {
     this.requestListService.getRequests().subscribe(
       data => {
-        console.log('this is data');
-        console.log(data);
-        //  this.isGetting = false;
         if (!isNullOrUndefined(data)) {
-          // this.setLocalUserProfileData(data);
-          //  this.dialog.closeAll();
           if (data.body.length > 0) {
             this.Requests = data.body;
             console.log('these are requests');
@@ -37,18 +34,39 @@ export class RequestListComponent implements OnInit {
 
           }
         } else {
-          //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
         }
       },
       err => {
         //// this.isGetting = false;
         if (err.status === 401) {
           console.log('error');
-          // this.messageKey = 'landingPage.menu.login.invalidCredentials';
         }
       }
     );
 
   }
+
+  viewRequest(request) {
+    this.dialog.closeAll();
+    this.viewRequestDialogRef = this.dialog.open(ViewRequestDialogComponent, {
+      width: '800px',
+      height: '518px',
+      disableClose: false,
+      panelClass: 'success-box',
+      data: { request: request }
+    });
+    this.viewRequestDialogRef.afterClosed().subscribe(result => {
+      if(result){
+        // show success msg
+        console.log("Request has been updated successfully");
+      }     else{
+        // show error msg
+        console.log("Error occurred");
+      }
+      this.viewRequestDialogRef = null;
+    });
+  }
+
+  
 
 }

@@ -1,9 +1,8 @@
-import { NgModule } from 'vendor/angular';
+import { NgModule } from '@angular/core';
 
 // services
 import { UtilityService } from './utility.service';
 import { ApiClientService } from 'app/shared/services/api-client.service';
-// import { CommonService } from 'app/shared/services/common.service';
 import { ErrorService } from 'app/shared/services/error.service';
 
 
@@ -15,7 +14,6 @@ import { ErrorService } from 'app/shared/services/error.service';
   providers: [
     ApiClientService,
     UtilityService,
-    //CommonService,
     ErrorService
   ]
 })

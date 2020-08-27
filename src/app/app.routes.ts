@@ -2,7 +2,7 @@
  * Created by Davinder Kaur on 10/08/2020.
  */
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from 'app/login/login.component';
+import { LoginComponent } from 'app/login/index.login';
 
 
 const APP_ROUTES: Routes = [

@@ -17,7 +17,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 // create loader for translation
 export function HttpLoaderFactory(http: HttpClient) {
@@ -27,9 +29,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
     SharedModule,
     AppRouterModule,
-    BrowserAnimationsModule,
     ErrorModule,
     RegistrationModule,
     DeclarationFormModule,
@@ -46,6 +50,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    RegistrationModule,
+    CovidFormModule,
+    LoginModule,
+    RequestListModule,
+    ServiceModule
   ],
   exports: [],
   providers: [],
