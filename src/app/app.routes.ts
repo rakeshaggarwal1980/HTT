@@ -7,7 +7,7 @@ import { LoginComponent } from 'app/login/index.login';
 
 const APP_ROUTES: Routes = [
   {
-    path: 'login',
+    path: '',
     component: LoginComponent,
   },
   {

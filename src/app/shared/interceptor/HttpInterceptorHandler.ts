@@ -16,10 +16,15 @@ export class HttpInterceptorHandler implements HttpInterceptor {
     console.log('token');
     console.log(authToken);
     if (!isNullOrUndefined(authToken)) {
-      req.headers.append('Content-Type', 'application/json');
-      req.headers.append('Authorization', `Bearer ${authToken}`);
+      req = req.clone({
+        setHeaders: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${authToken}`,
+        },
+      });
     }
-debugger;
+    debugger;
     return next.handle(req);
   }
 }

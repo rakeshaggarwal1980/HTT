@@ -1,4 +1,4 @@
-<header class="mb-4 fixed-top" [hidden]="router.url.endsWith('/')">
+<header class="mb-4 fixed-top" *ngIf="location.path()!=''">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-12"><a href="javascript:void(0)"><img
@@ -10,14 +10,14 @@
         </div>
     </div>
 </header>
-<section class="middle-inner" [hidden]="router.url.indexOf('login')>-1">
+<section class="middle-inner" *ngIf="location.path()!=''">
     <router-outlet></router-outlet>
 </section>
 
-<div *ngIf="router.url.indexOf('login')>-1">
+<div *ngIf="location.path()==''">
     <router-outlet></router-outlet>
 </div>
-<footer class="mt-5">
+<footer class="mt-5" *ngIf="location.path()!=''">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">

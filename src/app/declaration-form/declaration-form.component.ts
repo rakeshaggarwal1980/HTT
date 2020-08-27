@@ -3,7 +3,8 @@ import { DeclarationService } from 'app/declaration-form/shared/declaration.serv
 import { isNullOrUndefined } from 'util';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { EntityStatus } from 'app/app.enum';
-import { Router, ActivatedRoute } from 'vendor/angular';
+import { Router, ActivatedRoute, Validators } from 'vendor/angular';
+import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class DeclarationFormComponent implements OnInit {
   healthTrackSymptoms: FormArray;
   healthTrackQuestionAnswers: FormArray;
   alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  submitted: boolean = false;
   request: any =
     {
       id: 0,
@@ -57,7 +59,7 @@ export class DeclarationFormComponent implements OnInit {
     };
 
   constructor(private declarationService: DeclarationService, private fb: FormBuilder,
-    private router: Router, private activatedRoute: ActivatedRoute) {
+    private router: Router, private activatedRoute: ActivatedRoute, private snackBarService: SnackBarService) {
   }
 
   ngOnInit() {
@@ -73,29 +75,27 @@ export class DeclarationFormComponent implements OnInit {
       this.viewMode = false;
     }
     this.getDeclarationFormData();
-    console.log('this is form actual');
-    console.log(this.declarationForm);
   }
 
   private generateForm() {
     this.declarationForm = this.fb.group({
       id: [0],
-      name: [''],
-      residentialAddress: [''],
-      preExistHealthIssue: [''],
-      contactWithCovidPeople: [''],
-      travelOustSideInLast15Days: [''],
+      name: ['', Validators.required],
+      residentialAddress: ['', Validators.required],
+      preExistHealthIssue: ['', Validators.required],
+      contactWithCovidPeople: ['', Validators.required],
+      travelOustSideInLast15Days: ['', Validators.required],
       dateOfTravel: [new Date()],
-      locationId: [0],
-      zoneId: [0],
-      employeeId: [0],
+      locationId: ['', Validators.required],
+      zoneId: ['', Validators.required],
+      employeeId: ['', Validators.required],
       healthTrackSymptoms: this.fb.array([this.fb.group({
         id: [0],
         healthTrackId: [0],
         symptomId: [0],
         name: [''],
         type: [''],
-        value: ['']
+        value: ['', Validators.required]
       })]),
       healthTrackQuestionAnswers: this.fb.array([this.fb.group({
         id: [0],
@@ -103,13 +103,19 @@ export class DeclarationFormComponent implements OnInit {
         questionId: [0],
         question: [''],
         type: [''],
-        value: ['']
+        value: ['', Validators.required]
       })]),
       status: [0],
-      requestNumber: ['']
+      requestNumber: [''],
+      confirmation: ['', Validators.required]
     });
   }
 
+  isControlInValid(control: string) {
+    console.log('control valid' + control);
+    console.log(!this.declarationForm.controls[control].valid);
+    return this.submitted && !this.declarationForm.controls[control].valid;
+  }
 
   private patchSymptomsInfo(symptoms: any) {
     if (symptoms && symptoms.length > 0) {
@@ -220,7 +226,7 @@ export class DeclarationFormComponent implements OnInit {
                   questionId: element.id,
                   question: element.name,
                   type: element.type,
-                  value:  ''
+                  value: ''
                 });
               });
               if (this.viewMode == true) {
@@ -313,64 +319,69 @@ export class DeclarationFormComponent implements OnInit {
   }
 
   onDeclarationClick(formData: any) {
-    console.log('this is declaration form');
-    console.log(this.declarationForm);
-    console.log('data to be sent');
-    this.request.id = 0;
-    this.request.residentialAddress = formData.value.residentialAddress;
-    this.request.dateOfTravel = '2020-08-26T16:52:27.118Z';
-    this.request.employeeId = 1002;
-    debugger;
-    this.request.healthTrackSymptoms = [];
-    if (formData.value.healthTrackSymptoms.length > 0) {
-      formData.value.healthTrackSymptoms.forEach(element => {
-        this.request.healthTrackSymptoms.push({
-          id: element.id,
-          healthTrackId: element.healthTrackId,
-          symptomId: element.symptomId,
-          name: element.name,
-          value: element.value
-        })
-      });
-    }
-    this.request.healthTrackQuestionAnswers = [];
-    if (formData.value.healthTrackQuestionAnswers.length > 0) {
-      formData.value.healthTrackQuestionAnswers.forEach(element => {
-        this.request.healthTrackQuestionAnswers.push({
-          id: element.id,
-          healthTrackId: element.healthTrackId,
-          questionId: element.questionId,
-          question: element.question,
-          value: true
-        })
-      });
-    }
-
-
-    this.request.status = EntityStatus.Active;
-    this.request.requestNumber = "sdfe233";
-    console.log(this.request);
-    this.declarationService.PostDeclarationData(this.request).subscribe(
-      data => {
-        console.log('this is declaration data response');
-        console.log(data);
-        //  this.isGetting = false;
-        if (!isNullOrUndefined(data)) {
-          console.log('declaration data not null');
-          console.log(data);
-        } else {
-          //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
-        }
-      },
-      err => {
-        //// this.isGetting = false;
-        if (err.status === 401) {
-          console.log('error');
-          // this.messageKey = 'landingPage.menu.login.invalidCredentials';
-        }
+    this.submitted = true;
+    if (formData.valid) {
+      console.log('this is declaration form');
+      console.log(this.declarationForm);
+      console.log('data to be sent');
+      this.request.id = 0;
+      this.request.residentialAddress = formData.value.residentialAddress;
+      this.request.dateOfTravel = '2020-08-26T16:52:27.118Z';
+      this.request.employeeId = 1002;
+      debugger;
+      this.request.healthTrackSymptoms = [];
+      if (formData.value.healthTrackSymptoms.length > 0) {
+        formData.value.healthTrackSymptoms.forEach(element => {
+          this.request.healthTrackSymptoms.push({
+            id: element.id,
+            healthTrackId: element.healthTrackId,
+            symptomId: element.symptomId,
+            name: element.name,
+            value: element.value
+          })
+        });
       }
-    );
+      this.request.healthTrackQuestionAnswers = [];
+      if (formData.value.healthTrackQuestionAnswers.length > 0) {
+        formData.value.healthTrackQuestionAnswers.forEach(element => {
+          this.request.healthTrackQuestionAnswers.push({
+            id: element.id,
+            healthTrackId: element.healthTrackId,
+            questionId: element.questionId,
+            question: element.question,
+            value: true
+          })
+        });
+      }
 
+
+      this.request.status = EntityStatus.Active;
+      this.request.requestNumber = "sdfe233";
+      console.log(this.request);
+      this.declarationService.PostDeclarationData(this.request).subscribe(
+        data => {
+          console.log('this is declaration data response');
+          console.log(data);
+          //  this.isGetting = false;
+          if (!isNullOrUndefined(data)) {
+            console.log('declaration data not null');
+            console.log(data);
+          } else {
+            //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
+          }
+        },
+        err => {
+          //// this.isGetting = false;
+          if (err.status === 401) {
+            console.log('error');
+            // this.messageKey = 'landingPage.menu.login.invalidCredentials';
+          }
+        }
+      );
+    }
+    else {
+      this.snackBarService.showError("Please enter or select mandatory fields.");
+    }
   }
 
   onChange(categoryName: any, index: any, value: any) {

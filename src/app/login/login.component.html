@@ -6,12 +6,12 @@
               alt="POC" title="POC"></a>
           <h6 class="mt-4">Welcome to TietoEvry Survey</h6>
         </div>
-        <form action="" style="width: 100%;">
+        <form #loginForm="ngForm" action="" style="width: 100%;" novalidate>
           <div class="col-12">
             <input type="text" placeholder="Email ID" class="custom-input" name="email"
-              [(ngModel)]="loginDetails.email">
+              [(ngModel)]="loginDetails.email" #email="ngModel" [ngClass]="{ 'error-field-highlighter': loginForm.submitted && email.invalid }" required>
             <input type="password" placeholder="Password" class="custom-input" name="password"
-              [(ngModel)]="loginDetails.password">
+              [(ngModel)]="loginDetails.password" #password="ngModel" [ngClass]="{ 'error-field-highlighter': loginForm.submitted && password.invalid }" required>
           </div>
           <div class="col-12">
             <div class="row">
@@ -22,10 +22,10 @@
           </div>
 
           <div class="col-12 text-center mt-5">
-            <button id="login" type="submit" class="btn btn-primary" (click)="onLoginClick()">
+            <button id="login" type="submit" class="btn btn-primary" (click)="onLoginClick(loginForm)">
               Login
-              <!-- <mat-progress-spinner diameter="20" *ngIf="isGetting" class=""  mode="indeterminate" value="50">
-        </mat-progress-spinner> -->
+              <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading"  mode="indeterminate" value="50">
+        </mat-progress-spinner>
             </button>
           </div>
         </form>

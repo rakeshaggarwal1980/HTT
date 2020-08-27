@@ -5,9 +5,12 @@ import { DeclarationFormComponent } from 'app/declaration-form/declaration-form.
 // modules
 import { DeclarationFormRouterModule } from 'app/declaration-form/shared/declaration-form.route';
 import { SharedModule } from 'app/shared/shared.module';
+import { MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatSnackBarModule, MatProgressSpinnerModule } from 'vendor/material';
+
 import { NgModule } from '@angular/core';
 import { DeclarationService } from 'app/declaration-form/shared/declaration.service';
 import { FormsModule, ReactiveFormsModule } from 'vendor/angular';
+import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
 
 
 @NgModule({
@@ -16,13 +19,17 @@ import { FormsModule, ReactiveFormsModule } from 'vendor/angular';
     SharedModule,
     DeclarationFormRouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatFormFieldModule
   ],
   exports: [],
   declarations: [
     DeclarationFormComponent
   ],
-  providers: [DeclarationService],
+  providers: [DeclarationService, SnackBarService],
 })
 export class DeclarationFormModule {
 }

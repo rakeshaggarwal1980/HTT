@@ -40,7 +40,20 @@ footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
 .login-main .btn-primary:hover, .login-main .btn-primary:focus{ outline: none; color: #FFFFFF; background: #063a54; box-shadow: none;}
 .btn-white, .btn-white:hover{ color: #fffefe;}
 .inner-textarea{ border:1px solid #343434;}
+.error-field-highlighter {
+	border: 1px solid #CC1526 !important;
+  }
 
+  .loading{
+    position: absolute;
+    top: 34%;
+    left: 40%;
+    &::before{
+    left: 20%;
+    top: 30%;
+    }
+  
+  }
 
 /*=================== Media CSS ===================*/
 

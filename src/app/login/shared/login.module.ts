@@ -8,6 +8,9 @@ import { LoginComponent } from '../login.component';
 import { LoginRouterModule } from './login.route';
 import { LoginService } from 'app/login/shared/login.service';
 import { SharedModule } from 'app/shared/shared.module';
+import {
+  MatProgressSpinnerModule
+} from 'vendor/material';
 
 
 
@@ -16,7 +19,8 @@ import { SharedModule } from 'app/shared/shared.module';
     TranslateModule,
     SharedModule,
     LoginRouterModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule
   ],
   exports: [],
   declarations: [
