@@ -1,17 +1,8 @@
 import { Injectable, HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from 'vendor/angular';
-<<<<<<< HEAD
 import { Observable, pipe } from 'rxJs';
 import { filter, map } from 'rxjs/operators';
 import { Registration } from 'app/registration/shared/registration.model';
-// import { Contact } from 'app/home/shared/contact/shared/model/contact.model';
 import { HTTP_REQUEST_TYPE, SORT_DIRECTION } from 'app/app.enum';
-// import { BomComment } from 'app/features/bom/shared/model/bom-comment.model';
-// import { Tabs } from '../../features/shared/shortcut-tabs/shared/tabs.interface';
-=======
-import { Observable } from 'rxJs';
-import { filter, map } from 'rxjs/operators';
-import { HTTP_REQUEST_TYPE } from 'app/app.enum';
->>>>>>> f198e801076257ccb7ab8c679d9f2067cd7f14af
 import { isNullOrUndefined } from 'util';
 
 @Injectable()

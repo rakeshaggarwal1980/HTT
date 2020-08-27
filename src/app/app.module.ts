@@ -7,8 +7,8 @@ import { RegistrationModule } from 'app/registration/index.registration';
 import { DeclarationFormModule } from 'app/declaration-form/index.declaration-form';
 import { RequestListModule } from 'app/request-list/index.request-list';
 import { ErrorModule } from 'app/error/index.error';
-import { TableModule } from 'app/responsive_table/index.responsive';
-import { NavigationDestinationModule } from 'app/navigation-destination/index.navigation';
+// import { TableModule } from 'app/responsive_table/index.responsive';
+// import { NavigationDestinationModule } from 'app/navigation-destination/index.navigation';
 import { ServiceModule } from 'app/shared/services/service.module';
 import { LoginModule } from 'app/login/shared/login.module';
 import { RequestModule } from 'app/request/shared/request.module';
@@ -40,8 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginModule,
     RequestListModule,
     RequestModule,
-    NavigationDestinationModule,
-    TableModule,
+    // NavigationDestinationModule,
+    // TableModule,
     ServiceModule,
     TranslateModule.forRoot({
       loader: {
@@ -49,12 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-    }),
-    RegistrationModule,
-    CovidFormModule,
-    LoginModule,
-    RequestListModule,
-    ServiceModule
+    })
   ],
   exports: [],
   providers: [],
