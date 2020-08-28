@@ -5,27 +5,29 @@
 
         <div class="clearfix"></div>
         <div class="row common-text mb-4">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
                 <span class="sr-no mr-3">Name:</span>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                <input class="form-control" formControlName="name"
-                    [ngClass]="{'error-field-highlighter':isControlInValid('name')}">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                <input class="custom-input input-height declaration-input" formControlName="name"
+                    [ngClass]="{'error-field-highlighter':isControlInValid('name'),'readonly':(viewMode==true)}"
+                    [readOnly]="viewMode==true">
             </div>
         </div>
         <div class="row common-text mb-4">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
                 <span class="sr-no mr-3">Emp ID:</span>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                <input class="form-control" formControlName="employeeId"
-                    [ngClass]="{'error-field-highlighter':isControlInValid('employeeId')}">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                <input class="custom-input input-height declaration-input" formControlName="employeeId"
+                    [ngClass]="{'error-field-highlighter':isControlInValid('employeeId'),'readonly':(viewMode==true)}"
+                    [readOnly]="viewMode==true">
             </div>
 
         </div>
 
         <div class="row common-text mb-4">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><span class="sr-no mr-3">1.</span> Where are you
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12"><span class="sr-no mr-3">1.</span> Where are you
                 currently Located?
                 <span [ngClass]="{'error-field-highlighter-star':isControlInValid('locationId')}"
                     *ngIf="isControlInValid('locationId')">*</span>
@@ -34,64 +36,72 @@
                 *ngFor="let location of locations; let i=index;"><span class="align-text"
                     *ngIf="location.id==declarationForm.controls.locationId.value">{{location.name}}
                     <input type="radio" name="location" checked (change)="onChange('location',0,location.id)"
-                        class="ml-1"> <br> </span>
+                        class="ml-1" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true"> <br> </span>
                 <span class="align-text"
                     *ngIf="location.id!=declarationForm.controls.locationId.value">{{location.name}}
-                    <input type="radio" name="location" class="ml-1" (change)="onChange('location',0,location.id)"> <br>
+                    <input type="radio" name="location" class="ml-1" [ngClass]="{'readonly':(viewMode==true)}"
+                        [disabled]="viewMode==true" (change)="onChange('location',0,location.id)"> <br>
                 </span>
             </div>
         </div>
         <div class="row common-text mb-4">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><span class="sr-no mr-3">2.</span> Please Specify your
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12"><span class="sr-no mr-3">2.</span> Please Specify your
                 full current residential address:</div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                <input type="text" class="form-control" formControlName="residentialAddress"
-                    [ngClass]="{'error-field-highlighter':isControlInValid('residentialAddress')}">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                <input type="text" class="custom-input input-height declaration-input" formControlName="residentialAddress"
+                    [ngClass]="{'error-field-highlighter':isControlInValid('residentialAddress'),'readonly':(viewMode==true)}"
+                    [readOnly]="viewMode==true">
 
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-12"></div>
         </div>
         <div class="row common-text mb-2">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><span class="sr-no mr-3">3.</span> Which zone is your
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12"><span class="sr-no mr-3">3.</span> Which zone is your
                 present address classified under by the government?
                 <span [ngClass]="{'error-field-highlighter-star':isControlInValid('zoneId')}"
                     *ngIf="isControlInValid('zoneId')">*</span>
             </div>
-            <div *ngFor="let zone of zones; let i=index;">
-                
-                <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                   
-                    <span class="align-text" *ngIf="zone.id==declarationForm.controls.zoneId.value">{{zone.name}}
-                        <input type="radio" name="zone" checked class="ml-1" (change)="onChange('zone',0, zone.id)">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-12">
+                <div *ngFor="let zone of zones; let i=index;">
+
+                    <div [ngClass]="{'zone-input': i>1}">
+
+                        <span class="align-text" *ngIf="zone.id==declarationForm.controls.zoneId.value">{{zone.name}}
+                            <input type="radio" name="zone" checked class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true"
+                                (change)="onChange('zone',0, zone.id)">
 
 
-                    </span>
-                    <span class="align-text" *ngIf="zone.id!=declarationForm.controls.zoneId.value">{{zone.name}}
-                        <input type="radio" name="zone" class="ml-1" (change)="onChange('zone',0, zone.id)">
-                    </span>
+                        </span>
+                        <span class="align-text" *ngIf="zone.id!=declarationForm.controls.zoneId.value">{{zone.name}}
+                            <input type="radio" name="zone" class="ml-1" [ngClass]="{'readonly':(viewMode==true)}"
+                                [disabled]="viewMode==true" (change)="onChange('zone',0, zone.id)">
+                        </span>
+                    </div>
 
                 </div>
             </div>
         </div>
 
         <div class="row common-text mb-2">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><span class="sr-no mr-3">4.</span> Do you have any of the
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12"><span class="sr-no mr-3">4.</span> Do you have any of the
                 following Covid-19 Symptoms currently?</div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12"></div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12"></div>
         </div>
         <div formArrayName="healthTrackSymptoms">
-            <div class="row common-text mb-1" *ngFor="let symptom of healthSymptoms.controls; let i = index;">
-                <div [formGroup]="symptom">
+            <div *ngFor="let symptom of healthSymptoms.controls; let i = index;">
+                <div [formGroup]="symptom" class="row common-text mb-1">
                     <div class="col-lg-7 col-md-7 col-sm-7 col-12"><span class="ml-5">-{{symptom.controls.name.value}}
                         </span>
-                        <span class="ml-5 error-field-highlighter-star">*
+                        <span class="error-field-highlighter-star">*
                         </span>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true">
                         <span class="align-text" [hidden]="symptom.controls.value.value!=true">Yes<input
                                 type="{{symptom.controls.type.value}}" name="{{i}}_symptomId"
-                                (change)="onChange('healthTrackSymptoms',i,true)" checked class="ml-1">
+                                (change)="onChange('healthTrackSymptoms',i,true)" checked class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                         </span>
                         <span class="align-text" [hidden]="symptom.controls.value.value==true">Yes<input
                                 type="{{symptom.controls.type.value}}" name="{{i}}_symptomId"
@@ -100,30 +110,34 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true"><span class="align-text"
                             *ngIf="symptom.controls.value.value==false"> No
                             <input type="{{symptom.controls.type.value}}" checked value="false" name="{{i}}_symptomId"
-                                (change)="onChange('healthTrackSymptoms',i,false)" class="ml-1">
+                                (change)="onChange('healthTrackSymptoms',i,false)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                         </span>
                         <span class="align-text" *ngIf="symptom.controls.value.value!=false"> No
                             <input type="{{symptom.controls.type.value}}" value="false" name="{{i}}_symptomId"
-                                (change)="onChange('healthTrackSymptoms',i,false)" class="ml-1">
+                                (change)="onChange('healthTrackSymptoms',i,false)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                         </span>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
                         <span class="align-text">Yes<input type="{{symptom.controls.type.value}}" name="{{i}}_symptomId"
-                                (change)="onChange('healthTrackSymptoms',i,true)" class="ml-1">
+                                (change)="onChange('healthTrackSymptoms',i,true)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                         </span> </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
                         <span class="align-text"> No
                             <input type="{{symptom.controls.type.value}}" value="false" name="{{i}}_symptomId"
-                                (change)="onChange('healthTrackSymptoms',i,false)" class="ml-1">
+                                (change)="onChange('healthTrackSymptoms',i,false)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                         </span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row common-text mb-4">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="row common-text mt-4 mb-4">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">5.</div>
                     <div class="col-lg-11 col-md-11 col-sm-11 col-12 ml-neg-2">DO you hav any pre-existinmg health
@@ -138,38 +152,42 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true">
                 <span class="align-text" *ngIf="declarationForm.controls.preExistHealthIssue.value==true">Yes<input
                         type="radio" name="preExistHealthIssue" checked
-                        (change)="onChange('preExistHealthIssue',0,true)" class="ml-1">
+                        (change)="onChange('preExistHealthIssue',0,true)" class="ml-1"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
 
                 <span class="align-text" *ngIf="declarationForm.controls.preExistHealthIssue.value!=true">Yes<input
                         type="radio" name="preExistHealthIssue" (change)="onChange('preExistHealthIssue',0,true)"
-                        class="ml-1">
+                        class="ml-1" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true">
                 <span class="align-text" *ngIf="declarationForm.controls.preExistHealthIssue.value==fase"> No<input
                         type="radio" name="preExistHealthIssue" checked
-                        (change)="onChange('preExistHealthIssue',0,false)" class="ml-1">
+                        (change)="onChange('preExistHealthIssue',0,false)" class="ml-1"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
                 <span class="align-text" *ngIf="declarationForm.controls.preExistHealthIssue.value!=fase"> No<input
                         type="radio" name="preExistHealthIssue" (change)="onChange('preExistHealthIssue',0,false)"
-                        class="ml-1">
+                        class="ml-1" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
                 <span class="align-text">Yes<input type="radio" name="preExistHealthIssue"
-                        (change)="onChange('preExistHealthIssue',0,true)" class="ml-1">
+                        (change)="onChange('preExistHealthIssue',0,true)" class="ml-1"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
                 <span class="align-text"> No<input type="radio" name="preExistHealthIssue"
-                        (change)="onChange('preExistHealthIssue',0,false)" class="ml-1">
+                        (change)="onChange('preExistHealthIssue',0,false)" class="ml-1"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
             </div>
 
         </div>
         <div class="row common-text mb-4">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">6.</div>
                     <div class="col-lg-11 col-md-11 col-sm-11 col-12 ml-neg-2">Have you been in recent contact with
@@ -180,21 +198,23 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true"><span class="align-text"
                     *ngIf="declarationForm.controls.contactWithCovidPeople.value==true">Yes<input type="radio" checked
-                        (change)="onChange('contactWithCovidPeople',0,true)" name="contactWithCovidPeople" class="ml-1">
+                        (change)="onChange('contactWithCovidPeople',0,true)" name="contactWithCovidPeople" class="ml-1"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
                 <span class="align-text" *ngIf="declarationForm.controls.contactWithCovidPeople.value!=true">Yes<input
                         type="radio" (change)="onChange('contactWithCovidPeople',0,true)" name="contactWithCovidPeople"
-                        class="ml-1">
+                        class="ml-1" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-2 col-12" *ngIf="viewMode==true"><span class="align-text"
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true"><span class="align-text"
                     *ngIf="declarationForm.controls.contactWithCovidPeople.value==false">No<input type="radio" checked
-                        class="ml-1" name="contactWithCovidPeople"
-                        (change)="onChange('contactWithCovidPeople',0,false)">
+                        class="ml-1" name="contactWithCovidPeople" (change)="onChange('contactWithCovidPeople',0,false)"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
                 <span class="align-text" *ngIf="declarationForm.controls.contactWithCovidPeople.value!=false">No<input
                         type="radio" class="ml-1" name="contactWithCovidPeople"
-                        (change)="onChange('contactWithCovidPeople',0,false)">
+                        (change)="onChange('contactWithCovidPeople',0,false)" [ngClass]="{'readonly':(viewMode==true)}"
+                        [disabled]="viewMode==true">
                 </span>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
@@ -202,7 +222,7 @@
                         (change)="onChange('contactWithCovidPeople',0,true)" class="ml-1">
                 </span>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
                 <span class="align-text">No<input type="radio" name="contactWithCovidPeople" class="ml-1"
                         (change)="onChange('contactWithCovidPeople',0,false)">
                 </span>
@@ -210,7 +230,7 @@
 
         </div>
         <div class="row common-text mb-4">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">7.</div>
                     <div class="col-lg-11 col-md-11 col-sm-11 col-12 ml-neg-2">If in Tricity, have you travelled
@@ -222,24 +242,27 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true"><span class="align-text"
                     *ngIf="declarationForm.controls.travelOustSideInLast15Days.value==true">Yes<input type="radio"
                         checked name="travelOustSideInLast15Days"
-                        (change)="onChange('travelOustSideInLast15Days',0,true)" class="ml-1">
+                        (change)="onChange('travelOustSideInLast15Days',0,true)" class="ml-1"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
                 <span class="align-text"
                     *ngIf="declarationForm.controls.travelOustSideInLast15Days.value!=true">Yes<input type="radio"
                         (change)="onChange('travelOustSideInLast15Days',0,true)" name="travelOustSideInLast15Days"
-                        class="ml-1">
+                        class="ml-1" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true"><span class="align-text"
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true"><span class="align-text"
                     *ngIf="declarationForm.controls.travelOustSideInLast15Days.value==false">No<input type="radio"
                         checked class="ml-1" name="travelOustSideInLast15Days"
-                        (change)="onChange('travelOustSideInLast15Days',0, false)">
+                        (change)="onChange('travelOustSideInLast15Days',0, false)"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
 
                 <span class="align-text"
                     *ngIf="declarationForm.controls.travelOustSideInLast15Days.value!=false">No<input type="radio"
                         class="ml-1" name="travelOustSideInLast15Days"
-                        (change)="onChange('travelOustSideInLast15Days',0, false)">
+                        (change)="onChange('travelOustSideInLast15Days',0, false)"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
                 </span>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
@@ -247,7 +270,7 @@
                         (change)="onChange('travelOustSideInLast15Days',0,true)" class="ml-1">
                 </span>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
                 <span class="align-text">No<input type="radio" name="travelOustSideInLast15Days" class="ml-1"
                         (change)="onChange('travelOustSideInLast15Days',0, false)">
                 </span>
@@ -256,7 +279,7 @@
 
         </div>
         <div class="row common-text mb-2">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-12">
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">8.</div>
                     <div class="col-lg-11 col-md-11 col-sm-11 col-12 ml-neg-2">Following questions are about family
@@ -265,57 +288,66 @@
             </div>
         </div>
         <div formArrayName="healthTrackQuestionAnswers">
-            <div class="row common-text mb-1"
-                *ngFor="let healthQuestion of healthTrackerQuestions.controls; let i = index;">
-                <div [formGroup]="healthQuestion">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12"><span class="ml-5">
+            <div *ngFor="let healthQuestion of healthTrackerQuestions.controls; let i = index;">
+                <div [formGroup]="healthQuestion" class="row common-text mb-1">
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-12"><span class="ml-5">
                             {{alphabet[i]}})
                             {{healthQuestion.controls.question.value}}</span>
                         <span class="error-field-highlighter-star">*</span></div>
 
                     <div *ngIf="healthQuestion.controls.type.value.toLowerCase()=='input'"
-                        class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <input type="text" formControlName="value">
+                        class="col-lg-3 col-md-3 col-sm-3 col-12">
+                        <input type="text" formControlName="value" class="custom-input input-height declaration-input"
+                            [ngClass]="{'readonly':(viewMode==true)}" [readOnly]="viewMode==true">
                     </div>
-                    <div *ngIf="healthQuestion.controls.type.value.toLowerCase()!='input'">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true"><span class="align-text"
-                                *ngIf="healthQuestion.controls.value.value==true">Yes<input
-                                    type="{{healthQuestion.controls.type.value}}" checked name="{{i}}_questionId"
-                                    (change)="onChange('healthTrackQuestionAnswers',i,true)" class="ml-1"> </span>
-                            <span class="align-text" *ngIf="healthQuestion.controls.value.value!=true">Yes<input
-                                    type="{{healthQuestion.controls.type.value}}" name="{{i}}_questionId"
-                                    (change)="onChange('healthTrackQuestionAnswers',i,true)" class="ml-1"> </span>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==true"><span class="align-text"
-                                *ngIf="healthQuestion.controls.value.value==false">No<input
-                                    type="{{healthQuestion.controls.type.value}}" checked name="{{i}}_questionId"
-                                    (change)="onChange('healthTrackQuestionAnswers',i,false)" class="ml-1">
-                            </span>
-                            <span class="align-text" *ngIf="healthQuestion.controls.value.value!=false">No<input
-                                    type="{{healthQuestion.controls.type.value}}" name="{{i}}_questionId"
-                                    (change)="onChange('healthTrackQuestionAnswers',i,false)" class="ml-1">
-                            </span>
-                        </div>
 
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
-                            <span class="align-text">Yes<input type="{{healthQuestion.controls.type.value}}"
-                                    name="{{i}}_questionId" (change)="onChange('healthTrackQuestionAnswers',i,true)"
-                                    class="ml-1"> </span>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="viewMode==false">
-                            <span class="align-text">No<input type="{{healthQuestion.controls.type.value}}"
-                                    name="{{i}}_questionId" (change)="onChange('healthTrackQuestionAnswers',i,false)"
-                                    class="ml-1">
-                            </span>
-                        </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-12"
+                        *ngIf="viewMode==true && healthQuestion.controls.type.value.toLowerCase()!='input'"><span
+                            class="align-text" *ngIf="healthQuestion.controls.value.value==true">Yes<input
+                                type="{{healthQuestion.controls.type.value}}" checked name="{{i}}_questionId"
+                                (change)="onChange('healthTrackQuestionAnswers',i,true)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true"> </span>
+                        <span class="align-text" *ngIf="healthQuestion.controls.value.value!=true">Yes<input
+                                type="{{healthQuestion.controls.type.value}}" name="{{i}}_questionId"
+                                (change)="onChange('healthTrackQuestionAnswers',i,true)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true"> </span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-12"
+                        *ngIf="viewMode==true && healthQuestion.controls.type.value.toLowerCase()!='input' "><span
+                            class="align-text" *ngIf="healthQuestion.controls.value.value==false">No<input
+                                type="{{healthQuestion.controls.type.value}}" checked name="{{i}}_questionId"
+                                (change)="onChange('healthTrackQuestionAnswers',i,false)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
+                        </span>
+                        <span class="align-text" *ngIf="healthQuestion.controls.value.value!=false">No<input
+                                type="{{healthQuestion.controls.type.value}}" name="{{i}}_questionId"
+                                (change)="onChange('healthTrackQuestionAnswers',i,false)" class="ml-1"
+                                [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
+                        </span>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-12"
+                        *ngIf="viewMode==false && healthQuestion.controls.type.value.toLowerCase()!='input'">
+                        <span class="align-text">Yes<input type="{{healthQuestion.controls.type.value}}"
+                                name="{{i}}_questionId" (change)="onChange('healthTrackQuestionAnswers',i,true)"
+                                class="ml-1" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
+                        </span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-12"
+                        *ngIf="viewMode==false && healthQuestion.controls.type.value.toLowerCase()!='input'">
+                        <span class="align-text">No<input type="{{healthQuestion.controls.type.value}}"
+                                name="{{i}}_questionId" (change)="onChange('healthTrackQuestionAnswers',i,false)"
+                                class="ml-1" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row common-text mb-4" *ngIf="viewMode==false">
+        <div class="row common-text mt-4 mb-4" *ngIf="viewMode==false">
             <div class="col-12">
-                <input type="radio" class="mr-2 mb-3">I confrim that the above information is complete and accurate
+                <input type="radio" class="mr-2 mb-3" (change)="onChange('confirm',0,true)">I confrim that the above
+                information is complete and accurate
                 to the best of my knowledge that
                 withoutholding any information is unethical and against of the gloabl population fighting the
                 covid-19

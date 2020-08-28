@@ -9,15 +9,19 @@ import { Location } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   constructor(private translate: TranslateService, private router: Router, private location: Location) {
     translate.addLangs(['en']);
     translate.setDefaultLang('en');
     translate.use('en');
   }
 
-  ngOnInit(){
+  ngOnInit() {
     console.log(this.location.path());
   }
 
+  onLogOut() {
+    localStorage.setItem('auth_token', '');
+    this.router.navigate(['']);
+  }
 }

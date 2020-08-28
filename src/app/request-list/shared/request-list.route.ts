@@ -1,11 +1,13 @@
 // Component
 import { RequestListComponent } from 'app/request-list/request-list.component';
 import {RouterModule, Routes} from '@angular/router';
+import { AuthGuardService } from 'app/shared/guards/auth.guard.service';
 
 const REQUEST_LIST_ROUTES: Routes = [
   {
     path: 'requests',
     component: RequestListComponent,
+    canActivate:[AuthGuardService]
   },
 ];
 

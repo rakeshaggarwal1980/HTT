@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         data => {
           console.log('this is data');
           console.log(data);
-       //   this.isGetting = false;
+          this.isGetting = false;
           if (!isNullOrUndefined(data)) {
             // this.setLocalUserProfileData(data);
             //  this.dialog.closeAll();
@@ -47,9 +47,13 @@ export class LoginComponent implements OnInit {
               console.log('this is user');
               console.log(data.body);
               localStorage.setItem('user', JSON.stringify(data.body));
-         //     this.router.navigate(['/request']);
+              this.router.navigate(['request']);
+            }
+            else{
+              this.snackBarService.showError("Invalid credentials!!");  
             }
           } else {
+            this.snackBarService.showError("Invalid credentials!!");  
             //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
           }
         },
@@ -57,7 +61,7 @@ export class LoginComponent implements OnInit {
           this.isGetting = false;
           if (err.status === 401) {
             console.log('error');
-            // this.messageKey = 'landingPage.menu.login.invalidCredentials';
+            this.snackBarService.showError("Error!!");  
           }
         }
       );

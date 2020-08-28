@@ -4,8 +4,16 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-12"><a href="javascript:void(0)"><img
                         src="../assets/images/logo.png" alt="TietoEVRY" title="TietoEVRY"></a></div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-12 text-right">
-                <h5>Sign Up</h5>
+                <h5 *ngIf="location.path()=='/register'">Sign Up</h5>
+                <h5 *ngIf="location.path()=='/request'">Request</h5>
+                <h5 *ngIf="location.path()=='/requests'">Requests</h5>
+                <h5 *ngIf="location.path().indexOf('declaration') > -1">Self Declaration</h5>
                 <p>For Return to office Post Covid-19 Lockdown</p>
+            </div>
+            <div class="signOut" *ngIf="location.path()!='/register'">
+               <a (click)="onLogOut()" title="Log Out"><span class="material-icons logout">
+                exit_to_app
+                </span></a> 
             </div>
         </div>
     </div>

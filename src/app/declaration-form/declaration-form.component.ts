@@ -25,6 +25,13 @@ export class DeclarationFormComponent implements OnInit {
   healthTrackQuestionAnswers: FormArray;
   alphabet = 'abcdefghijklmnopqrstuvwxyz';
   submitted: boolean = false;
+  isLocationValid: boolean = false;
+  isZoneValid: boolean = false;
+  isPreExistHealthIssueValid: boolean = false;
+  isContactWithCovidPeopleValid: boolean = false;
+  isTravelOustSideInLast15DaysValid: boolean = false;
+  isConfirmInfoValid: boolean = false;
+
   request: any =
     {
       id: 0,
@@ -82,12 +89,12 @@ export class DeclarationFormComponent implements OnInit {
       id: [0],
       name: ['', Validators.required],
       residentialAddress: ['', Validators.required],
-      preExistHealthIssue: ['', Validators.required],
-      contactWithCovidPeople: ['', Validators.required],
-      travelOustSideInLast15Days: ['', Validators.required],
+      preExistHealthIssue: [''],
+      contactWithCovidPeople: [''],
+      travelOustSideInLast15Days: [''],
       dateOfTravel: [new Date()],
-      locationId: ['', Validators.required],
-      zoneId: ['', Validators.required],
+      locationId: [''],
+      zoneId: [''],
       employeeId: ['', Validators.required],
       healthTrackSymptoms: this.fb.array([this.fb.group({
         id: [0],
@@ -107,13 +114,11 @@ export class DeclarationFormComponent implements OnInit {
       })]),
       status: [0],
       requestNumber: [''],
-      confirmation: ['', Validators.required]
+      confirmation: ['']
     });
   }
 
   isControlInValid(control: string) {
-    console.log('control valid' + control);
-    console.log(!this.declarationForm.controls[control].valid);
     return this.submitted && !this.declarationForm.controls[control].valid;
   }
 
@@ -153,7 +158,7 @@ export class DeclarationFormComponent implements OnInit {
             questionId: [c.questionId],
             question: [c.question],
             type: [c.type],
-            value: [c.value]
+            value: ([c.value])
           }));
         }
       }
@@ -319,65 +324,78 @@ export class DeclarationFormComponent implements OnInit {
   }
 
   onDeclarationClick(formData: any) {
+    debugger;
     this.submitted = true;
     if (formData.valid) {
-      console.log('this is declaration form');
-      console.log(this.declarationForm);
-      console.log('data to be sent');
-      this.request.id = 0;
-      this.request.residentialAddress = formData.value.residentialAddress;
-      this.request.dateOfTravel = '2020-08-26T16:52:27.118Z';
-      this.request.employeeId = 1002;
-      debugger;
-      this.request.healthTrackSymptoms = [];
-      if (formData.value.healthTrackSymptoms.length > 0) {
-        formData.value.healthTrackSymptoms.forEach(element => {
-          this.request.healthTrackSymptoms.push({
-            id: element.id,
-            healthTrackId: element.healthTrackId,
-            symptomId: element.symptomId,
-            name: element.name,
-            value: element.value
-          })
-        });
-      }
-      this.request.healthTrackQuestionAnswers = [];
-      if (formData.value.healthTrackQuestionAnswers.length > 0) {
-        formData.value.healthTrackQuestionAnswers.forEach(element => {
-          this.request.healthTrackQuestionAnswers.push({
-            id: element.id,
-            healthTrackId: element.healthTrackId,
-            questionId: element.questionId,
-            question: element.question,
-            value: true
-          })
-        });
-      }
-
-
-      this.request.status = EntityStatus.Active;
-      this.request.requestNumber = "sdfe233";
-      console.log(this.request);
-      this.declarationService.PostDeclarationData(this.request).subscribe(
-        data => {
-          console.log('this is declaration data response');
-          console.log(data);
-          //  this.isGetting = false;
-          if (!isNullOrUndefined(data)) {
-            console.log('declaration data not null');
-            console.log(data);
-          } else {
-            //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
-          }
-        },
-        err => {
-          //// this.isGetting = false;
-          if (err.status === 401) {
-            console.log('error');
-            // this.messageKey = 'landingPage.menu.login.invalidCredentials';
-          }
+      if (!this.isLocationValid || !this.isZoneValid || !this.isPreExistHealthIssueValid || !this.isContactWithCovidPeopleValid || !this.isTravelOustSideInLast15DaysValid || !this.isConfirmInfoValid) {
+        this.snackBarService.showError("Please enter or select mandatory fields.");
+      } else {
+        let user = JSON.parse(localStorage.getItem('user'));
+        console.log('this is declaration form');
+        console.log(this.declarationForm);
+        console.log('data to be sent');
+        this.request.id = 0;
+        this.request.residentialAddress = formData.value.residentialAddress;
+        this.request.dateOfTravel = new Date();
+        this.request.employeeId = user.userId;
+        debugger;
+        this.request.healthTrackSymptoms = [];
+        if (formData.value.healthTrackSymptoms.length > 0) {
+          formData.value.healthTrackSymptoms.forEach(element => {
+            this.request.healthTrackSymptoms.push({
+              id: element.id,
+              healthTrackId: element.healthTrackId,
+              symptomId: element.symptomId,
+              name: element.name,
+              value: element.value
+            })
+          });
         }
-      );
+        this.request.healthTrackQuestionAnswers = [];
+        if (formData.value.healthTrackQuestionAnswers.length > 0) {
+          formData.value.healthTrackQuestionAnswers.forEach(element => {
+            this.request.healthTrackQuestionAnswers.push({
+              id: element.id,
+              healthTrackId: element.healthTrackId,
+              questionId: element.questionId,
+              question: element.question,
+              value: String(element.value)
+            })
+          });
+        }
+
+
+        this.request.status = EntityStatus.Active;
+        this.request.requestNumber = this.requestNumber;
+        console.log(this.request);
+        this.declarationService.PostDeclarationData(this.request).subscribe(
+          data => {
+            console.log('this is declaration data response');
+            console.log(data);
+            //  this.isGetting = false;
+            if (!isNullOrUndefined(data)) {
+              console.log('declaration data not null');
+              console.log(data);
+              if(isNullOrUndefined(data.body))
+              {
+                this.snackBarService.showError(data.message);
+              }else{
+                this.snackBarService.showSuccess('Declaration submitted successfully!!');
+                
+              }
+            } else {
+              //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
+            }
+          },
+          err => {
+            //// this.isGetting = false;
+            if (err.status === 401) {
+              console.log('error');
+              // this.messageKey = 'landingPage.menu.login.invalidCredentials';
+            }
+          }
+        );
+      }
     }
     else {
       this.snackBarService.showError("Please enter or select mandatory fields.");
@@ -390,18 +408,43 @@ export class DeclarationFormComponent implements OnInit {
     switch (categoryName) {
       case 'location':
         this.request.locationId = value;
+        if (!isNullOrUndefined(value) && value !== '') {
+          this.isLocationValid = true;
+        } else {
+          this.isLocationValid = false;
+        }
         break;
       case 'zone':
         this.request.zoneId = value;
+        if (!isNullOrUndefined(value) && value !== '') {
+          this.isZoneValid = true;
+        } else {
+          this.isZoneValid = false;
+        }
         break;
       case 'preExistHealthIssue':
         this.request.preExistHealthIssue = value;
+        if (!isNullOrUndefined(value) && value !== '') {
+          this.isPreExistHealthIssueValid = true;
+        } else {
+          this.isPreExistHealthIssueValid = false;
+        }
         break;
       case 'contactWithCovidPeople':
         this.request.contactWithCovidPeople = value;
+        if (!isNullOrUndefined(value) && value !== '') {
+          this.isContactWithCovidPeopleValid = true;
+        } else {
+          this.isContactWithCovidPeopleValid = false;
+        }
         break;
       case 'travelOustSideInLast15Days':
         this.request.travelOustSideInLast15Days = value;
+        if (!isNullOrUndefined(value) && value !== '') {
+          this.isTravelOustSideInLast15DaysValid = true;
+        } else {
+          this.isTravelOustSideInLast15DaysValid = false;
+        }
         break;
       case 'healthTrackSymptoms':
         this.healthTrackSymptoms = this.declarationForm.get('healthTrackSymptoms') as FormArray;
@@ -422,6 +465,14 @@ export class DeclarationFormComponent implements OnInit {
         console.log(this.healthTrackQuestionAnswers);
         console.log('changed from');
         console.log(this.declarationForm);
+        break;
+      case 'confirm':
+        debugger;
+        if (!isNullOrUndefined(value) && value !== '') {
+          this.isConfirmInfoValid = true;
+        } else {
+          this.isConfirmInfoValid = false;
+        }
         break;
       default:
         console.log(this.declarationForm);

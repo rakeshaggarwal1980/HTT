@@ -8,7 +8,7 @@ import { RegistrationComponent } from 'app/registration/registration.component';
 import { RegistrationRouterModule } from 'app/registration/shared/registration.route';
 import { RegistrationService } from 'app/registration/shared/registration.service';
 import { SharedModule } from 'app/shared/shared.module';
-
+import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { SharedModule } from 'app/shared/shared.module';
   declarations: [
     RegistrationComponent
   ],
-  providers: [RegistrationService],
+  providers: [RegistrationService,SnackBarService],
 })
 export class RegistrationModule {
 }

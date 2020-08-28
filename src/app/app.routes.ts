@@ -11,11 +11,15 @@ const APP_ROUTES: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'login',
+    redirectTo: '',
+  },
+  {
     path: '**',
     redirectTo: '404',
   },
 
 ];
 
-export let AppRouterModule = RouterModule.forRoot(APP_ROUTES, { scrollPositionRestoration: 'enabled' });
+export let AppRouterModule = RouterModule.forRoot(APP_ROUTES, { useHash: true });
 
