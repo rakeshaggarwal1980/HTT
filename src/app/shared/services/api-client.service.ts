@@ -161,4 +161,15 @@ export class ApiClientService {
         return this.sendRequest('/api/request/request', HTTP_REQUEST_TYPE.PUT, JSON.stringify(request), null);
     }
 
+    /**
+ *
+ * @method
+ * @name Request_RequestsByUserId
+ *
+ */
+    public Request_RequestsByUserId(userId: number): Observable<any> {
+        const queryParameters = [];
+        return this.sendRequest('/api/request/requests/'+userId, HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    }
+
 }

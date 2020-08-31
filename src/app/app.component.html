@@ -1,8 +1,48 @@
 <header class="mb-4 fixed-top" *ngIf="location.path()!=''">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12"><a href="javascript:void(0)"><img
-                        src="../assets/images/logo.png" alt="TietoEVRY" title="TietoEVRY"></a></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="request">Requests</button>
+                    <button mat-menu-item [matMenuTriggerFor]="declaration">Declarations</button>
+                    <!-- <button mat-menu-item>
+                      <mat-icon>dialpad</mat-icon>
+                      <a></a>
+                    </button>
+                    <button mat-menu-item disabled>
+                      <mat-icon>voicemail</mat-icon>
+                      <a>Check voice mail</a>
+                    </button>
+                    <button mat-menu-item>
+                      <mat-icon>notifications_off</mat-icon>
+                      <a>Disable alerts</a>
+                    </button> -->
+
+                    <mat-menu #request="matMenu">
+                        <button mat-menu-item>
+                            <a>All</a>
+                        </button>
+                        <button mat-menu-item>
+                            <a>New Request</a>
+                        </button>
+                    </mat-menu>
+
+                    <mat-menu #declaration="matMenu">
+                        <button mat-menu-item>
+                            <a>All</a>
+                        </button>
+                        <button mat-menu-item>
+                            <a>New Declaration</a>
+                        </button>
+                    </mat-menu>
+                </mat-menu>
+                <a href="javascript:void(0)" class="logo-link"><img src="../assets/images/logo.png" alt="TietoEVRY"
+                        title="TietoEVRY"></a>
+
+            </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-12 text-right">
                 <h5 *ngIf="location.path()=='/register'">Sign Up</h5>
                 <h5 *ngIf="location.path()=='/request'">Request</h5>
@@ -11,11 +51,13 @@
                 <p>For Return to office Post Covid-19 Lockdown</p>
             </div>
             <div class="signOut" *ngIf="location.path()!='/register'">
-               <a (click)="onLogOut()" title="Log Out"><span class="material-icons logout">
-                exit_to_app
-                </span></a> 
+                <a (click)="onLogOut()" title="Log Out"><span class="material-icons logout">
+                        exit_to_app
+                    </span></a>
             </div>
+
         </div>
+
     </div>
 </header>
 <section class="middle-inner" *ngIf="location.path()!=''">

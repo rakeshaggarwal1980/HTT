@@ -6,14 +6,18 @@ import { of } from 'rxjs';
 @Injectable()
 export class RequestListService {
 
-    constructor(private apiClientService: ApiClientService) {
-    }
+  constructor(private apiClientService: ApiClientService) {
+  }
 
-    getRequests() {
-        return this.apiClientService.Request_Requests();
-    }
+  getRequests() {
+    return this.apiClientService.Request_Requests();
+  }
 
-    updateRequest(request: any){
-      return this.apiClientService.Request_PutRequest(request);
-    }
+  getRequestsByUserId(userId: number) {
+    return this.apiClientService.Request_RequestsByUserId(userId);
+  }
+
+  updateRequest(request: any) {
+    return this.apiClientService.Request_PutRequest(request);
+  }
 }

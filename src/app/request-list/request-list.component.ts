@@ -18,31 +18,37 @@ export class RequestListComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getAllRequests();
+
+
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('login-bg');
   }
 
   getAllRequests() {
-    this.requestListService.getRequests().subscribe(
-      data => {
-        if (!isNullOrUndefined(data)) {
-          if (data.body.length > 0) {
-            this.Requests = data.body;
-            console.log('these are requests');
-            console.log(this.Requests);
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (!isNullOrUndefined(user) && user !== '') {
+      this.requestListService.getRequestsByUserId(user.userId).subscribe(
+        data => {
+          if (!isNullOrUndefined(data)) {
+            if (data.body.length > 0) {
+              this.Requests = data.body;
+              console.log('these are requests');
+              console.log(this.Requests);
 
+            }
+          } else {
           }
-        } else {
+        },
+        err => {
+          //// this.isGetting = false;
+          if (err.status === 401) {
+            console.log('error');
+          }
         }
-      },
-      err => {
-        //// this.isGetting = false;
-        if (err.status === 401) {
-          console.log('error');
-        }
-      }
-    );
+      );
+    }
 
   }
 
@@ -56,10 +62,10 @@ export class RequestListComponent implements OnInit {
       data: { request: request }
     });
     this.viewRequestDialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         // show success msg
         console.log("Request has been updated successfully");
-      }     else{
+      } else {
         // show error msg
         console.log("Error occurred");
       }
@@ -67,6 +73,6 @@ export class RequestListComponent implements OnInit {
     });
   }
 
-  
+
 
 }

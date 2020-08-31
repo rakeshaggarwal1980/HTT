@@ -15,7 +15,7 @@ export class RequestComponent implements OnInit {
   today: Date;
   isGetting: boolean = false;
   request: any = {
-    id: 0, requestNumber: '', employeeCode: '', dateOfRequest: '', isApproved: false, isDeclined: false,
+    id: 0, requestNumber: '', employeeCode: '', fromDate: '', toDate: '', isApproved: false, isDeclined: false,
     employeeId: 0, employee: {
       id: 0,
       name: '',
@@ -36,19 +36,34 @@ export class RequestComponent implements OnInit {
   }
 
 
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.request.dateOfRequest = new Date(event.value);
+  addEvent(datePickerType: any, type: string, event: MatDatepickerInputEvent<Date>) {
+    if (datePickerType.toLowerCase() == 'fromdate') {
+      this.request.fromDate = new Date(event.value);
+    } else if (datePickerType.toLowerCase() == 'todate') {
+      this.request.toDate = new Date(event.value);
+    }
   }
 
-  isControlValid() {
+  isControlValid(dateType: string) {
 
     debugger;
-    if (isNullOrUndefined(this.request.dateOfRequest) || this.request.dateOfRequest == ''|| this.request.dateOfRequest=='Invalid date') {
-      document.getElementById('datePicker').classList.add('error-field-highlighter');
-      return false;
-    } else {
-      document.getElementById('datePicker').classList.remove('error-field-highlighter');
-      return true;
+    if (dateType.toLowerCase() == 'fromdate') {
+      if (isNullOrUndefined(this.request.fromDate) || this.request.fromDate == '' || this.request.fromDate == 'Invalid date') {
+        document.getElementById('fromDatePicker').classList.add('error-field-highlighter');
+        return false;
+      } else {
+        document.getElementById('fromDatePicker').classList.remove('error-field-highlighter');
+        return true;
+      }
+    }
+    else if (dateType.toLowerCase() == 'todate') {
+      if (isNullOrUndefined(this.request.toDate) || this.request.toDate == '' || this.request.toDate == 'Invalid date') {
+        document.getElementById('toDatePicker').classList.add('error-field-highlighter');
+        return false;
+      } else {
+        document.getElementById('toDatePicker').classList.remove('error-field-highlighter');
+        return true;
+      }
     }
   }
 
@@ -56,7 +71,7 @@ export class RequestComponent implements OnInit {
     console.log('this is request');
     console.log(this.request);
     if (requestForm.valid) {
-      if (this.isControlValid()) {
+      if (this.isControlValid('fromdate') && this.isControlValid('todate')) {
 
         this.isGetting = true;
         let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
@@ -64,7 +79,9 @@ export class RequestComponent implements OnInit {
         let user = JSON.parse(localStorage.getItem('user'));
         this.request.employee.employeeCode = this.request.employeeCode;
 
-        this.request.dateOfRequest = moment(this.request.dateOfRequest).format();
+        this.request.fromDate = moment(this.request.fromDate).format();
+        
+        this.request.toDate = moment(this.request.toDate).format();
         this.request.employeeId = user.userId;
         this.request.employee.id = user.userId;
         this.request.employee.email = user.email;
@@ -109,7 +126,8 @@ export class RequestComponent implements OnInit {
 
     }
     else {
-      this.isControlValid();
+      this.isControlValid('fromdate');
+      this.isControlValid('todate');
       this.snackBarService.showError('Please enter mandatory fields.');
     }
   }
