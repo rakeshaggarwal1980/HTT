@@ -24,6 +24,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 // create loader for translation
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

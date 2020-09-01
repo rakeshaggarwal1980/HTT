@@ -29,8 +29,6 @@ export class LoginComponent implements OnInit {
 
 
       this.isGetting = true;
-      debugger;
-
       this.loginService.login(this.loginDetails).subscribe(
         data => {
           console.log('this is data');
