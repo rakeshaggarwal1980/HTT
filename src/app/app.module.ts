@@ -22,6 +22,7 @@ import { NgModule } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 // create loader for translation
 export function HttpLoaderFactory(http: HttpClient) {
@@ -29,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UserDetailComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

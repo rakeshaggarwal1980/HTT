@@ -169,7 +169,32 @@ export class ApiClientService {
  */
     public Request_RequestsByUserId(userId: number): Observable<any> {
         const queryParameters = [];
-        return this.sendRequest('/api/request/requests/'+userId, HTTP_REQUEST_TYPE.GET, null, queryParameters);
+        return this.sendRequest('/api/request/requests/' + userId, HTTP_REQUEST_TYPE.GET, null, queryParameters);
     }
+
+
+    /**
+     *
+     * @method
+     * @name Employee_EmployeebyId
+     *
+     */
+    public Employee_EmployeebyId(userId: number): Observable<any> {
+        const queryParameters = [];
+        return this.sendRequest('/api/employee/employeebyid/' + userId, HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    }
+
+    /**
+     *
+     * @method
+     * @name Employee_EmployeebyId
+     *
+     */
+    public Employee_UpdateAccountStatus(userId: number, status: any): Observable<any> {
+        const queryParameters = [];
+        return this.sendRequest('api/employee/accountstatus/' + userId+"/"+ status, HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    }
+
+
 
 }
