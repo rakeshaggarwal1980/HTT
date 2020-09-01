@@ -169,7 +169,19 @@ export class ApiClientService {
  */
     public Request_RequestsByUserId(userId: number): Observable<any> {
         const queryParameters = [];
-        return this.sendRequest('/api/request/requests/'+userId, HTTP_REQUEST_TYPE.GET, null, queryParameters);
+        return this.sendRequest('/api/request/requests/' + userId, HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    }
+
+
+    /**
+    *
+    * @method
+    * @name Role_Roles
+    *
+    */
+    public Role_Roles(): Observable<any> {
+        const queryParameters = [];
+        return this.sendRequest('/api/role/roles', HTTP_REQUEST_TYPE.GET, null, queryParameters);
     }
 
 }

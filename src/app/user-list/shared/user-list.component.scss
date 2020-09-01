@@ -1,0 +1,37 @@
+.action-btn {
+  background: #2173a0;
+  border: none;
+  margin: 0 20px 0 0;
+  padding: 10px 30px;
+  color: #f5f5f5;
+  font-size: 16px;
+  text-align: center;
+}
+.action-btn:hover,
+.action-btn:focus {
+  outline: none;
+  text-decoration: none;
+  color: #ffffff;
+  background: #063752;
+  box-shadow: none;
+}
+
+.green {
+  color: green;
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+.not-set {
+  color: orange;
+  font-weight: bold;
+}
+
+::ng-deep .cdk-overlay-container
+{
+  z-index: 9999 !important;
+}

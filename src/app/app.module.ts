@@ -6,6 +6,7 @@ import { AppRouterModule } from 'app/app.routes';
 import { RegistrationModule } from 'app/registration/index.registration';
 import { DeclarationFormModule } from 'app/declaration-form/index.declaration-form';
 import { RequestListModule } from 'app/request-list/index.request-list';
+import { UserListModule } from 'app/user-list/shared/user-list.module';
 import { ErrorModule } from 'app/error/index.error';
 // import { TableModule } from 'app/responsive_table/index.responsive';
 // import { NavigationDestinationModule } from 'app/navigation-destination/index.navigation';
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RequestModule,
     MatIconModule,
     MatMenuModule,
+    UserListModule,
     // NavigationDestinationModule,
     // TableModule,
     ServiceModule,

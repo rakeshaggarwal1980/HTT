@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-custom">
+                <tr>
+                    <th>Request #</th>
+                    <th>Requested By</th>
+                    <th>Employee Code</th>
+                    <th>Date Of Request</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor="let request of Requests">
+                    <td>{{request.requestNumber}}</td>
+                    <td>{{request.employee.name}}</td>
+                    <td> {{request.employee.employeeCode}} </td>
+                    <td>{{request.dateOfRequest|date:'mediumDate'}}</td>
+                    <td>
+                        <span class="green" *ngIf="request.isApproved">Approved</span>
+                        <span *ngIf="request.isDeclined" class="red">Declined</span>
+                        <span class="not-set"
+                            *ngIf="!request.isApproved && !request.isDeclined">Pending</span>
+                    </td>
+                    <td> <a href="javascript:void(0)" (click)="viewRequest(request)" class="btn-primary action-btn">View
+                            Request</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
