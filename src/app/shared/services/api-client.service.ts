@@ -174,6 +174,17 @@ export class ApiClientService {
 
 
     /**
+    *
+    * @method
+    * @name Role_Roles
+    *
+    */
+    public Role_Roles(): Observable<any> {
+        const queryParameters = [];
+        return this.sendRequest('/api/role/roles', HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    }
+
+    /**
      *
      * @method
      * @name Employee_EmployeebyId
@@ -194,7 +205,4 @@ export class ApiClientService {
         const queryParameters = [];
         return this.sendRequest('api/employee/accountstatus/' + userId+"/"+ status, HTTP_REQUEST_TYPE.GET, null, queryParameters);
     }
-
-
-
 }

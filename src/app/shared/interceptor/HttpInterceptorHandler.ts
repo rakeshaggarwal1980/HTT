@@ -24,7 +24,6 @@ export class HttpInterceptorHandler implements HttpInterceptor {
         },
       });
     }
-    debugger;
     return next.handle(req);
   }
 }

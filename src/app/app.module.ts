@@ -6,6 +6,7 @@ import { AppRouterModule } from 'app/app.routes';
 import { RegistrationModule } from 'app/registration/index.registration';
 import { DeclarationFormModule } from 'app/declaration-form/index.declaration-form';
 import { RequestListModule } from 'app/request-list/index.request-list';
+import { UserListModule } from 'app/user-list/shared/user-list.module';
 import { ErrorModule } from 'app/error/index.error';
 // import { TableModule } from 'app/responsive_table/index.responsive';
 // import { NavigationDestinationModule } from 'app/navigation-destination/index.navigation';
@@ -22,7 +23,7 @@ import { NgModule } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { UserDetailComponent } from './user-detail/user-detail.component';
+
 
 // create loader for translation
 export function HttpLoaderFactory(http: HttpClient) {
@@ -30,7 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, UserDetailComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RequestModule,
     MatIconModule,
     MatMenuModule,
+    UserListModule,
     // NavigationDestinationModule,
     // TableModule,
     ServiceModule,

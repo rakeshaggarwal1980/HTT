@@ -1,0 +1,42 @@
+.mat-dialog-title {
+    margin: 10px 0 20px 0px;
+    display: block;
+    border-bottom: 1px solid #e9ecef;
+
+    h4{
+        font-size:22px;
+        a{
+            cursor: pointer;
+        }
+    }
+}
+
+
+.mat-dialog-actions{
+    border-top:1px solid #e9ecef;
+    justify-content: flex-end;
+    padding :1rem;
+
+    :not(:last-child) {
+        margin-right: .25rem;
+    }
+
+    :not(:first-child) {
+        margin-left: .25rem;
+    }
+}
+
+.green{
+    color: green;
+    font-weight: bold;
+}
+
+.red{
+    color: red;
+    font-weight: bold;
+}
+
+.not-set{
+    color: orange;
+    font-weight: bold;
+}
