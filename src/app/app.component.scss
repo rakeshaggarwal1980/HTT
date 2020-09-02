@@ -30,7 +30,15 @@ footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
   margin-left:7px;
 }
 
+::ng-deep.mat-menu-content:not(:empty){
+  background-color: #206a8f;
+  color:white;
+}
 
+::ng-deep .mat-menu-item
+{
+  color: white;
+}
 /*=================== Media CSS ===================*/
 
 @media screen and (max-width:767px){

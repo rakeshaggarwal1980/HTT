@@ -2,6 +2,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from 'vendor/angular';
 import { Location } from '@angular/common';
+import { isNullOrUndefined } from 'util';
+import { ACTIONS } from 'app/app.enum';
 
 
 @Component({
@@ -20,6 +22,15 @@ export class AppComponent implements OnInit {
     console.log(this.location.path());
   }
 
+  isAuthenticated(ACTION: any) {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (!isNullOrUndefined(user) && user !== '') {
+      if (user.roleId == 1) {
+        
+      }
+    }
+
+  }
   onLogOut() {
     localStorage.setItem('auth_token', '');
     this.router.navigate(['']);

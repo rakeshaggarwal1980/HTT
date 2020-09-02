@@ -1,30 +1,33 @@
-<a href="javascript:void(0)" (click)="viewUser(userObj)" class="btn-primary action-btn">View User</a>
-
 <div class="container">
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered table-custom">
                 <tr>
-                    <th>Request #</th>
-                    <th>Requested By</th>
+                    <th>Employee #</th>
+                    <th>Name</th>
                     <th>Employee Code</th>
-                    <th>Date Of Request</th>
+                    <th>Email</th>
+                    <th>Role</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
-                <tr *ngFor="let request of Requests">
-                    <td>{{request.requestNumber}}</td>
-                    <td>{{request.employee.name}}</td>
-                    <td> {{request.employee.employeeCode}} </td>
-                    <td>{{request.dateOfRequest|date:'mediumDate'}}</td>
+                <tr *ngFor="let employee of employees">
+                    <td>{{employee.id}}</td>
+                    <td>{{employee.name}}</td>
+                    <td> {{employee.employeeCode}} </td>
+                    <td>{{employee.email}}</td>
                     <td>
-                        <span class="green" *ngIf="request.isApproved">Approved</span>
-                        <span *ngIf="request.isDeclined" class="red">Declined</span>
-                        <span class="not-set"
-                            *ngIf="!request.isApproved && !request.isDeclined">Pending</span>
+                        <span *ngIf="employee.roleId==3">Employee</span>
+                        <span *ngIf="employee.roleId==2">Security Manager</span>
+                        <span *ngIf="employee.roleId==1">HR Manager</span>
+
                     </td>
-                    <td> <a href="javascript:void(0)" (click)="viewRequest(request)" class="btn-primary action-btn">View
-                            Request</a>
+                    <td>
+                        <span *ngIf="employee.status==0 || employee.status==4" class="green">Active</span>
+                        <span *ngIf="employee.status==5" class="not-set">In Active</span>
+                    </td>
+                    <td> <a href="javascript:void(0)" (click)="viewUser(employee)" class="btn-primary action-btn">View
+                            User</a>
                     </td>
                 </tr>
             </table>

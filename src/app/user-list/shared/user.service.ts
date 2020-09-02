@@ -16,15 +16,8 @@ export class UserListService {
   updateAccountStatus(employeeId, status){
     return this.apiClientService.Employee_UpdateAccountStatus(employeeId, status);
   }
-  // getRequests() {
-  //   return this.apiClientService.Request_Requests();
-  // }
+  getAllEmployees() {
+    return this.apiClientService.Employee_Employees();
+  }
 
-  // getRequestsByUserId(userId: number) {
-  //   return this.apiClientService.Request_RequestsByUserId(userId);
-  // }
-
-  // updateRequest(request: any) {
-  //   return this.apiClientService.Request_PutRequest(request);
-  // }
 }

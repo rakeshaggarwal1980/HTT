@@ -71,3 +71,7 @@ export enum EntityStatus {
     Accept = 4,
     Deny = 5
 }
+
+export enum ACTIONS {
+    VIEW_USER = 'ViewUser'
+}

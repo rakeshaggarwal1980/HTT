@@ -8,19 +8,9 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item [matMenuTriggerFor]="request">Requests</button>
                     <button mat-menu-item [matMenuTriggerFor]="declaration">Declarations</button>
-                    <!-- <button mat-menu-item>
-                      <mat-icon>dialpad</mat-icon>
-                      <a></a>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>voicemail</mat-icon>
-                      <a>Check voice mail</a>
-                    </button>
                     <button mat-menu-item>
-                      <mat-icon>notifications_off</mat-icon>
-                      <a>Disable alerts</a>
-                    </button> -->
-
+                        <a [routerLink]="['/users']" style="color: white;">Users</a>
+                    </button>
                     <mat-menu #request="matMenu">
                         <button mat-menu-item>
                             <a>All</a>

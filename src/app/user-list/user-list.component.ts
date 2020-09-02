@@ -13,8 +13,7 @@ import { UserDetailDialogComponent } from './shared/user-detail-dialog/user-deta
   styleUrls: ['./shared/user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  Requests: any[] = [];
-
+  employees: any[] = [];
   userObj = null;
   viewUserDialogRef: MatDialogRef<UserDetailDialogComponent> = null;
   constructor(public dialog: MatDialog, private userListService: UserListService, private router: Router,
@@ -23,7 +22,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.getAllRequests();
+    this.getAllEmployees();
 
 
     const body = document.getElementsByTagName('body')[0];
@@ -34,64 +33,64 @@ export class UserListComponent implements OnInit {
     this.getUserDetail();
   }
 
-  // getAllRequests() {
-  //   let user = JSON.parse(localStorage.getItem('user'));
-  //   if (!isNullOrUndefined(user) && user !== '') {
-  //     this.requestListService.getRequestsByUserId(user.userId).subscribe(
-  //       data => {
-  //         if (!isNullOrUndefined(data)) {
-  //           if (data.body.length > 0) {
-  //             this.Requests = data.body;
-  //             console.log('these are requests');
-  //             console.log(this.Requests);
+  getAllEmployees() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (!isNullOrUndefined(user) && user !== '') {
+      this.userListService.getAllEmployees().subscribe(
+        data => {
+          if (!isNullOrUndefined(data)) {
+            if (data.body.length > 0) {
+              this.employees = data.body;
+              console.log('these are employees');
+              console.log(this.employees);
 
-  //           }
-  //         } else {
-  //         }
-  //       },
-  //       err => {
-  //         //// this.isGetting = false;
-  //         if (err.status === 401) {
-  //           console.log('error');
-  //         }
-  //       }
-  //     );
-  //   }
-
-  // }
-
-   getUserDetail() {
-        this.spinnerService.startRequest();
-        this.userListService.getUserDetail(1014).subscribe(data => {
-            this.spinnerService.endRequest();
-            if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
-                this.userObj= data.body;
-            } else {
-                this.errorService.handleFailure(data.statusCode);
             }
-        }, error => {
-            this.spinnerService.endRequest();
-            this.errorService.handleError(error);
-        });
+          } else {
+          }
+        },
+        err => {
+          //// this.isGetting = false;
+          if (err.status === 401) {
+            console.log('error');
+          }
+        }
+      );
     }
 
-    // call this method on table row view icon click
-    viewUser(userObj){
-      this.dialog.closeAll();
-      this.viewUserDialogRef = this.dialog.open(UserDetailDialogComponent, {
-        width: '800px',
-        height: '518px',
-        disableClose: false,
-        panelClass: 'success-box',
-        data: { user: userObj }
-      });
-      this.viewUserDialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.snackbarService.showSuccess("User account has been updated successfully");
-        }
-        this.viewUserDialogRef = null;
-      });
-    }
+  }
+
+  getUserDetail() {
+    this.spinnerService.startRequest();
+    this.userListService.getUserDetail(1014).subscribe(data => {
+      this.spinnerService.endRequest();
+      if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
+        this.userObj = data.body;
+      } else {
+        this.errorService.handleFailure(data.statusCode);
+      }
+    }, error => {
+      this.spinnerService.endRequest();
+      this.errorService.handleError(error);
+    });
+  }
+
+  // call this method on table row view icon click
+  viewUser(userObj) {
+    this.dialog.closeAll();
+    this.viewUserDialogRef = this.dialog.open(UserDetailDialogComponent, {
+      width: '800px',
+      height: '518px',
+      disableClose: false,
+      panelClass: 'success-box',
+      data: { user: userObj }
+    });
+    this.viewUserDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.snackbarService.showSuccess("User account has been updated successfully");
+      }
+      this.viewUserDialogRef = null;
+    });
+  }
 
 
 }
