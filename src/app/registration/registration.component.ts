@@ -3,7 +3,7 @@ import { RegistrationService } from 'app/registration/shared/registration.servic
 import { Registration } from './shared/registration.model';
 import { isNullOrUndefined } from 'util';
 import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
-import { Router } from 'vendor/angular';
+import { Router, FormGroup, FormBuilder, Validators } from 'vendor/angular';
 
 
 @Component({
@@ -13,35 +13,79 @@ import { Router } from 'vendor/angular';
 })
 export class RegistrationComponent implements OnInit {
   today: Date;
-  registration: any = { id: 0, name: '', email: '', password: '', employeeCode: '' };
+  registration: any = { id: 0, name: '', email: '', password: '', employeeCode: '', roleId: 0 };
   isGetting: boolean = false;
+  registrationForm: FormGroup;
+  submitted: boolean = false;
+  roles: any[] = [];
 
   constructor(private registrationService: RegistrationService, private router: Router,
-    private snackBarService: SnackBarService) {
+    private snackBarService: SnackBarService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    this.generateForm();
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('login-bg');
+    this.getRoles();
 
   }
 
+  private generateForm() {
+    this.registrationForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      employeeCode: ['', Validators.required],
+      roleId: ['', Validators.required]
+    });
+  }
+
+
+  getRoles() {
+    this.registrationService.getRoles().subscribe(
+      data => {
+        if (!isNullOrUndefined(data)) {
+          if (data.body.length > 0) {
+            this.roles = data.body;
+            console.log('these are roles');
+            console.log(this.roles);
+
+          }
+        } else {
+        }
+      },
+      err => {
+        //// this.isGetting = false;
+        if (err.status === 401) {
+          console.log('error');
+        }
+      }
+    );
+
+
+  }
+  isControlInValid(control: string) {
+    return this.submitted && !this.registrationForm.controls[control].valid;
+  }
+
+
+
   onRegistrationClick(registrationForm: any) {
-    console.log('this is registration');
-    console.log(this.registration);
 
     if (registrationForm.valid) {
       //this.isGetting = true;
       localStorage.setItem('auth_token', '');
       this.isGetting = true;
-      this.registrationService.createEmployee(this.registration).subscribe(
+      console.log(registrationForm.value);
+      this.registrationService.createEmployee(registrationForm.value).subscribe(
         data => {
 
-            this.isGetting = false;
+          this.isGetting = false;
           if (!isNullOrUndefined(data)) {
 
             if (!isNullOrUndefined(data.body)) {
-              this.snackBarService.showSuccess('You have been registered successfully!!');
+              this.snackBarService.showSuccess('You have been registered successfully! Your account will be activated by Administrator shortly.');
               this.router.navigate(['']);
 
             } else {

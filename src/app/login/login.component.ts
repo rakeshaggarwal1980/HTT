@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
 
       this.isGetting = true;
       debugger;
+      localStorage.setItem('auth_token', '');
+
 
       this.loginService.login(this.loginDetails).subscribe(
         data => {
@@ -46,8 +48,8 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('auth_token', data.body.token);
               console.log('this is user');
               console.log(data.body);
-              localStorage.setItem('user', JSON.stringify(data.body));
-              this.router.navigate(['request']);
+              // localStorage.setItem('user', JSON.stringify(data.body));
+              // this.router.navigate(['request']);
             }
             else{
               this.snackBarService.showError("Invalid credentials!!");  

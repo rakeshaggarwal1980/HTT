@@ -10,7 +10,7 @@ import { LoginService } from 'app/login/shared/login.service';
 import { SharedModule } from 'app/shared/shared.module';
 import {
   MatProgressSpinnerModule
-} from 'vendor/material';
+} from '@angular/material/progress-spinner';
 
 
 

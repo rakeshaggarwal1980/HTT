@@ -10,14 +10,15 @@ export class RegistrationService {
     constructor(private apiClientService: ApiClientService) {
     }
 
-    createEmployee(registration: Registration) {
+    createEmployee(registration: any) {
         const employeeModel = {
             id: 0,
             name: registration.name,
             email: registration.email,
             employeeCode: Number(registration.employeeCode),
             password: registration.password,
-            status: EntityStatus.Active
+            status: EntityStatus.Active,
+            roleId: registration.roleId
         };
         debugger;
         return this.apiClientService.Employee_Employee(employeeModel);

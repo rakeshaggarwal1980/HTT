@@ -24,7 +24,7 @@ export class ApiClientService {
 
     public Employee_Employee(employeeViewModel: any): Observable<any> {
 
-        return this.sendRequest('/api/employee/employee', HTTP_REQUEST_TYPE.POST, JSON.stringify(employeeViewModel), null);
+        return this.sendRequest('/api/employee', HTTP_REQUEST_TYPE.POST, JSON.stringify(employeeViewModel), null);
     }
 
 

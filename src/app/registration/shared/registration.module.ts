@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 // components
 import { RegistrationComponent } from 'app/registration/registration.component';
@@ -9,20 +9,29 @@ import { RegistrationRouterModule } from 'app/registration/shared/registration.r
 import { RegistrationService } from 'app/registration/shared/registration.service';
 import { SharedModule } from 'app/shared/shared.module';
 import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@Angular/material/select';
+import {
+  MatProgressSpinnerModule
+} from 'vendor/material';
+                                                    
 
 @NgModule({
   imports: [
     TranslateModule,
     SharedModule,
     RegistrationRouterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatProgressSpinnerModule  
   ],
   exports: [],
   declarations: [
     RegistrationComponent
   ],
-  providers: [RegistrationService,SnackBarService],
+  providers: [RegistrationService, SnackBarService],
 })
 export class RegistrationModule {
 }
