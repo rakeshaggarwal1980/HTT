@@ -8,7 +8,8 @@ import { UserListComponent } from 'app/user-list/user-list.component';
 import { UserListRouterModule } from 'app/user-list/shared/user-list.route';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { UserListService } from 'app/user-list/shared/user-list.service';
+import { UserListService } from 'app/user-list/shared/user.service';
+import { UserDetailDialogComponent } from './user-detail-dialog/user-detail-dialog.component';
 
 
 
@@ -19,13 +20,14 @@ import { UserListService } from 'app/user-list/shared/user-list.service';
     SharedModule,
     MatDialogModule,
     UserListRouterModule
-  ],   
+  ],
   exports: [],
   declarations: [
-     UserListComponent
-    
+    UserDetailDialogComponent,
+    UserListComponent
   ],
-  providers: [UserListService]
+  providers: [UserListService],
+  entryComponents: [UserDetailDialogComponent]
 })
 export class UserListModule {
 }

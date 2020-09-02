@@ -1,0 +1,42 @@
+<div mat-dialog-title>
+    <h4>View User
+    <a class="float-right" (click)="dialogRef.close()">
+      <i class="material-icons">
+        clear
+      </i>
+    </a>
+  </h4>
+</div>
+<mat-dialog-content>
+
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Employee Name</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.user.name}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Employee code</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.user.employeeCode}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Email Id</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.user.email}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Role </strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.user.roleName}}</div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3 col-sm-3 col-12"><strong>Account Status</strong></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="data.user.status===4"><span class="green">Approved</span></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="data.user.status===5"><span class="red">Declined</span></div>
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="data.user.status===0"><span class="not-set">Waiting for Approval</span></div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  
+    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-success" (click)="takeAction(1)">Confirm</a>
+    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-danger" (click)="takeAction(0)">Decline</a>
+    
+    <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" (click)="dialogRef.close()">Close</a>
+
+</mat-dialog-actions>

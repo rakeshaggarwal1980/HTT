@@ -10,7 +10,6 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let user = JSON.parse(localStorage.getItem('user'));
-debugger;
     if (!isNullOrUndefined(user) && user !== '') {
       if (user.userId > 0) {
         return true;
