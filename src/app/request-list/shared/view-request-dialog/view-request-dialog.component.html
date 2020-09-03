@@ -42,8 +42,8 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   
-    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined" class="btn btn-primary btn-success" (click)="takeAction(1,textarea.value)">Approve</a>
-    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined" class="btn btn-primary btn-danger" (click)="takeAction(0,textarea.value)">Decline</a>
+    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined && isAuthenticated('AcceptRequest')" class="btn btn-primary btn-success" (click)="takeAction(1,textarea.value)">Approve</a>
+    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined && isAuthenticated('DeclineRequest')" class="btn btn-primary btn-danger" (click)="takeAction(0,textarea.value)">Decline</a>
     
     <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" (click)="dialogRef.close()">Close</a>
 

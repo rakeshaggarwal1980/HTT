@@ -34,8 +34,8 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   
-    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-success" (click)="takeAction(1)">Confirm</a>
-    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-danger" (click)="takeAction(0)">Decline</a>
+    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-success" mat-dialog-close (click)="takeAction(1)">Confirm</a>
+    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-danger" mat-dialog-close (click)="takeAction(0)">Decline</a>
     
     <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" (click)="dialogRef.close()">Close</a>
 

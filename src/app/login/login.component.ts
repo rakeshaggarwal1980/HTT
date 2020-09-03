@@ -30,13 +30,11 @@ export class LoginComponent implements OnInit {
 
 
       this.isGetting = true;
-      debugger;
       localStorage.setItem('auth_token', '');
 
 
       this.loginService.login(this.loginDetails).subscribe(
         data => {
-          debugger;
           console.log('this is data');
           console.log(data);
           this.isGetting = false;

@@ -74,7 +74,6 @@ export class DeclarationFormComponent implements OnInit {
     console.log('reques no');
     this.requestNumber = this.activatedRoute.snapshot.params.requestNumber;
     this.employeeId = this.activatedRoute.snapshot.params.employeeId;
-    debugger;
     if (!isNullOrUndefined(this.employeeId)) {
       this.viewMode = true;
       this.getEmployeeSelfDeclaration(this.employeeId, this.requestNumber);
@@ -143,7 +142,6 @@ export class DeclarationFormComponent implements OnInit {
 
 
   private patchHealthTrackerQuestions(questions: any) {
-    debugger;
     if (questions && questions.length > 0) {
       //  this.healthTrackSymptoms = this.declarationForm.get('healthTrackSymptoms') as FormArray;
       this.healthTrackerQuestions.patchValue(questions);
@@ -181,10 +179,7 @@ export class DeclarationFormComponent implements OnInit {
               let healthTrackSymptoms = [];
 
               data.body.symptoms.forEach(element => {
-                debugger;
 
-                //  console.log(this.healthTrackSymptoms);
-                debugger;
                 healthTrackSymptoms.push({
                   id: 0,
                   healthTrackId: 0,
@@ -196,9 +191,9 @@ export class DeclarationFormComponent implements OnInit {
               });
               if (this.viewMode == true) {
                 this.symptoms.forEach(element => {
-                  debugger;
+
                   let index = healthTrackSymptoms.findIndex(s => s.symptomId == element.symptomId);
-                  debugger;
+
                   console.log('index of symptom' + index);
                   healthTrackSymptoms[index].value = element.value;
                   healthTrackSymptoms[index].healthTrackId = element.healthTrackId;
@@ -222,9 +217,6 @@ export class DeclarationFormComponent implements OnInit {
               let healthTrackerQuestions = [];
 
               data.body.questions.forEach(element => {
-                debugger;
-
-                //  console.log(this.healthTrackSymptoms);
                 healthTrackerQuestions.push({
                   id: 0,
                   healthTrackId: 0,
@@ -324,7 +316,6 @@ export class DeclarationFormComponent implements OnInit {
   }
 
   onDeclarationClick(formData: any) {
-    debugger;
     this.submitted = true;
     if (formData.valid) {
       if (!this.isLocationValid || !this.isZoneValid || !this.isPreExistHealthIssueValid || !this.isContactWithCovidPeopleValid || !this.isTravelOustSideInLast15DaysValid || !this.isConfirmInfoValid) {
@@ -338,7 +329,6 @@ export class DeclarationFormComponent implements OnInit {
         this.request.residentialAddress = formData.value.residentialAddress;
         this.request.dateOfTravel = new Date();
         this.request.employeeId = user.userId;
-        debugger;
         this.request.healthTrackSymptoms = [];
         if (formData.value.healthTrackSymptoms.length > 0) {
           formData.value.healthTrackSymptoms.forEach(element => {
@@ -376,12 +366,11 @@ export class DeclarationFormComponent implements OnInit {
             if (!isNullOrUndefined(data)) {
               console.log('declaration data not null');
               console.log(data);
-              if(isNullOrUndefined(data.body))
-              {
+              if (isNullOrUndefined(data.body)) {
                 this.snackBarService.showError(data.message);
-              }else{
+              } else {
                 this.snackBarService.showSuccess('Declaration submitted successfully!!');
-                
+
               }
             } else {
               //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
@@ -403,8 +392,6 @@ export class DeclarationFormComponent implements OnInit {
   }
 
   onChange(categoryName: any, index: any, value: any) {
-    console.log(index);
-    debugger;
     switch (categoryName) {
       case 'location':
         this.request.locationId = value;
@@ -467,7 +454,6 @@ export class DeclarationFormComponent implements OnInit {
         console.log(this.declarationForm);
         break;
       case 'confirm':
-        debugger;
         if (!isNullOrUndefined(value) && value !== '') {
           this.isConfirmInfoValid = true;
         } else {

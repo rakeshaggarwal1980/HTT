@@ -17,7 +17,7 @@ export class RegistrationService {
             email: registration.email,
             employeeCode: Number(registration.employeeCode),
             password: registration.password,
-            status: EntityStatus.Deny,
+            status: EntityStatus.Active,
             roleId: Number(registration.roleId)
         };
         return this.apiClientService.Employee_Employee(employeeModel);

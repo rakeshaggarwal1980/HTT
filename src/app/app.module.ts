@@ -8,8 +8,6 @@ import { DeclarationFormModule } from 'app/declaration-form/index.declaration-fo
 import { RequestListModule } from 'app/request-list/index.request-list';
 import { UserListModule } from 'app/user-list/shared/user-list.module';
 import { ErrorModule } from 'app/error/index.error';
-// import { TableModule } from 'app/responsive_table/index.responsive';
-// import { NavigationDestinationModule } from 'app/navigation-destination/index.navigation';
 import { ServiceModule } from 'app/shared/services/service.module';
 import { LoginModule } from 'app/login/shared/login.module';
 import { RequestModule } from 'app/request/shared/request.module';

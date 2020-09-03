@@ -31,6 +31,7 @@ export class UserDetailDialogComponent implements OnInit {
             status = EntityStatus.Deny;
         }
        this.updateAccountStatus(this.data.user.id, status);  
+       this.dialogRef.close(true);
     }
 
     updateAccountStatus(userId, status) {

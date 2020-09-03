@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { isNullOrUndefined } from 'util';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { UserListService } from 'app/user-list/shared/user.service';
 import { SpinnerService, ErrorService, SnackBarService } from '../shared/index.shared';
 import { RESPONSE_STATUS_ENUM } from '../app.enum';
@@ -13,7 +14,7 @@ import { UserDetailDialogComponent } from './shared/user-detail-dialog/user-deta
   styleUrls: ['./shared/user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  employees: any[] = [];
+  employees: Observable<any[]>;
   userObj = null;
   viewUserDialogRef: MatDialogRef<UserDetailDialogComponent> = null;
   constructor(public dialog: MatDialog, private userListService: UserListService, private router: Router,
@@ -40,7 +41,7 @@ export class UserListComponent implements OnInit {
         data => {
           if (!isNullOrUndefined(data)) {
             if (data.body.length > 0) {
-              this.employees = data.body;
+              this.employees = of(data.body);
               console.log('these are employees');
               console.log(this.employees);
 
@@ -86,6 +87,7 @@ export class UserListComponent implements OnInit {
     });
     this.viewUserDialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.getAllEmployees();
         this.snackbarService.showSuccess("User account has been updated successfully");
       }
       this.viewUserDialogRef = null;

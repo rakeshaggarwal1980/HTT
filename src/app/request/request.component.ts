@@ -45,8 +45,6 @@ export class RequestComponent implements OnInit {
   }
 
   isControlValid(dateType: string) {
-
-    debugger;
     if (dateType.toLowerCase() == 'fromdate') {
       if (isNullOrUndefined(this.request.fromDate) || this.request.fromDate == '' || this.request.fromDate == 'Invalid date') {
         document.getElementById('fromDatePicker').classList.add('error-field-highlighter');
