@@ -26,7 +26,8 @@
               "src/styles/main.scss"
             ],
             "allowedCommonJsDependencies": [
-              "util"
+              "util",
+              "lodash"
            ]
           },
           "configurations": {

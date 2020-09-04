@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RequestListService } from '../request-list.service';
+import { SpinnerService, ErrorService } from 'app/shared/index.shared';
 
 @Component({
     selector: 'evry-view-request',
@@ -10,32 +11,36 @@ import { RequestListService } from '../request-list.service';
 export class ViewRequestDialogComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<ViewRequestDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        public requestListService: RequestListService) { }
+        public requestListService: RequestListService, public spinnerService: SpinnerService,
+        public errorService: ErrorService) { }
+
     ngOnInit() {
-      console.log(this.data);
     }
 
     takeAction(value, comments) {
-        this.data.request.hrComments= comments;
+        this.data.request.hrComments = comments;
         if (value === 1) {
             this.data.request.isApproved = true;
         } else if (value === 0) {
             this.data.request.isDeclined = true;
         }
-       this.updateRequest(this.data.request);  
+        this.updateRequest(this.data.request);
     }
 
     updateRequest(request) {
+        this.spinnerService.startRequest();
         this.requestListService.updateRequest(request).subscribe(data => {
-            if (data !== null && data.StatusCode === 200) {
-                // request updated
+            this.spinnerService.endRequest();
+            if (data !== null && data.statusCode === 200) {
                 this.dialogRef.close(true);
             } else {
-                // error occured
                 this.dialogRef.close(false);
+                this.errorService.handleFailure(data.statusCode);
             }
         }, error => {
+            this.spinnerService.endRequest();
             this.dialogRef.close(false);
+            this.errorService.handleError(error);
         });
     }
 }

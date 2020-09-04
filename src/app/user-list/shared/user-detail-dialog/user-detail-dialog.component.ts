@@ -11,8 +11,6 @@ import { ErrorService, SpinnerService } from 'app/shared/index.shared';
     styleUrls: ['./user-detail-dialog.component.scss'],
 })
 export class UserDetailDialogComponent implements OnInit {
-
-   
     constructor(public dialogRef: MatDialogRef<UserDetailDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserListService,
         private errorService: ErrorService, private spinnerService: SpinnerService) {
@@ -20,7 +18,6 @@ export class UserDetailDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.data);
     }
 
     takeAction(value) {
