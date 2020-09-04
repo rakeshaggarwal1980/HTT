@@ -11,7 +11,7 @@
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
-                <tr *ngFor="let employee of employees">
+                <tr *ngFor="let employee of employees|async">
                     <td>{{employee.id}}</td>
                     <td>{{employee.name}}</td>
                     <td> {{employee.employeeCode}} </td>
@@ -23,8 +23,10 @@
 
                     </td>
                     <td>
-                        <span *ngIf="employee.status==0 || employee.status==4" class="green">Active</span>
-                        <span *ngIf="employee.status==5" class="not-set">In Active</span>
+                        <span *ngIf="employee.status==4" class="green">Accepted</span>
+                        <span *ngIf="employee.status==5" class="not-set">Declined</span>
+                        <span *ngIf="employee.status==0" class="not-set">Waiting for Approval</span>
+
                     </td>
                     <td> <a href="javascript:void(0)" (click)="viewUser(employee)" class="btn-primary action-btn">View
                             User</a>

@@ -16,6 +16,10 @@ export class RequestListService {
   getRequestsByUserId(userId: number) {
     return this.apiClientService.Request_RequestsByUserId(userId);
   }
+  
+  getAllRequests() {
+    return this.apiClientService.Request_Requests();
+  }
 
   updateRequest(request: any) {
     return this.apiClientService.Request_PutRequest(request);

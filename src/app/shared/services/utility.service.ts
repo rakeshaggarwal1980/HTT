@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { isNullOrUndefined } from 'util';
+import { HR_ACTIONS, SECURITY_ACTIONS, EMPLOYEE_ACTIONS } from 'app/app.enum';
+
 
 @Injectable()
 export class UtilityService {
@@ -85,6 +88,39 @@ export class UtilityService {
         }
         const blob = new Blob(byteArrays, { type: contentType });
         return blob;
+    }
+
+    isActionAuthenticated(Action: any) {
+        debugger;
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (!isNullOrUndefined(user) && user !== '') {
+            if (!isNullOrUndefined(user.role)) {
+                if (user.role.id == 1) {
+                    if (Object.values(HR_ACTIONS).includes(Action)) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                if (user.role.id == 2) {
+                    if (Object.values(SECURITY_ACTIONS).includes(Action)) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                if (user.role.id == 3) {
+                    if (Object.values(EMPLOYEE_ACTIONS).includes(Action)) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+        }
     }
 
 }

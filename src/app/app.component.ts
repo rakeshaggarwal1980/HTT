@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from 'vendor/angular';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
-import { ACTIONS } from 'app/app.enum';
+import { UtilityService } from 'app/shared/services/utility.service';
+import { HR_ACTIONS, SECURITY_ACTIONS, EMPLOYEE_ACTIONS } from 'app/app.enum';
+import { UserDetailDialogComponent } from './user-list/shared/user-detail-dialog/user-detail-dialog.component';
 
 
 @Component({
@@ -12,7 +14,8 @@ import { ACTIONS } from 'app/app.enum';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private translate: TranslateService, private router: Router, private location: Location) {
+  constructor(private translate: TranslateService, private router: Router, private location: Location,
+    private utilityService: UtilityService) {
     translate.addLangs(['en']);
     translate.setDefaultLang('en');
     translate.use('en');
@@ -22,15 +25,38 @@ export class AppComponent implements OnInit {
     console.log(this.location.path());
   }
 
-  isAuthenticated(ACTION: any) {
+  isAuthenticated(Action: any): boolean {
     let user = JSON.parse(localStorage.getItem('user'));
     if (!isNullOrUndefined(user) && user !== '') {
-      if (user.roleId == 1) {
-        
+      if (!isNullOrUndefined(user.role)) {
+        if (user.role.id == 1) {
+          if (Object.values(HR_ACTIONS).includes(Action)) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+        if (user.role.id == 2) {
+          if (Object.values(SECURITY_ACTIONS).includes(Action)) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+        if (user.role.id == 3) {
+          if (Object.values(EMPLOYEE_ACTIONS).includes(Action)) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
       }
     }
-
   }
+
   onLogOut() {
     localStorage.setItem('auth_token', '');
     this.router.navigate(['']);

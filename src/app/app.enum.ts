@@ -72,6 +72,34 @@ export enum EntityStatus {
     Deny = 5
 }
 
-export enum ACTIONS {
-    VIEW_USER = 'ViewUser'
+export enum HR_ACTIONS {
+    REGISTRATION = 'Registration',
+    LOGIN = 'Login',
+    CHANGE_PASSWORD = 'ChangePassword',
+    MY_REQUESTS = 'MyRequests',
+    NEW_REQUEST = 'NewRequest',
+    NEW_DECLARATION = 'NewDeclaration',
+    EMPLOYEE_REQUESTS = 'EmployeeRequests',
+    VIEW_USERS = 'ViewUsers',
+    ACCEPT_REQUEST = 'AcceptRequest',
+    DECLINE_REQUEST = 'DeclineRequest',
+    VIEW_DECLARATIONS = 'ViewDeclarations',
+    DOWNLOAD_DECLARATIONS = 'DownloadDeclarations'
+}
+export enum SECURITY_ACTIONS {
+    REGISTRATION = 'Registration',
+    LOGIN = 'Login',
+    CHANGE_PASSWORD = 'ChangePassword',
+    MY_REQUESTS = 'MyRequests',
+    NEW_REQUEST = 'NewRequest',
+    NEW_DECLARATION = 'NewDeclaration',
+    VIEW_DECLARATIONS = 'ViewDeclarations'
+}
+export enum EMPLOYEE_ACTIONS {
+    REGISTRATION = 'Registration',
+    LOGIN = 'Login',
+    CHANGE_PASSWORD = 'ChangePassword',
+    MY_REQUESTS = 'MyRequests',
+    NEW_REQUEST = 'NewRequest',
+    NEW_DECLARATION = 'NewDeclaration'
 }
