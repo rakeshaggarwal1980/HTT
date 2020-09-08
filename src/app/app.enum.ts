@@ -34,8 +34,8 @@ export enum HTTP_REQUEST_TYPE {
 }
 
 export enum SORT_DIRECTION {
-    ASC = 'ASC',
-    DESC = 'DESC'
+    ASC = 0,
+    DESC = 1
 }
 
 

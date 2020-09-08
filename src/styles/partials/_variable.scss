@@ -1,0 +1,177 @@
+/* ===================== COLOR VARIABLE ======================== */
+
+$grey-text:#536e79;
+$label-text-color:#646565;
+$text-color:#263339;
+$grey-circle-bg:#e5e5e5;
+$input-bdr-color:#afbec4;
+$round-bdr-color:#aaaaaa;
+$table-bg:#f7f7ff;
+$yellow-bdr-color:#ffb220;
+$foot-bg:#36474f;
+$blue-color:#0C43A3;
+$black-color:#343434;
+$gray-color:#969696;
+$green-color-new:#49ae59;
+$black-color:#272727;
+$purple-color:#bd42c0;
+$yellow-color:#ffd64f;
+$brown-yellow-color: #E3B80A;
+$lightblue-color:#b8c5e3;
+$text-color:#3776ed;
+$red-color:#CC1526;
+$green-color:#199586;
+$button-text-color:#4D75BC;
+$message-blue: #3b6b8a;
+$self-message-gray:#595f63;
+$text-grey:#526e79;
+$dark-blue-color:#28434d;
+$dash-bg:#36474e;
+$side-bar-bg:#263238;
+$blue-bdr-bg:#8ccbf6;
+$placeholder-text-color:#757575;
+$light-gray:#586d77;
+$lt-bdr-color:#708088;
+$text-color-blue:#4584ac;
+$gray-dark-color:#f9f9f9;
+$grey-font: #546E7A;
+$text-gray-new:#a5a8a9;
+$bright-blue-color:#63B3F3;
+$dark-black: #000000;
+$list-item-color:#4f6875;
+$text-black: #37484d;
+$checkmark-color:#BABCBD;
+$tab-mobile:970px;
+$mobile-screen:767px;
+$small-screen:380px;
+$tab-screen:1024px;
+/* ===================== COMMON VARIABLE ======================== */
+
+$full-width:100%;
+$fl-left:left;
+$fl-right:right;
+$half-width:50%;
+$main-font: Montserrat;
+$base-font:montserrat-regular;
+$base-sbold-font:montserrat-semibold;
+$base-bold-font:montserrat-bold;
+$base-light-font:montserrat-light;
+// Color Variables
+$background-white: #fcfdfe;
+$primary-color: #00b6e1;
+$primary-color-hover: #6365d2;
+$white-color: #ffffff;
+$light-bdr-bg:#e3e5fd;
+$body-bg:#1a2124;
+$body-contract-bg: #fcfdfe;
+$light-gray: #9DA3A7;
+$gray-1: #f7f7f7;
+$gray-2: #dfdfdf;
+$gray-3: #90a4ae;
+$gray-4: #7c7c7c;
+$gray-4-darker: #585858;
+$gray-5:#37474f;
+$gray-8:#eceff1;
+$gray-6:#979797;
+$gray-7:#394b52;
+$gray-9:#3d484c;
+$gray-10:#546e7a;
+$gray-11:#546E7A;
+$gray-12: #455A64;
+$lt-blue-1:#547e92;
+$lt-gray-1:#eaebfd;
+$dr-gray-1:#32383b;
+$lt-gray-2:#5e686d;
+$lt-gray-3:#616769;
+$lt-gray-4:#bcc2c6;
+$lt-gray-5:#7e8184;
+$light-blue-gray:#8FA3AD;
+$info-box-background: #263238;
+$dark-blue: #253138;
+$text-color: #444444;
+$shadow-bg:#dadada;
+$blue-color:#20275a;
+$subquip-blue: #64B5F6;
+$list-text:#2333ab;
+$green-color:#00e3b3;
+$blue-text:#26bde4;
+$bdr-lt-blue:#E3E4FF;
+$btn-red:#FD006B;
+$light-red: #ffc4c4;
+$red-warning-on-black: #ca454b;
+$black-color:#242525;
+$blue-1:#36474e;
+$black-color-1:#3e4a4d;
+$yellow-text:#fdd500;
+$yellow-text-01:#f4b743;
+$mustard-yellow-text:#f9a825;
+$form-input-bdr:#7E7FA0;
+$black-1:#1a2124;
+$blue-bdr:#5cb7f3;
+$circle-bg:#c5c7c8;
+$yellow-color-one:#fbc02d;
+$landing-page-bg: #fcfdfe;
+$part-detail-tab-color: #eceff1;
+$gray-background: #d8d8d8;
+$placeholder-search: #ECEFF1;
+$settings-backgound: #1c272e;
+$search-box-background: #37474f;
+$admin-color: rgba(76, 175, 80, 0.5);
+$contributor-color: rgba(171, 0, 182, 0.5);
+$viewer-color: rgba(144, 202, 249, 0.5);
+$admin-color-no-transparancy: rgba(76, 175, 80, 1);
+$contributor-color-no-transparancy: rgba(171, 0, 182, 1);
+$viewer-color-no-transparancy: rgba(144, 202, 249, 1);
+$standard-icon-fill: rgb(236, 239, 241);
+$btn-background: #2F3F47;
+$box-dark-bg: #000A12;
+$scm-box-background:#000A12;
+$main-font: 'Montserrat',
+'Helvetica Neue',
+Helvetica,
+Arial,
+sans-serif !default;
+$headline-font: 'Montserrat',
+'Helvetica Neue',
+Helvetica,
+Arial,
+sans-serif;
+// Common Variables
+$radius-5:5px;
+$radius-10:10px;
+$full-width:100%;
+// Media Screen Variables
+$tiny-mobile-screen: 325px; // IPhone S5
+$medium-mobile: 575px;
+$mobile-screen:767px;
+$mobile-lg-screen:980px;
+$ipad-md-screen:1024px;
+$ipad-inner-screen:1300px;
+$ipad-lg-screen:1366px;
+$ipad-md-01:1400px;
+$ipad-lg-01-screen:1500px;
+$ipad-xl-screen:1800px;
+$large-screen: 2000px;
+$xl-large-screen: 2500px;
+$mid-ipad-screen:1200px;
+$xxl-large-screen:4000px;
+
+
+// Font sizes
+$h1-font-size: 50px;
+$h2-font-size: 36px;
+$h3-font-size: 28px;
+$h4-font-size: 24px;
+$h5-font-size: 22px;
+$text-font-size: 16px;
+$hover-blue:#5cb7f3;
+$select-bg: #36474e;
+$text-black: #37484d;
+$select-bg: #36474e;
+$text-black: #37484d;
+$marker-color:#69F0AE;
+$pager-border-color:#616769;
+$icon-color: #707070;
+$icon-background:#f4f5f7;
+$list-item-hover: #7a97a3;
+$scroll-thumb-color: #394B53;

@@ -11,6 +11,8 @@ import { ErrorModule } from 'app/error/index.error';
 import { ServiceModule } from 'app/shared/services/service.module';
 import { LoginModule } from 'app/login/shared/login.module';
 import { RequestModule } from 'app/request/shared/request.module';
+import { DeclarationListModule } from 'app/declaration-list/shared/declaration-list.module';
+// import { DeclarationListModule } from 'app/declaration-list/shared/declaration-list.module';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
 import { MatMenuModule, MatMenu } from '@angular/material/menu';
 // translation
@@ -45,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule,
     MatMenuModule,
     UserListModule,
+    DeclarationListModule,
     // NavigationDestinationModule,
     // TableModule,
     ServiceModule,

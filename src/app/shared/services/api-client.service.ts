@@ -216,4 +216,29 @@ export class ApiClientService {
         const queryParameters = [];
         return this.sendRequest('/api/employee/list', HTTP_REQUEST_TYPE.GET, null, queryParameters);
     }
+
+
+    /**
+ *
+ * @method
+ * @name 
+ * @param {SearchSortModel} searchSortModel - object of data i.e. name, password and employeeCode etc.
+ *
+ */
+
+    public Health_Declarations(searchSortModel: any): Observable<any> {
+        return this.sendRequest('/api/health/declarations', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
+    }
+
+    /**
+*
+* @method
+* @name Health_GetDeclarationsToExport
+*
+*/
+    public Health_GetDeclarationsToExport(): Observable<any> {
+        const queryParameters = [];
+        return this.sendRequest('/api/health/declarationList', HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    }
+
 }
