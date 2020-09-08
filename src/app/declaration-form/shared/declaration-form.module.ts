@@ -5,7 +5,7 @@ import { DeclarationFormComponent } from 'app/declaration-form/declaration-form.
 // modules
 import { DeclarationFormRouterModule } from 'app/declaration-form/shared/declaration-form.route';
 import { SharedModule } from 'app/shared/shared.module';
-import { MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatSnackBarModule, MatProgressSpinnerModule } from 'vendor/material';
+import { MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatSnackBarModule } from 'vendor/material';
 
 import { NgModule } from '@angular/core';
 import { DeclarationService } from 'app/declaration-form/shared/declaration.service';

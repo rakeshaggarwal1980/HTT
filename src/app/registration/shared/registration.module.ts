@@ -10,10 +10,8 @@ import { RegistrationService } from 'app/registration/shared/registration.servic
 import { SharedModule } from 'app/shared/shared.module';
 import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@Angular/material/select';
-import {
-  MatProgressSpinnerModule
-} from 'vendor/material';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
                                                     
 
 @NgModule({

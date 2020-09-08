@@ -4,6 +4,7 @@ import { RequestListService } from '../request-list.service';
 import { UtilityService } from 'app/shared/services/utility.service';
 import { isNullOrUndefined } from 'util';
 import { HR_ACTIONS, EMPLOYEE_ACTIONS, SECURITY_ACTIONS } from 'app/app.enum';
+import { SpinnerService, ErrorService } from 'app/shared/index.shared';
 
 @Component({
     selector: 'evry-view-request',
@@ -13,9 +14,9 @@ import { HR_ACTIONS, EMPLOYEE_ACTIONS, SECURITY_ACTIONS } from 'app/app.enum';
 export class ViewRequestDialogComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<ViewRequestDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        public requestListService: RequestListService, private utilityService: UtilityService) { }
+        public requestListService: RequestListService,private utilityService: UtilityService,public spinnerService: SpinnerService,
+        public errorService: ErrorService) { }
     ngOnInit() {
-        console.log(this.data);
     }
 
 
@@ -63,16 +64,19 @@ export class ViewRequestDialogComponent implements OnInit {
     }
 
     updateRequest(request) {
+        this.spinnerService.startRequest();
         this.requestListService.updateRequest(request).subscribe(data => {
-            if (data !== null && data.StatusCode === 200) {
-                // request updated
+            this.spinnerService.endRequest();
+            if (data !== null && data.statusCode === 200) {
                 this.dialogRef.close(true);
             } else {
-                // error occured
                 this.dialogRef.close(false);
+                this.errorService.handleFailure(data.statusCode);
             }
         }, error => {
+            this.spinnerService.endRequest();
             this.dialogRef.close(false);
+            this.errorService.handleError(error);
         });
     }
 }
