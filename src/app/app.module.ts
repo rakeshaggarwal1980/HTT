@@ -11,8 +11,10 @@ import { ErrorModule } from 'app/error/index.error';
 import { ServiceModule } from 'app/shared/services/service.module';
 import { LoginModule } from 'app/login/shared/login.module';
 import { RequestModule } from 'app/request/shared/request.module';
+import { ForgotPasswordModule } from 'app/forgot-password/shared/forgot-password.module';
+import { ThankYouModule } from 'app/thank-you/shared/thank-you.module';
 import { DeclarationListModule } from 'app/declaration-list/shared/declaration-list.module';
-// import { DeclarationListModule } from 'app/declaration-list/shared/declaration-list.module';
+import { ChangePasswordModule } from 'app/change-password/shared/change-password.module';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
 import { MatMenuModule, MatMenu } from '@angular/material/menu';
 // translation
@@ -48,6 +50,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     UserListModule,
     DeclarationListModule,
+    ForgotPasswordModule,
+    ThankYouModule,
+    ChangePasswordModule,
     // NavigationDestinationModule,
     // TableModule,
     ServiceModule,

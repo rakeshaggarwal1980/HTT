@@ -271,6 +271,7 @@ export class DeclarationFormComponent implements OnInit {
           // this.setLocalUserProfileData(data);
           //  this.dialog.closeAll();
           if (!isNullOrUndefined(data.body)) {
+            data.body = data.body[0];
             this.declarationForm.patchValue({
               id: 0,
               name: data.body.employee.name,

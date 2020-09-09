@@ -36,7 +36,6 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
   submissionDate: any;
   keyupSub: Subscription;
   @ViewChild('search') inputElRef: ElementRef;
-  toppings = new FormControl();
   categories: any[] = [{ id: 'employeeid', value: 'Employee Id' }, { id: 'employeename', value: 'Employee Name' }, { id: 'date', value: 'Declaration Date' }];
   pageInfo: any = {
     CurrentPage: 1, PageSize: 10, TotalCount: 0, TotalPages: 0

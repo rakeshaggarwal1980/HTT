@@ -241,4 +241,18 @@ export class ApiClientService {
         return this.sendRequest('/api/health/declarationList', HTTP_REQUEST_TYPE.GET, null, queryParameters);
     }
 
+
+    /**
+ *
+ * @method
+ * @name 
+ * @param {AcountViewModel} acountViewModel - object of data i.e. email.
+ *
+ */
+
+    public Account_ForgotPassword(acountViewModel: any): Observable<any> {
+
+        return this.sendRequest('/api/account/forgotpassword', HTTP_REQUEST_TYPE.POST, JSON.stringify(acountViewModel), null);
+    }
+
 }
