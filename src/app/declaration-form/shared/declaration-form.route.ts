@@ -10,6 +10,11 @@ const DECLARATION_FORM_ROUTES: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+    path: 'declaration',
+    component: DeclarationFormComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
     path: 'declaration/:requestNumber/:employeeId',
     component: DeclarationFormComponent,
     canActivate: [AuthGuardService]

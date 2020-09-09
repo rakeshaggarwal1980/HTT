@@ -5,6 +5,7 @@ import {
 import { isNullOrUndefined } from 'util';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
+import { EMPLOYEE_ACTIONS, HR_ACTIONS, SECURITY_ACTIONS } from 'app/app.enum';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SORT_DIRECTION } from 'app/app.enum';
@@ -96,6 +97,38 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
   onSortClick(column) {
     this.sortColumn = column;
     this.setSortDirectionStatus(column);
+  }
+
+  isAuthenticated(Action: any): boolean {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (!isNullOrUndefined(user) && user !== '') {
+      if (!isNullOrUndefined(user.role)) {
+        if (user.role.id == 1) {
+          if (Object.values(HR_ACTIONS).includes(Action)) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+        if (user.role.id == 2) {
+          if (Object.values(SECURITY_ACTIONS).includes(Action)) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+        if (user.role.id == 3) {
+          if (Object.values(EMPLOYEE_ACTIONS).includes(Action)) {
+            return true;
+          }
+          else {
+            return false;
+          }
+        }
+      }
+    }
   }
 
   setSortDirectionStatus(propName) {

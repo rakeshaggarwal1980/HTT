@@ -11,26 +11,26 @@
                     <button mat-menu-item [matMenuTriggerFor]="request">Requests</button>
                     <button mat-menu-item [matMenuTriggerFor]="declaration">Declarations</button>
                     <button mat-menu-item *ngIf="isAuthenticated('ViewUsers')">
-                        <a [routerLink]="['/users']" style="color: white;">Users</a>
+                        <a [routerLink]="['users']" style="color: white;">Users</a>
                     </button>
                     <mat-menu #request="matMenu">
                         <button mat-menu-item *ngIf="isAuthenticated('EmployeeRequests')">
-                            <a [routerLink]="['/requests']" style="color: white;">All Requests</a>
+                            <a [routerLink]="['requests']" style="color: white;">All Requests</a>
                         </button>
                         <button mat-menu-item>
-                            <a [routerLink]="['/myrequests']" style="color: white;">My Requests</a>
+                            <a [routerLink]="['myrequests']" style="color: white;">My Requests</a>
                         </button>
                         <button mat-menu-item>
-                            <a [routerLink]="['/request']" style="color: white;">New Request</a>
+                            <a [routerLink]="['request']" style="color: white;">New Request</a>
                         </button>
                     </mat-menu>
 
                     <mat-menu #declaration="matMenu">
                         <button mat-menu-item *ngIf="isAuthenticated('ViewDeclarations')">
-                            <a [routerLink]="['/declarations']" style="color: white;">All</a>
+                            <a [routerLink]="['declarations']" style="color: white;">All</a>
                         </button>
                         <button mat-menu-item>
-                            <a [routerLink]="['/users']" style="color: white;">New Declaration</a>
+                            <a [routerLink]="['declaration']" style="color: white;">New Declaration</a>
                         </button>
                     </mat-menu>
                 </mat-menu>
