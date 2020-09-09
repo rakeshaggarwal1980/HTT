@@ -16,7 +16,7 @@ import { DeclarationListService } from 'app/declaration-list/shared/declaration-
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@Angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
