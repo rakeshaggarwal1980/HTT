@@ -12,6 +12,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/Subscription';
+import { ActivatedRoute, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class ForgotPasswordComponent implements OnInit {
   isGetting: boolean = false;
   forgotPassword = { email: '' };
   valid: boolean = false;
-  constructor(private forgotPasswordService: ForgotPasswordService, private router: Router, private snackBarService: SnackBarService) {
+  constructor(private forgotPasswordService: ForgotPasswordService, private route: ActivatedRoute,
+    private router: Router, private snackBarService: SnackBarService) {
+    this.routeEvent(this.router);
   }
 
   ngOnInit() {
@@ -33,6 +36,13 @@ export class ForgotPasswordComponent implements OnInit {
 
   }
 
+  routeEvent(router: Router) {
+    router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        console.log(e)
+      }
+    });
+  }
   onSendClick(model: any) {
     if (model.valid) {
       this.isGetting = true;

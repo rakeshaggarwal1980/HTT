@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthGuardService } from 'app/shared/guards/auth.guard.service';
 import { PagerComponent } from 'app/shared/pager/pager.component';
+import { CheckPasswordDirective } from 'app/shared/utility/check-password.directive';
 
 
 @NgModule({
@@ -22,14 +23,16 @@ import { PagerComponent } from 'app/shared/pager/pager.component';
   ],
   declarations: [
     SpinnerDirective,
-    PagerComponent
+    PagerComponent,
+    CheckPasswordDirective
   ],
   exports: [
     HttpClientModule,
     CommonModule,
     RouterModule,
     SpinnerDirective,
-    PagerComponent
+    PagerComponent,
+    CheckPasswordDirective
   ],
   providers: [
     SpinnerService,

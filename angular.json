@@ -30,7 +30,8 @@
               "lodash",
               "xlsx",
               "file-saver",
-              "rxjs"
+              "rxjs",
+              "bootstrap"
            ]
           },
           "configurations": {

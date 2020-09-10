@@ -9,23 +9,12 @@ export class ChangePasswordService {
     constructor(private apiClientService: ApiClientService) {
     }
 
-    // createRequest(request: any) {
-    //     const requestModel = {
-    //         id: 0,
-    //         requestNumber: request.requestNumber,
-    //         employeeCode: Number(request.employeeCode),
-    //         dateOfRequest: request.dateOfRequest,
-    //         isApproved: false,
-    //         isDeclined: false,
-    //         employeeId: Number(request.employeeId),
-    //         hrComments:''
-    //     }
+    changePassword(model: any) {
+        console.log('final reset password request');
+        console.log(model);
 
-    //     console.log('final request');
-    //     console.log(requestModel);
-
-    //     return this.apiClientService.Request_CreateRequest(requestModel);
-    // }
+        return this.apiClientService.Account_ResetPassword(model);
+    }
 }
 
 

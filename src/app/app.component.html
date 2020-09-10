@@ -2,7 +2,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-
                 <button [hidden]="location.path()=='/register'" mat-icon-button [matMenuTriggerFor]="menu"
                     aria-label="Example icon-button with a menu">
                     <mat-icon>menu</mat-icon>
@@ -12,6 +11,9 @@
                     <button mat-menu-item [matMenuTriggerFor]="declaration">Declarations</button>
                     <button mat-menu-item *ngIf="isAuthenticated('ViewUsers')">
                         <a [routerLink]="['users']" style="color: white;">Users</a>
+                    </button>
+                    <button mat-menu-item>
+                        <a [routerLink]="['changepassword']" style="color: white;">Change Passwoord</a>
                     </button>
                     <mat-menu #request="matMenu">
                         <button mat-menu-item *ngIf="isAuthenticated('EmployeeRequests')">
@@ -35,7 +37,7 @@
                     </mat-menu>
                 </mat-menu>
 
-                <a href="javascript:void(0)" class="logo-link"><img src="../assets/images/logo.png" alt="TietoEVRY"
+                <a [routerLink]="['']" class="logo-link"><img src="../assets/images/logo.png" alt="TietoEVRY"
                         title="TietoEVRY"></a>
 
             </div>
@@ -60,13 +62,10 @@
 
     </div>
 </header>
-<section class="middle-inner" *ngIf="location.path()!=''">
-    <router-outlet></router-outlet>
+<section [class]="{'middle-inner': location.path()!==''}">
+<router-outlet></router-outlet>
 </section>
 
-<div *ngIf="location.path()==''">
-    <router-outlet></router-outlet>
-</div>
 <footer class="mt-5" *ngIf="location.path()!=''">
     <div class="container">
         <div class="row">

@@ -10,13 +10,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
-import { FormsModule } from 'vendor/angular';
+import { FormsModule, RouterModule } from 'vendor/angular';
 import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import {
   MatProgressSpinnerModule
 } from '@angular/material/progress-spinner';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
+
 @NgModule({
   imports: [
     TranslateModule,
@@ -31,7 +32,7 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/m
     MatProgressSpinnerModule
 
   ],
-  exports: [MatInputModule, MatFormFieldModule, MatNativeDateModule, MatMomentDateModule, MatDatepickerModule],
+  exports: [],
   declarations: [
     ForgotPasswordComponent
   ],

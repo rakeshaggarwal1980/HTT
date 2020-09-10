@@ -3,7 +3,7 @@
  */
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from 'app/login/index.login';
-
+import { NgModule } from '@angular/core';
 
 const APP_ROUTES: Routes = [
   {
@@ -20,6 +20,13 @@ const APP_ROUTES: Routes = [
   },
 
 ];
+
+
+// @NgModule({
+//   imports: [RouterModule.forRoot(APP_ROUTES)],
+//   exports: [RouterModule]
+// })
+// export class AppRouterModule { }
 
 export let AppRouterModule = RouterModule.forRoot(APP_ROUTES, { useHash: true });
 

@@ -255,4 +255,17 @@ export class ApiClientService {
         return this.sendRequest('/api/account/forgotpassword', HTTP_REQUEST_TYPE.POST, JSON.stringify(acountViewModel), null);
     }
 
+    /**
+*
+* @method
+* @name 
+* @param {ResetPasswordViewModel} resetPasswordViewModel - object of data i.e. email, password etc.
+*
+*/
+
+    public Account_ResetPassword(resetPasswordViewModel: any): Observable<any> {
+
+        return this.sendRequest('/api/account/resetpassword', HTTP_REQUEST_TYPE.POST, JSON.stringify(resetPasswordViewModel), null);
+    }
+
 }
