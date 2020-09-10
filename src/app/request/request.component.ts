@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequestService } from 'app/request/shared/request.service';
 import { isNullOrUndefined } from 'util';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
+import { MatInput } from '@angular/material/input';
 import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
 
 
@@ -25,6 +26,13 @@ export class RequestComponent implements OnInit {
     }
   };
 
+  @ViewChild('fromInput', {
+    read: MatInput
+  }) fromInput: MatInput;
+
+  @ViewChild('toInput', {
+    read: MatInput
+  }) toInput: MatInput;
 
   constructor(private requestService: RequestService, private snackBarService: SnackBarService) {
   }
@@ -66,8 +74,6 @@ export class RequestComponent implements OnInit {
   }
 
   onRequestClick(requestForm: any) {
-    console.log('this is request');
-    console.log(this.request);
     if (requestForm.valid) {
       if (this.isControlValid('fromdate') && this.isControlValid('todate')) {
 
@@ -78,43 +84,34 @@ export class RequestComponent implements OnInit {
         this.request.employee.employeeCode = this.request.employeeCode;
 
         this.request.fromDate = moment(this.request.fromDate).format();
-        
+
         this.request.toDate = moment(this.request.toDate).format();
         this.request.employeeId = user.userId;
         this.request.employee.id = user.userId;
         this.request.employee.email = user.email;
         this.request.employee.password = '123456';
-
         this.requestService.createRequest(this.request).subscribe(
           data => {
-            console.log('this is request data response');
-            console.log(data);
             this.isGetting = false;
             if (!isNullOrUndefined(data)) {
-              // this.setLocalUserProfileData(data);
-              //  this.dialog.closeAll();
-              console.log('request data not null');
-              //  this.navigateToURL();
-              console.log(data);
               if (isNullOrUndefined(data.body)) {
                 this.snackBarService.showError(data.message);
               } else {
                 this.snackBarService.showSuccess('Request has been submitted to the designated authority!');
-                requestForm.requestForm();
+                requestForm.resetForm();
+                this.fromInput.value = '';
+                this.toInput.value = '';
               }
             } else {
               this.isGetting = false;
               this.snackBarService.showError('Error');
-              //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
             }
           },
           err => {
-            //// this.isGetting = false;
-            if (err.status === 401) {
+            if (err.status > 300) {
               console.log('error');
               this.isGetting = false;
               this.snackBarService.showError('Error');
-              // this.messageKey = 'landingPage.menu.login.invalidCredentials';
             }
           }
         );

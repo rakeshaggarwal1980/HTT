@@ -13,6 +13,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from 'vendor/angular';
 import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
 import { MatNativeDateModule } from '@angular/material/core';
+import {
+  MatProgressSpinnerModule
+} from '@angular/material/progress-spinner';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 @NgModule({
   imports: [
@@ -24,14 +27,15 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/m
     MatMomentDateModule,
     MatDatepickerModule,
     RequestRouterModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule
 
   ],
-  exports: [MatInputModule,MatFormFieldModule, MatNativeDateModule, MatMomentDateModule, MatDatepickerModule],
+  exports: [MatInputModule, MatFormFieldModule, MatNativeDateModule, MatMomentDateModule, MatDatepickerModule],
   declarations: [
     RequestComponent
   ],
-  providers: [RequestService,SnackBarService,{provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}],
+  providers: [RequestService, SnackBarService, { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }],
 })
 export class RequestModule {
 }

@@ -14,11 +14,12 @@ export class RequestService {
             id: 0,
             requestNumber: request.requestNumber,
             employeeCode: Number(request.employeeCode),
-            dateOfRequest: request.dateOfRequest,
+            fromDate: request.fromDate,
+            toDate: request.toDate,
             isApproved: false,
             isDeclined: false,
             employeeId: Number(request.employeeId),
-            hrComments:''
+            hrComments: ''
         }
 
         console.log('final request');

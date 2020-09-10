@@ -33,7 +33,7 @@
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
             <mat-form-field appearance="fill" id="fromDatePicker">
               <mat-label></mat-label>
-              <input  matInput [matDatepicker]="fromPicker"
+              <input  matInput #fromInput [matDatepicker]="fromPicker"
                      (dateInput)="addEvent('fromDate','input', $event)" (dateChange)="addEvent('fromDate','change', $event)">
               <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
               <mat-datepicker #fromPicker></mat-datepicker>
@@ -49,7 +49,7 @@
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
             <mat-form-field appearance="fill" id="toDatePicker">
               <mat-label></mat-label>
-              <input  matInput [matDatepicker]="toPicker"
+              <input  matInput #toInput [matDatepicker]="toPicker"
                      (dateInput)="addEvent('toDate','input', $event)" (dateChange)="addEvent('toDate','change', $event)">
               <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
               <mat-datepicker #toPicker></mat-datepicker>
@@ -61,8 +61,8 @@
     <div class="row mt-5">
       <div class="col-12 text-right">
         <button id="registration" type="submit" (click)="onRequestClick(requestForm)" class="btn-primary login-btn" translate>
-          <!-- <mat-progress-spinner diameter="20" *ngIf="isGetting" class=""  mode="indeterminate" value="50">
-          </mat-progress-spinner> -->
+          <mat-progress-spinner diameter="20" *ngIf="isGetting" class="spinner"  mode="indeterminate" value="50">
+          </mat-progress-spinner>
           <span translate>Submit</span>
         </button>
         <!-- <a href="javascript:void(0)" class="btn-primary login-btn">Submit</a> -->

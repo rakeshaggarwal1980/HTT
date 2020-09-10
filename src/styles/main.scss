@@ -5,3 +5,8 @@ body{ font-family: 'Montserrat', sans-serif; background: #efefef;}
 .login-bg{ 
     background:url(../assets/images/login.jpg) no-repeat;
      background-size: cover;}
+
+     .mat-progress-spinner circle, .mat-spinner circle
+{
+	stroke: white !important;
+}
