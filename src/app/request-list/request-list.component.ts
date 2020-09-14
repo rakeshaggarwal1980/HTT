@@ -31,9 +31,6 @@ export class RequestListComponent implements OnInit {
     } else {
       this.getAllRequestsByUserId();
     }
-
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.remove('login-bg');
   }
 
   getAllRequests() {

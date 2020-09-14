@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from 'app/login/shared/login.service';
 import { isNullOrUndefined } from 'util';
 import { Router } from 'vendor/angular';
@@ -11,7 +11,7 @@ import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/inde
   templateUrl: 'login.component.html',
   styleUrls: ['./shared/login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginDetails: any = { email: '', password: '' };
   isGetting: boolean = false;
 
@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('login-bg');
+  }
+  ngOnDestroy(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('login-bg');
   }
 
   onLoginClick(formData: any) {
@@ -40,13 +44,13 @@ export class LoginComponent implements OnInit {
           this.isGetting = false;
           if (!isNullOrUndefined(data)) {
             if (!isNullOrUndefined(data.body)) {
-             
+
                 localStorage.setItem('auth_token', data.body.token);
                 console.log('this is user');
                 console.log(data.body);
                 localStorage.setItem('user', JSON.stringify(data.body));
                 this.router.navigate(['request']);
-             
+
             }
             else {
               this.snackBarService.showError("Invalid credentials!!");

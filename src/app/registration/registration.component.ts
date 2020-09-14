@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationService } from 'app/registration/shared/registration.service';
-import { Registration } from './shared/registration.model';
-import { isNullOrUndefined } from 'util';
-import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
+import { SnackBarService } from 'app/shared/index.shared';
 import { Router, FormGroup, FormBuilder, Validators } from 'vendor/angular';
+import { CommonService } from '../shared/services/common.service';
 
 
 @Component({
@@ -20,13 +19,12 @@ export class RegistrationComponent implements OnInit {
   roles: any[] = [];
 
   constructor(private registrationService: RegistrationService, private router: Router,
-    private snackBarService: SnackBarService, private fb: FormBuilder) {
+    private snackBarService: SnackBarService, private fb: FormBuilder,
+    private commonService: CommonService) {
   }
 
   ngOnInit() {
     this.generateForm();
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.remove('login-bg');
     this.getRoles();
 
   }
@@ -43,20 +41,16 @@ export class RegistrationComponent implements OnInit {
 
 
   getRoles() {
-    this.registrationService.getRoles().subscribe(
+    this.commonService.getRoles().subscribe(
       data => {
-        if (!isNullOrUndefined(data)) {
+        if (data !== null && data !== undefined) {
           if (data.body.length > 0) {
             this.roles = data.body;
-            console.log('these are roles');
-            console.log(this.roles);
-
           }
         } else {
         }
       },
       err => {
-        //// this.isGetting = false;
         if (err.status === 401) {
           console.log('error');
         }
@@ -82,9 +76,9 @@ export class RegistrationComponent implements OnInit {
         data => {
 
           this.isGetting = false;
-          if (!isNullOrUndefined(data)) {
+          if (data!==null && data!==undefined) {
 
-            if (!isNullOrUndefined(data.body)) {
+            if (data.body!==null && data.body!==undefined) {
               this.snackBarService.showSuccess('You have been registered successfully! Your account will be activated by Administrator shortly.');
               this.router.navigate(['']);
 

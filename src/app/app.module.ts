@@ -15,8 +15,8 @@ import { ForgotPasswordModule } from 'app/forgot-password/shared/forgot-password
 import { ThankYouModule } from 'app/thank-you/shared/thank-you.module';
 import { DeclarationListModule } from 'app/declaration-list/shared/declaration-list.module';
 import { ChangePasswordModule } from 'app/change-password/shared/change-password.module';
-import { MatIconModule, MatIcon } from '@angular/material/icon';
-import { MatMenuModule, MatMenu } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 // translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
