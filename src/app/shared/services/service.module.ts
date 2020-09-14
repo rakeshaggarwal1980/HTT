@@ -5,6 +5,7 @@ import { UtilityService } from './utility.service';
 import { ApiClientService } from 'app/shared/services/api-client.service';
 import { ErrorService } from 'app/shared/services/error.service';
 import { ExportService } from 'app/shared/services/export.service';
+import { CommonService } from './common.service';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ExportService } from 'app/shared/services/export.service';
   exports: [],
   providers: [
     ApiClientService,
+    CommonService,
     UtilityService,
     ErrorService,
     ExportService

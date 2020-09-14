@@ -8,8 +8,9 @@ import { UserListComponent } from 'app/user-list/user-list.component';
 import { UserListRouterModule } from 'app/user-list/shared/user-list.route';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { UserListService } from 'app/user-list/shared/user.service';
+import { UserService } from 'app/user-list/shared/user.service';
 import { UserDetailDialogComponent } from './user-detail-dialog/user-detail-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -19,14 +20,15 @@ import { UserDetailDialogComponent } from './user-detail-dialog/user-detail-dial
     TranslateModule,
     SharedModule,
     MatDialogModule,
-    UserListRouterModule
+    UserListRouterModule,
+    MatIconModule
   ],
   exports: [],
   declarations: [
     UserDetailDialogComponent,
     UserListComponent
   ],
-  providers: [UserListService],
+  providers: [UserService],
   entryComponents: [UserDetailDialogComponent]
 })
 export class UserListModule {

@@ -22,9 +22,4 @@ export class RegistrationService {
         };
         return this.apiClientService.Employee_Employee(employeeModel);
     }
-
-    getRoles() {
-        return this.apiClientService.Role_Roles();
-    }
-
 }

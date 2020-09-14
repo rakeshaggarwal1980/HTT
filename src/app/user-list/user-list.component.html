@@ -1,36 +1,42 @@
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-bordered table-custom">
-                <tr>
-                    <th>Name</th>
-                    <th>Employee Code</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                <tr *ngFor="let employee of employees|async">
-                    <td>{{employee.name}}</td>
-                    <td> {{employee.employeeCode}} </td>
-                    <td>{{employee.email}}</td>
-                    <td>
-                        <span *ngIf="employee.roleId==3">Employee</span>
-                        <span *ngIf="employee.roleId==2">Security Manager</span>
-                        <span *ngIf="employee.roleId==1">HR Manager</span>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered table-custom">
+        <tr>
+          <th>Employee Code</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let employee of employees$|async">
+          <td> {{employee.employeeCode}} </td>
+          <td>{{employee.name}}</td>
+          <td>{{employee.email}}</td>
+          <td>
+            <ng-container *ngIf="employee.roles.length>0">
+              <ul>
+                <li *ngFor="let role of employee.roles">{{role.roleName}}</li>
+              </ul>
 
-                    </td>
-                    <td>
-                        <span *ngIf="employee.status==4" class="green">Accepted</span>
-                        <span *ngIf="employee.status==5" class="not-set">Declined</span>
-                        <span *ngIf="employee.status==0" class="not-set">Waiting for Approval</span>
+            </ng-container>
+          </td>
+          <td>
+            <span *ngIf="employee.status==4" class="green">Confirmed</span>
+            <span *ngIf="employee.status==5" class="not-set">Rejected</span>
+            <span *ngIf="employee.status==0" class="not-set">Pending</span>
 
-                    </td>
-                    <td> <a href="javascript:void(0)" (click)="viewUser(employee)" class="btn-primary action-btn">View
-                            User</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
+          </td>
+          <td> <a href="javascript:void(0)" title="View Detail" (click)="viewUser(employee)" >
+            <mat-icon>edit</mat-icon>
+          </a>
+              <a href="javascript:void(0)" title="Delete" (click)="deleteEmployee(employee.id)">
+                <mat-icon>delete</mat-icon>
+              </a>
+          </td>
+        </tr>
+      </table>
     </div>
+  </div>
 </div>

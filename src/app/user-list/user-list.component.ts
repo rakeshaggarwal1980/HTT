@@ -2,11 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { isNullOrUndefined } from 'util';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { UserListService } from 'app/user-list/shared/user.service';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { UserService } from 'app/user-list/shared/user.service';
 import { SpinnerService, ErrorService, SnackBarService } from '../shared/index.shared';
 import { RESPONSE_STATUS_ENUM } from '../app.enum';
 import { UserDetailDialogComponent } from './shared/user-detail-dialog/user-detail-dialog.component';
+import { CommonService } from '../shared/services/common.service';
 
 @Component({
   selector: 'evry-user-list',
@@ -14,59 +15,63 @@ import { UserDetailDialogComponent } from './shared/user-detail-dialog/user-deta
   styleUrls: ['./shared/user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  employees: Observable<any[]>;
+
+  employees$: BehaviorSubject<any[]> = new BehaviorSubject([]);
   userObj = null;
   viewUserDialogRef: MatDialogRef<UserDetailDialogComponent> = null;
-  constructor(public dialog: MatDialog, private userListService: UserListService, private router: Router,
-    private spinnerService: SpinnerService, private errorService: ErrorService, private snackbarService: SnackBarService) {
+  allRoles: any[] = [];
+  constructor(public dialog: MatDialog, private userService: UserService, private router: Router,
+    private spinnerService: SpinnerService, private errorService: ErrorService,
+    private snackbarService: SnackBarService, private commonService: CommonService) {
   }
 
   ngOnInit() {
+    this.getRoles();
     this.getAllEmployees();
   }
 
-  getAllEmployees() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    if (!isNullOrUndefined(user) && user !== '') {
-      this.userListService.getAllEmployees().subscribe(
-        data => {
-          if (!isNullOrUndefined(data)) {
-            if (data.body.length > 0) {
-              this.employees = of(data.body);
-              console.log('these are employees');
-              console.log(this.employees);
-
-            }
-          } else {
-          }
-        },
-        err => {
-          //// this.isGetting = false;
-          if (err.status === 401) {
-            console.log('error');
-          }
-        }
-      );
-    }
-
-  }
-
-  getUserDetail() {
+  getRoles() {
     this.spinnerService.startRequest();
-    this.userListService.getUserDetail(1014).subscribe(data => {
-      this.spinnerService.endRequest();
-      if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
-        this.userObj = data.body;
-      } else {
-        this.errorService.handleFailure(data.statusCode);
+    this.commonService.getRoles().subscribe(
+      (data) => {
+        this.spinnerService.endRequest();
+        if (data !== null && data !== undefined) {
+          if (data.body.length > 0) {
+            this.allRoles = data.body;
+          }
+        } else {
+          this.errorService.handleFailure(data.statusCode);
+        }
+      },
+      (err) => {
+        this.spinnerService.endRequest();
+        this.errorService.handleError(err);
       }
-    }, error => {
-      this.spinnerService.endRequest();
-      this.errorService.handleError(error);
-    });
+    );
+
+
   }
 
-  // call this method on table row view icon click
+  getAllEmployees() {
+    this.spinnerService.startRequest();
+    this.userService.getAllEmployees().subscribe(
+      (data) => {
+        this.spinnerService.endRequest();
+        if (data !== null && data !== undefined) {
+          if (data.body.length > 0) {
+            this.employees$.next(data.body);
+          }
+        } else {
+          this.errorService.handleFailure(data.statusCode);
+        }
+      },
+      (err) => {
+        this.spinnerService.endRequest();
+        this.errorService.handleError(err);
+      }
+    );
+  }
+
   viewUser(userObj) {
     this.dialog.closeAll();
     this.viewUserDialogRef = this.dialog.open(UserDetailDialogComponent, {
@@ -74,7 +79,7 @@ export class UserListComponent implements OnInit {
       height: '518px',
       disableClose: false,
       panelClass: 'success-box',
-      data: { user: userObj }
+      data: { user: userObj, allRoles: this.allRoles }
     });
     this.viewUserDialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -85,5 +90,24 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  deleteEmployee(employeeId) {
+    this.spinnerService.startRequest();
+    this.userService.deleteEmployee(employeeId).subscribe((data) => {
+      this.spinnerService.endRequest();
+      if (data !== null && data !== undefined) {
+        if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
+          this.snackbarService.showSuccess('Employee deleted successfully.');
+          this.getAllEmployees();
+        }
+      } else {
+        this.errorService.handleFailure(data.statusCode);
+      }
+    },
+      (err) => {
+        this.spinnerService.endRequest();
+        this.errorService.handleError(err);
+      }
+    );
+  }
 
 }

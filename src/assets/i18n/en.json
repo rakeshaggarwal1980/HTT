@@ -13,7 +13,7 @@
     "back": "Back",
     "form": "Form with validation",
     "table": "Responsive table",
-    "login" : "Login - using Firebase Auth (demo)"
+    "login": "Login - using Firebase Auth (demo)"
   },
   "login": {
     "welcome": "Login Screen"
@@ -94,5 +94,22 @@
     "button": {
       "example": "Button"
     }
+  },
+  "error": {
+    "404Header": "40",
+    "404Broken": "4",
+    "404Body": "This page cannot be found!",
+    "back": "Back to safe ground",
+    "401Header": "401 Unauthorized",
+    "401Body": "You are not authorized to see this page. Session has most likely expired.",
+    "401Login": "Login",
+    "requestError401": "You are not authorized",
+    "requestError404": "Requested service is not available",
+    "requestError504": "Backend is not available",
+    "requestError500": "There is some issue with the backend service",
+    "requestError510": "Unable to find specific terms",
+    "requestError511": "Error occured while reading configuration file",
+    "requestError403": "This action is forbidden",
+
   }
 }

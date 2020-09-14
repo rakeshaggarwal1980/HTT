@@ -4,7 +4,7 @@ import { ApiClientService } from 'app/shared/services/api-client.service';
 import { of } from 'rxjs';
 
 @Injectable()
-export class UserListService {
+export class UserService {
 
   constructor(private apiClientService: ApiClientService) {
   }
@@ -18,6 +18,14 @@ export class UserListService {
   }
   getAllEmployees() {
     return this.apiClientService.Employee_Employees();
+  }
+
+  updateEmployee(employee){
+   return this.apiClientService.Employee_UpdateEmployee(employee);
+  }
+
+  deleteEmployee(employeeId){
+    return this.apiClientService.Employee_DeleteEmployee(employeeId);
   }
 
 }
