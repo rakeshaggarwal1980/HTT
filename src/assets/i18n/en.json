@@ -109,7 +109,6 @@
     "requestError500": "There is some issue with the backend service",
     "requestError510": "Unable to find specific terms",
     "requestError511": "Error occured while reading configuration file",
-    "requestError403": "This action is forbidden",
-
+    "requestError403": "This action is forbidden"
   }
 }

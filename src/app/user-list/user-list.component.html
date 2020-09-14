@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-12">
       <table class="table table-bordered table-custom">
+        <thead>
         <tr>
           <th>Employee Code</th>
           <th>Name</th>
@@ -10,6 +11,8 @@
           <th>Status</th>
           <th>Action</th>
         </tr>
+        </thead>
+        <tbody>
         <tr *ngFor="let employee of employees$|async">
           <td> {{employee.employeeCode}} </td>
           <td>{{employee.name}}</td>
@@ -36,6 +39,7 @@
               </a>
           </td>
         </tr>
+        </tbody>
       </table>
     </div>
   </div>
