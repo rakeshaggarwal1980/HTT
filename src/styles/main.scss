@@ -1,12 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+  font-family: "Montserrat", sans-serif;
+  background: #efefef;
+}
+.login-bg {
+  background: url(../assets/images/login.jpg) no-repeat;
+  background-size: cover;
+}
 
-body{ font-family: 'Montserrat', sans-serif; background: #efefef;}
-.login-bg{ 
-    background:url(../assets/images/login.jpg) no-repeat;
-     background-size: cover;}
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: white !important;
+}
 
-     .mat-progress-spinner circle, .mat-spinner circle
-{
-	stroke: white !important;
+
+.table {
+  width: 100%;
+  font-size: 12px;
+  margin-bottom: 1rem;
+  color: #212529;
+
+  thead {
+    min-height: 50px;
+    border-radius: 5px;
+    display: table-header-group;
+    tr {
+      th {
+        font-size: 13px;
+        border: none !important;
+        min-width: 50px;
+        color: #404040 !important;
+        background: none repeat scroll 0 0 #d6d6d6 !important;
+        font-weight: bold;
+      }
+    }
+  }
+
+  tbody {
+    background: #fff;
+    color: #636466;
+    border: none;
+    tr {
+      &:nth-child(even){
+        background-color: #f7f7f7;
+      }
+      td {
+        border-bottom: solid 1px #e7e7e7 !important;
+        color: #494949 !important;
+        padding: 10px;
+        border: none;
+      }
+    }
+  }
 }
