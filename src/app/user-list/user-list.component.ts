@@ -22,16 +22,7 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.getAllEmployees();
-
-
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.remove('login-bg');
-
-
-    // remove this function when list binding is done
-    this.getUserDetail();
   }
 
   getAllEmployees() {

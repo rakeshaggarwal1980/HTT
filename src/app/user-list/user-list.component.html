@@ -3,7 +3,6 @@
         <div class="col-12">
             <table class="table table-bordered table-custom">
                 <tr>
-                    <th>Employee #</th>
                     <th>Name</th>
                     <th>Employee Code</th>
                     <th>Email</th>
@@ -12,7 +11,6 @@
                     <th>Action</th>
                 </tr>
                 <tr *ngFor="let employee of employees|async">
-                    <td>{{employee.id}}</td>
                     <td>{{employee.name}}</td>
                     <td> {{employee.employeeCode}} </td>
                     <td>{{employee.email}}</td>
