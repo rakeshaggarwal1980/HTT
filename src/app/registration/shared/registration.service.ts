@@ -18,13 +18,9 @@ export class RegistrationService {
             employeeCode: Number(registration.employeeCode),
             password: registration.password,
             status: EntityStatus.Active,
-            roleId: Number(registration.roleId)
+            currentResidentialAddress:registration.currentResidentialAddress,
+            permanentResidentialAddress: registration.permanentResidentialAddress
         };
         return this.apiClientService.Employee_Employee(employeeModel);
     }
-
-    getRoles() {
-        return this.apiClientService.Role_Roles();
-    }
-
 }

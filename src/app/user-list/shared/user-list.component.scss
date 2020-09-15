@@ -25,13 +25,20 @@
   color: red;
   font-weight: bold;
 }
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
 
 .not-set {
   color: orange;
   font-weight: bold;
 }
 
-::ng-deep .cdk-overlay-container
-{
+::ng-deep .cdk-overlay-container {
   z-index: 9999 !important;
+}
+.mat-icon {
+  color: #063a54;
+  font-size: 20px;
 }

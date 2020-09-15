@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
 import { UtilityService } from 'app/shared/services/utility.service';
 import { HR_ACTIONS, SECURITY_ACTIONS, EMPLOYEE_ACTIONS } from 'app/app.enum';
-import { UserDetailDialogComponent } from './user-list/shared/user-detail-dialog/user-detail-dialog.component';
 
 
 @Component({

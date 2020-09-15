@@ -78,15 +78,6 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
       this.userId = user.userId;
     }
     this.getAllDeclarations();
-    // for (let i = 0; i <= 25; i++) {
-    //   this.customers.push({
-    //     firstName: `first${i}`, lastName: `last${i}`,
-    //     email: `abc${i}@gmail.com`, address: `000${i} street city, ST`, zipcode: `0000${i}`
-    //   });
-    // }
-
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.remove('login-bg');
   }
 
 

@@ -38,8 +38,6 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit() {
-    const body = document.getElementsByTagName('body')[0];
-    body.classList.remove('login-bg');
 
     let user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
