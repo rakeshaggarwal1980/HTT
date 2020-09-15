@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {
   MatProgressSpinnerModule
 } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/m
     MatDatepickerModule,
     RequestRouterModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
 
   ],
   exports: [MatInputModule, MatFormFieldModule, MatNativeDateModule, MatMomentDateModule, MatDatepickerModule],

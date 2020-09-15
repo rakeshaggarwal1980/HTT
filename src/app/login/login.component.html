@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12 text-center "><a href="javascript:void(0)"><img src="../../assets/images/footer-logo.png" class="mb-4"
-              alt="POC" title="POC"></a>
+              alt="POC" title="TietoEvry"></a>
           <h6 class="mt-4">Welcome to TietoEvry Survey</h6>
         </div>
         <form #loginForm="ngForm" action="" style="width: 100%;" novalidate>
@@ -15,14 +15,14 @@
           </div>
           <div class="col-12">
             <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><a href="javascript:void(0)" routerLink="/forgot-password">Forgot Password</a></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12"><a href="javascript:void(0)" title="Forgot Password" routerLink="/forgot-password">Forgot Password</a></div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right"> Don't have an account <a
-                  [routerLink]="['/register']">Sign up</a></div>
+                  [routerLink]="['/register']" title="Sign Up">Sign up</a></div>
             </div>
           </div>
 
           <div class="col-12 text-center mt-5">
-            <button id="login" type="submit" class="btn btn-primary" (click)="onLoginClick(loginForm)">
+            <button id="login" title="Login" type="submit" class="btn btn-primary" (click)="onLoginClick(loginForm)">
               Login
               <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading"  mode="indeterminate" value="50">
         </mat-progress-spinner>

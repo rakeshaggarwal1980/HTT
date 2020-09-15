@@ -4,7 +4,7 @@ import { Registration } from './shared/registration.model';
 import { isNullOrUndefined } from 'util';
 import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
 import { Router, FormGroup, FormBuilder, Validators } from 'vendor/angular';
-
+import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 
 @Component({
   selector: 'evry-registration',
@@ -20,7 +20,7 @@ export class RegistrationComponent implements OnInit {
   roles: any[] = [];
 
   constructor(private registrationService: RegistrationService, private router: Router,
-    private snackBarService: SnackBarService, private fb: FormBuilder) {
+    private snackBarService: SnackBarService, private fb: FormBuilder, private spinnerService: SpinnerService) {
   }
 
   ngOnInit() {
@@ -77,11 +77,13 @@ export class RegistrationComponent implements OnInit {
       //this.isGetting = true;
       localStorage.setItem('auth_token', '');
       this.isGetting = true;
+      this.spinnerService.startLoading();
       console.log(registrationForm.value);
       this.registrationService.createEmployee(registrationForm.value).subscribe(
         data => {
 
           this.isGetting = false;
+          this.spinnerService.stopLoading();
           if (!isNullOrUndefined(data)) {
 
             if (!isNullOrUndefined(data.body)) {
@@ -93,6 +95,7 @@ export class RegistrationComponent implements OnInit {
             }
           } else {
             this.isGetting = false;
+            this.spinnerService.stopLoading()
             this.snackBarService.showError('Error');
             //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
           }
@@ -102,6 +105,7 @@ export class RegistrationComponent implements OnInit {
           if (err.status === 401) {
             console.log('error');
             this.isGetting = false;
+            this.spinnerService.stopLoading();
             this.snackBarService.showError('Error');
             // this.messageKey = 'landingPage.menu.login.invalidCredentials';
           }

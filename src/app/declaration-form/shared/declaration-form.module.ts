@@ -10,6 +10,9 @@ import { MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatSnackBarMo
 import { NgModule } from '@angular/core';
 import { DeclarationService } from 'app/declaration-form/shared/declaration.service';
 import { FormsModule, ReactiveFormsModule } from 'vendor/angular';
+import {
+  MatProgressSpinnerModule
+} from '@angular/material/progress-spinner';
 import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
 
 
@@ -23,7 +26,8 @@ import { SnackBarService } from 'app/shared/snackbar/snackbar.service';
     MatDialogModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatProgressSpinnerModule
   ],
   exports: [],
   declarations: [

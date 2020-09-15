@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserListService } from '../user.service';
 import { EntityStatus } from 'app/app.enum';
-import { ErrorService, SpinnerService } from 'app/shared/index.shared';
+import { ErrorService } from 'app/shared/index.shared';
+import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 
 @Component({
     selector: 'evry-user-detail',
@@ -21,20 +22,20 @@ export class UserDetailDialogComponent implements OnInit {
     }
 
     takeAction(value) {
-        let status=0;
+        let status = 0;
         if (value === 1) {
             status = EntityStatus.Accept;
         } else if (value === 0) {
             status = EntityStatus.Deny;
         }
-       this.updateAccountStatus(this.data.user.id, status);  
-       this.dialogRef.close(true);
+        this.updateAccountStatus(this.data.user.id, status);
+        this.dialogRef.close(true);
     }
 
     updateAccountStatus(userId, status) {
-        this.spinnerService.startRequest();
+        this.spinnerService.startLoading();
         this.userService.updateAccountStatus(userId, status).subscribe(data => {
-            this.spinnerService.endRequest();
+            this.spinnerService.stopLoading();
             if (data !== null && data.statusCode === 200) {
                 this.dialogRef.close(true);
             } else {
@@ -42,7 +43,7 @@ export class UserDetailDialogComponent implements OnInit {
                 this.errorService.handleFailure(data.statusCode);
             }
         }, error => {
-            this.spinnerService.endRequest();
+            this.spinnerService.stopLoading();
             this.dialogRef.close(false);
             this.errorService.handleError(error);
         });

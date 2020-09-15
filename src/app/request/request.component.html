@@ -1,5 +1,11 @@
 <div class="container">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h3>Create Request</h3>
+    </div>
+  </div>
   <form action="" #requestForm="ngForm" novalidate>
+    <evry-spinner></evry-spinner>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
@@ -7,8 +13,9 @@
             Name
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="text" placeholder="" class="custom-input input-height" name="name" 
-            [(ngModel)]="request.employee.name" #name="ngModel" [ngClass]="{ 'error-field-highlighter': requestForm.submitted && name.invalid }" required>
+            <input type="text" placeholder="" class="custom-input input-height" name="name"
+              [(ngModel)]="request.employee.name" #name="ngModel"
+              [ngClass]="{ 'error-field-highlighter': requestForm.submitted && name.invalid }" required>
           </div>
         </div>
       </div>
@@ -18,8 +25,9 @@
             Employee ID
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="text" placeholder="" class="custom-input input-height" name="employeeCode" #employeeCode="ngModel" [(ngModel)]="request.employeeCode"
-            [ngClass]="{ 'error-field-highlighter': requestForm.submitted && employeeCode.invalid }" required>
+            <input type="text" placeholder="" class="custom-input input-height" name="employeeCode"
+              #employeeCode="ngModel" [(ngModel)]="request.employeeCode"
+              [ngClass]="{ 'error-field-highlighter': requestForm.submitted && employeeCode.invalid }" required>
           </div>
         </div>
       </div>
@@ -28,13 +36,13 @@
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-           From Date
+            From Date
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
             <mat-form-field appearance="fill" id="fromDatePicker">
               <mat-label></mat-label>
-              <input  matInput #fromInput [matDatepicker]="fromPicker"
-                     (dateInput)="addEvent('fromDate','input', $event)" (dateChange)="addEvent('fromDate','change', $event)">
+              <input matInput #fromInput [matDatepicker]="fromPicker" (dateInput)="addEvent('fromDate','input', $event)"
+                (dateChange)="addEvent('fromDate','change', $event)">
               <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
               <mat-datepicker #fromPicker></mat-datepicker>
             </mat-form-field>
@@ -44,13 +52,13 @@
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-           To Date
+            To Date
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
             <mat-form-field appearance="fill" id="toDatePicker">
               <mat-label></mat-label>
-              <input  matInput #toInput [matDatepicker]="toPicker"
-                     (dateInput)="addEvent('toDate','input', $event)" (dateChange)="addEvent('toDate','change', $event)">
+              <input matInput #toInput [matDatepicker]="toPicker" (dateInput)="addEvent('toDate','input', $event)"
+                (dateChange)="addEvent('toDate','change', $event)">
               <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
               <mat-datepicker #toPicker></mat-datepicker>
             </mat-form-field>
@@ -58,14 +66,14 @@
         </div>
       </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-5 mb-4">
       <div class="col-12 text-right">
-        <button id="registration" type="submit" (click)="onRequestClick(requestForm)" class="btn-primary login-btn" translate>
-          <mat-progress-spinner diameter="20" *ngIf="isGetting" class="spinner"  mode="indeterminate" value="50">
-          </mat-progress-spinner>
-          <span translate>Submit</span>
+        <button id="registration" title="Save" type="submit" (click)="onRequestClick(requestForm)"
+          class="btn-primary login-btn" translate>
+          <!-- <mat-progress-spinner diameter="20" *ngIf="isGetting" class="spinner" mode="indeterminate" value="50">
+          </mat-progress-spinner> -->
+          <span translate>Save</span>
         </button>
-        <!-- <a href="javascript:void(0)" class="btn-primary login-btn">Submit</a> -->
       </div>
     </div>
   </form>

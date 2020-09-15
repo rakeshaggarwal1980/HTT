@@ -1,6 +1,6 @@
 <div mat-dialog-title>
     <h4>View User
-    <a class="float-right" (click)="dialogRef.close()">
+    <a class="float-right" (click)="dialogRef.close()" title="Close">
       <i class="material-icons">
         clear
       </i>
@@ -8,7 +8,7 @@
   </h4>
 </div>
 <mat-dialog-content>
-
+<evry-spinner></evry-spinner>
   <div class="row mb-3">
     <div class="col-md-3 col-sm-3 col-12"><strong>Employee Name</strong></div>
     <div class="col-md-9 col-sm-9 col-12">{{data.user.name}}</div>
@@ -34,9 +34,9 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   
-    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-success" mat-dialog-close (click)="takeAction(1)">Confirm</a>
-    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-danger" mat-dialog-close (click)="takeAction(0)">Decline</a>
+    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-success" mat-dialog-close title="Confirm" (click)="takeAction(1)">Confirm</a>
+    <a href="javascript:void(0)" *ngIf="data.user.status===0" class="btn btn-primary btn-danger" mat-dialog-close title="Decline" (click)="takeAction(0)">Decline</a>
     
-    <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" (click)="dialogRef.close()">Close</a>
+    <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" title="Close" (click)="dialogRef.close()">Close</a>
 
 </mat-dialog-actions>

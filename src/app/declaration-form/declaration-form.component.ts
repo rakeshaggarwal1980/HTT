@@ -4,7 +4,8 @@ import { isNullOrUndefined } from 'util';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { EntityStatus } from 'app/app.enum';
 import { Router, ActivatedRoute, Validators } from 'vendor/angular';
-import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
+import { SnackBarService } from 'app/shared/index.shared';
+import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/inde
 export class DeclarationFormComponent implements OnInit {
   requestNumber: any;
   employeeId: number;
+  isGetting: boolean = false;
   viewMode: boolean = false;
   symptoms: any[] = [];
   zones: any[] = [];
@@ -66,7 +68,8 @@ export class DeclarationFormComponent implements OnInit {
     };
 
   constructor(private declarationService: DeclarationService, private fb: FormBuilder,
-    private router: Router, private activatedRoute: ActivatedRoute, private snackBarService: SnackBarService) {
+    private router: Router, private activatedRoute: ActivatedRoute,
+    private snackBarService: SnackBarService, private spinnerService: SpinnerService) {
   }
 
   ngOnInit() {
@@ -322,10 +325,9 @@ export class DeclarationFormComponent implements OnInit {
       if (!this.isLocationValid || !this.isZoneValid || !this.isPreExistHealthIssueValid || !this.isContactWithCovidPeopleValid || !this.isTravelOustSideInLast15DaysValid || !this.isConfirmInfoValid) {
         this.snackBarService.showError("Please enter or select mandatory fields.");
       } else {
+        this.spinnerService.startLoading();
         let user = JSON.parse(localStorage.getItem('user'));
-        console.log('this is declaration form');
-        console.log(this.declarationForm);
-        console.log('data to be sent');
+        this.isGetting = true;
         this.request.id = 0;
         this.request.residentialAddress = formData.value.residentialAddress;
         this.request.dateOfTravel = new Date();
@@ -363,7 +365,7 @@ export class DeclarationFormComponent implements OnInit {
           data => {
             console.log('this is declaration data response');
             console.log(data);
-            //  this.isGetting = false;
+            this.spinnerService.stopLoading();
             if (!isNullOrUndefined(data)) {
               console.log('declaration data not null');
               console.log(data);
@@ -374,13 +376,17 @@ export class DeclarationFormComponent implements OnInit {
 
               }
             } else {
-              //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
+              this.spinnerService.stopLoading();
+              console.log(data);
+              this.snackBarService.showError('Error');
             }
           },
           err => {
-            //// this.isGetting = false;
-            if (err.status === 401) {
-              console.log('error');
+
+            console.log(err);
+            if (err.status > 300) {
+              this.spinnerService.stopLoading();
+              this.snackBarService.showError(err.error.message);
               // this.messageKey = 'landingPage.menu.login.invalidCredentials';
             }
           }

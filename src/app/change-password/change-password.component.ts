@@ -4,6 +4,7 @@ import { isNullOrUndefined } from 'util';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
+import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class ChangePasswordComponent implements OnInit {
   };
 
 
-  constructor(private snackBarService: SnackBarService, private changePasswordService: ChangePasswordService) {
+  constructor(private snackBarService: SnackBarService, private spinnerService: SpinnerService, private changePasswordService: ChangePasswordService) {
   }
 
   ngOnInit() {
@@ -28,37 +29,6 @@ export class ChangePasswordComponent implements OnInit {
     body.classList.remove('login-bg');
 
   }
-
-
-  // addEvent(datePickerType: any, type: string, event: MatDatepickerInputEvent<Date>) {
-  //   if (datePickerType.toLowerCase() == 'fromdate') {
-  //     this.request.fromDate = new Date(event.value);
-  //   } else if (datePickerType.toLowerCase() == 'todate') {
-  //     this.request.toDate = new Date(event.value);
-  //   }
-  // }
-
-  // isControlValid(dateType: string) {
-  //   if (dateType.toLowerCase() == 'fromdate') {
-  //     if (isNullOrUndefined(this.request.fromDate) || this.request.fromDate == '' || this.request.fromDate == 'Invalid date') {
-  //       document.getElementById('fromDatePicker').classList.add('error-field-highlighter');
-  //       return false;
-  //     } else {
-  //       document.getElementById('fromDatePicker').classList.remove('error-field-highlighter');
-  //       return true;
-  //     }
-  //   }
-  //   else if (dateType.toLowerCase() == 'todate') {
-  //     if (isNullOrUndefined(this.request.toDate) || this.request.toDate == '' || this.request.toDate == 'Invalid date') {
-  //       document.getElementById('toDatePicker').classList.add('error-field-highlighter');
-  //       return false;
-  //     } else {
-  //       document.getElementById('toDatePicker').classList.remove('error-field-highlighter');
-  //       return true;
-  //     }
-  //   }
-  // }
-
   onChangePassword(changePasswordForm: any) {
     debugger;
     if (!changePasswordForm.valid && changePasswordForm.controls.passwords.errors == null) {
@@ -67,6 +37,7 @@ export class ChangePasswordComponent implements OnInit {
       this.snackBarService.showError('Passwords do not match');
     }
     else if (changePasswordForm.valid) {
+      this.spinnerService.startLoading();
       let user = JSON.parse(localStorage.getItem('user'));
       //   this.request.employee.employeeCode = this.request.employeeCode;
       const resetPasswordModel = {
@@ -81,7 +52,7 @@ export class ChangePasswordComponent implements OnInit {
           console.log('this is change data response');
           console.log(data);
           debugger;
-          this.isGetting = false;
+          this.spinnerService.stopLoading();
           if (!isNullOrUndefined(data)) {
             debugger;
             if (data.statusCode == 200) {
@@ -89,21 +60,20 @@ export class ChangePasswordComponent implements OnInit {
               changePasswordForm.resetForm();
             }
             else {
-              this.isGetting = false;
+              this.spinnerService.stopLoading();
               this.snackBarService.showError(data.message);
             }
           } else {
-            this.isGetting = false;
+            this.spinnerService.stopLoading();
             this.snackBarService.showError('Error');
           }
         },
         err => {
-          //// this.isGetting = false;
-          if (err.status === 401) {
+      
+          if (err.status > 300) {
             console.log('error');
-            this.isGetting = false;
+            this.spinnerService.stopLoading();
             this.snackBarService.showError('Error');
-            // this.messageKey = 'landingPage.menu.login.invalidCredentials';
           }
         }
       );

@@ -1,7 +1,12 @@
 <div class="container mobile-inner">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h3>Self Declaration</h3>
+        </div>
+    </div>
     <form [formGroup]="declarationForm" (ngSubmit)="onDeclarationClick(declarationForm)" novalidate
         style="width: 100%;">
-
+        <evry-spinner></evry-spinner>
 
         <div class="clearfix"></div>
         <div class="row common-text mb-4">
@@ -48,7 +53,8 @@
             <div class="col-lg-7 col-md-7 col-sm-7 col-12"><span class="sr-no mr-3">2.</span> Please Specify your
                 full current residential address:</div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                <input type="text" class="custom-input input-height declaration-input" formControlName="residentialAddress"
+                <input type="text" class="custom-input input-height declaration-input"
+                    formControlName="residentialAddress"
                     [ngClass]="{'error-field-highlighter':isControlInValid('residentialAddress'),'readonly':(viewMode==true)}"
                     [readOnly]="viewMode==true">
 
@@ -354,8 +360,8 @@
                 pandemic.
                 <span class="error-field-highlighter-star">*</span>
                 <div class="mt-4 text-right mb-4">
-                    <button id="declaration" type="submit" class="btn-primary login-btn">
-                        Submit
+                    <button id="declaration" title="Save" type="submit" class="btn-primary login-btn">
+                        Save
                     </button>
                 </div>
             </div>

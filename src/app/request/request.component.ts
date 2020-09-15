@@ -5,7 +5,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { MatInput } from '@angular/material/input';
 import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
-
+import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 
 @Component({
   selector: 'evry-request',
@@ -34,12 +34,15 @@ export class RequestComponent implements OnInit {
     read: MatInput
   }) toInput: MatInput;
 
-  constructor(private requestService: RequestService, private snackBarService: SnackBarService) {
+  constructor(private requestService: RequestService, private spinnerService: SpinnerService, private snackBarService: SnackBarService) {
   }
 
   ngOnInit() {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('login-bg');
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
 
   }
 
@@ -74,13 +77,16 @@ export class RequestComponent implements OnInit {
   }
 
   onRequestClick(requestForm: any) {
+    debugger;
     if (requestForm.valid) {
       if (this.isControlValid('fromdate') && this.isControlValid('todate')) {
 
         this.isGetting = true;
+        this.spinnerService.startLoading();
         let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
         this.request.requestNumber = random.toString();
         let user = JSON.parse(localStorage.getItem('user'));
+
         this.request.employee.employeeCode = this.request.employeeCode;
 
         this.request.fromDate = moment(this.request.fromDate).format();
@@ -93,6 +99,7 @@ export class RequestComponent implements OnInit {
         this.requestService.createRequest(this.request).subscribe(
           data => {
             this.isGetting = false;
+            this.spinnerService.stopLoading();
             if (!isNullOrUndefined(data)) {
               if (isNullOrUndefined(data.body)) {
                 this.snackBarService.showError(data.message);
@@ -104,6 +111,7 @@ export class RequestComponent implements OnInit {
               }
             } else {
               this.isGetting = false;
+              this.spinnerService.stopLoading();
               this.snackBarService.showError('Error');
             }
           },
@@ -111,6 +119,7 @@ export class RequestComponent implements OnInit {
             if (err.status > 300) {
               console.log('error');
               this.isGetting = false;
+              this.spinnerService.stopLoading();
               this.snackBarService.showError('Error');
             }
           }

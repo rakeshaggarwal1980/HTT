@@ -101,32 +101,31 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
 
   isAuthenticated(Action: any): boolean {
     let user = JSON.parse(localStorage.getItem('user'));
+    let isPermitted: boolean = false;
     if (!isNullOrUndefined(user) && user !== '') {
-      if (!isNullOrUndefined(user.role)) {
-        if (user.role.id == 1) {
-          if (Object.values(HR_ACTIONS).includes(Action)) {
-            return true;
+      if (!isNullOrUndefined(user.roles)) {
+        user.roles.forEach(role => {
+          switch (role.roleId) {
+            case 1:
+              if (Object.values(HR_ACTIONS).includes(Action)) {
+                isPermitted = true;
+              }
+              break;
+            case 2:
+              if (Object.values(SECURITY_ACTIONS).includes(Action)) {
+                isPermitted = true;
+              }
+              break;
+            case 3:
+              if (Object.values(EMPLOYEE_ACTIONS).includes(Action)) {
+                isPermitted = true;
+              }
+              break;
+            default:
+              isPermitted = false;
           }
-          else {
-            return false;
-          }
-        }
-        if (user.role.id == 2) {
-          if (Object.values(SECURITY_ACTIONS).includes(Action)) {
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
-        if (user.role.id == 3) {
-          if (Object.values(EMPLOYEE_ACTIONS).includes(Action)) {
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
+        });
+        return isPermitted;
       }
     }
   }
@@ -144,24 +143,30 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onSearch(searchCategory: any) {
-    if (this.propertyName.toLowerCase() == 'date' && !isNullOrUndefined(this.submissionDate) && this.submissionDate !== '') {
-      this.getAllDeclarations();
-    } else if ((this.propertyName.toLowerCase() == 'employeeid' || this.propertyName.toLowerCase() == 'employeename')
-      && !isNullOrUndefined(this.searchInput) && this.searchInput !== '') {
-      this.getAllDeclarations();
-    } else {
-      if (this.propertyName.toLowerCase() == 'date' && isNullOrUndefined(this.submissionDate) && this.submissionDate == '') {
-        this.errorDate = true;
-        this.errorInput = false;
-      } if ((this.propertyName.toLowerCase() == 'employeeid' || this.propertyName.toLowerCase() == 'employeename') && isNullOrUndefined(this.searchInput) && this.searchInput == '') {
-        this.errorDate = false;
-        this.errorInput = true;
+  onSearch(searchCategory: string) {
+    debugger;
+    this.propertyName = searchCategory;
+    if (this.propertyName !== '') {
+      if (this.propertyName.toLowerCase() == 'date' && !isNullOrUndefined(this.submissionDate) && this.submissionDate !== '') {
+        this.getAllDeclarations();
+      } else if ((this.propertyName.toLowerCase() == 'employeeid' || this.propertyName.toLowerCase() == 'employeename')
+        && !isNullOrUndefined(this.searchInput) && this.searchInput !== '') {
+        this.getAllDeclarations();
+      } else {
+        if (this.propertyName.toLowerCase() == 'date' && isNullOrUndefined(this.submissionDate) && this.submissionDate == '') {
+          this.errorDate = true;
+          this.errorInput = false;
+          this.getAllDeclarations();
+        } if ((this.propertyName.toLowerCase() == 'employeeid' || this.propertyName.toLowerCase() == 'employeename') && isNullOrUndefined(this.searchInput) && this.searchInput == '') {
+          this.errorDate = false;
+          this.errorInput = true;
+          this.getAllDeclarations();
+        }
       }
     }
-
-
-
+    else {
+      this.getAllDeclarations();
+    }
   }
   onExport() {
     this.getDeclarationsToExport();

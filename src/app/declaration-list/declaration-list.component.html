@@ -1,5 +1,10 @@
 <div class="container">
     <div class="row">
+        <div class="col-12 mb-4">
+            <h3>Declarations</h3>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
 
             <mat-card class="example-card">
@@ -35,6 +40,10 @@
                     <button mat-button (click)="onSearch(category.value)" title="Search" class="search-btn search-margin"><span
                             class="material-icons">
                             search
+                        </span></button>
+                        <button mat-button (click)="onSearch('')" title="Reset" class="search-btn search-margin-clear"><span
+                            class="material-icons">
+                            clear
                         </span></button>
                 </mat-card-actions>
 
@@ -107,7 +116,7 @@
                     <td>{{declaration.createdDate|date:'mediumDate'}}</td>
 
                     <td> <a [routerLink]="['/declaration/',declaration.requestNumber,declaration.employeeId]"
-                            class="btn-primary action-btn">View
+                            class="btn-primary action-btn" title="View Declaration">View
                             Declaration</a>
                     </td>
                 </tr>

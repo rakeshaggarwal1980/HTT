@@ -1,5 +1,10 @@
 <div class="container">
     <div class="row">
+        <div class="col-12 mb-4">
+            <h3>Users</h3>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             <table class="table table-bordered table-custom">
                 <tr>
@@ -28,7 +33,7 @@
                         <span *ngIf="employee.status==0" class="not-set">Waiting for Approval</span>
 
                     </td>
-                    <td> <a href="javascript:void(0)" (click)="viewUser(employee)" class="btn-primary action-btn">View
+                    <td> <a href="javascript:void(0)" title="View User" (click)="viewUser(employee)" class="btn-primary action-btn">View
                             User</a>
                     </td>
                 </tr>

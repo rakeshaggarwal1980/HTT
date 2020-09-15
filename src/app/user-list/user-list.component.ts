@@ -4,7 +4,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { UserListService } from 'app/user-list/shared/user.service';
-import { SpinnerService, ErrorService, SnackBarService } from '../shared/index.shared';
+import { ErrorService, SnackBarService } from '../shared/index.shared';
+import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 import { RESPONSE_STATUS_ENUM } from '../app.enum';
 import { UserDetailDialogComponent } from './shared/user-detail-dialog/user-detail-dialog.component';
 
@@ -36,9 +37,11 @@ export class UserListComponent implements OnInit {
 
   getAllEmployees() {
     let user = JSON.parse(localStorage.getItem('user'));
+    this.spinnerService.startLoading();
     if (!isNullOrUndefined(user) && user !== '') {
       this.userListService.getAllEmployees().subscribe(
         data => {
+          this.spinnerService.stopLoading();
           if (!isNullOrUndefined(data)) {
             if (data.body.length > 0) {
               this.employees = of(data.body);
@@ -50,6 +53,7 @@ export class UserListComponent implements OnInit {
           }
         },
         err => {
+          this.spinnerService.stopLoading();
           //// this.isGetting = false;
           if (err.status === 401) {
             console.log('error');
@@ -61,16 +65,16 @@ export class UserListComponent implements OnInit {
   }
 
   getUserDetail() {
-    this.spinnerService.startRequest();
+    this.spinnerService.startLoading();
     this.userListService.getUserDetail(1014).subscribe(data => {
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
         this.userObj = data.body;
       } else {
         this.errorService.handleFailure(data.statusCode);
       }
     }, error => {
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       this.errorService.handleError(error);
     });
   }

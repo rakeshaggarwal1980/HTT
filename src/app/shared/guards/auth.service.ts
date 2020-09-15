@@ -3,9 +3,8 @@ import { Injectable, Router } from 'vendor/angular';
 import { AuthInfo } from 'app/shared/guards/authInfo';
 // Constants
 import { AppConstants } from 'app/shared/constant/constant.variable';
-import { VALID_ACTIONS, PARTNER_VALID_ACTIONS, GUEST_VALID_ACTIONS } from 'app/app.enum';
 import { isNullOrUndefined } from 'util';
-import { BehaviorSubject, Observable } from 'vendor/rxJs';
+import { BehaviorSubject, Observable } from 'rxJs';
 import { AdalService } from './adal.service';
 
 @Injectable()
@@ -61,7 +60,7 @@ export class AuthService {
       groups: data.groups,
     };
 
-    this.setValidActions(authObj.isAdmin, authObj.isPartnerUser, authObj.isGuest);
+    //this.setValidActions(authObj.isAdmin, authObj.isPartnerUser, authObj.isGuest);
 
     if (!isNullOrUndefined(authObj)) {
       if (authObj.userId && this._validActions.value !== null) {
@@ -79,19 +78,19 @@ export class AuthService {
     return (profile !== null) ? profile.isAdmin : false;
   }
 
-  setValidActions(isAdmin, isPartner, isGuest) {
-    let actions = [];
-    if (isAdmin === true) {
-      actions.push.apply(actions, Object.keys(VALID_ACTIONS));
-    } if (isPartner === true) {
-      actions.push.apply(actions, Object.keys(PARTNER_VALID_ACTIONS));
-    } if (isGuest === true) {
-      actions.push.apply(actions, Object.keys(GUEST_VALID_ACTIONS));
-    } if (isAdmin === false && isPartner === false && isGuest === false) {
-      actions = (Object.keys(GUEST_VALID_ACTIONS));
-    }
-    this._validActions.next(actions);
-  }
+  // setValidActions(isAdmin, isPartner, isGuest) {
+  //   let actions = [];
+  //   if (isAdmin === true) {
+  //     actions.push.apply(actions, Object.keys(VALID_ACTIONS));
+  //   } if (isPartner === true) {
+  //     actions.push.apply(actions, Object.keys(PARTNER_VALID_ACTIONS));
+  //   } if (isGuest === true) {
+  //     actions.push.apply(actions, Object.keys(GUEST_VALID_ACTIONS));
+  //   } if (isAdmin === false && isPartner === false && isGuest === false) {
+  //     actions = (Object.keys(GUEST_VALID_ACTIONS));
+  //   }
+  //   this._validActions.next(actions);
+  // }
 
   isValidAction(action: any): any {
     let isValid;

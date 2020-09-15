@@ -49,9 +49,14 @@
                 <h5 *ngIf="location.path()=='/users'">Users</h5>
                 <h5 *ngIf="location.path().indexOf('declarations') > -1">Declarations</h5>
                 <h5 *ngIf="location.path().indexOf('declaration/') > -1">Self Declaration</h5>
+                <h5 *ngIf="location.path()=='/changepassword'">Change Password</h5>
                 <h5 *ngIf="location.path()=='/forgot-password'">Forgot Password</h5>
                 <p>For Return to office Post Covid-19 Lockdown</p>
             </div>
+            <div class="text-right">
+                Welcome {{userName}}
+            </div>
+
             <div class="signOut" *ngIf="location.path()!='/register'">
                 <a (click)="onLogOut()" title="Log Out"><span class="material-icons logout">
                         exit_to_app

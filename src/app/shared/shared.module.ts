@@ -1,8 +1,4 @@
-// spinner
-import { SpinnerDirective } from 'app/shared/spinner/spinner.directive';
 
-// services
-import { SpinnerService } from 'app/shared/spinner/spinner.service';
 import { ValidatorService } from 'app/shared/utility/validation.service';
 import { ExampleService } from 'app/shared/utility/example.service';
 import { HttpInterceptorHandler } from './interceptor/HttpInterceptorHandler';
@@ -13,29 +9,32 @@ import { RouterModule } from '@angular/router';
 import { AuthGuardService } from 'app/shared/guards/auth.guard.service';
 import { PagerComponent } from 'app/shared/pager/pager.component';
 import { CheckPasswordDirective } from 'app/shared/utility/check-password.directive';
-
+import { SpinnerComponent } from 'app/shared/spinner/spinner.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
     HttpClientModule,
     CommonModule,
     RouterModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
-    SpinnerDirective,
     PagerComponent,
-    CheckPasswordDirective
+    CheckPasswordDirective,
+    SpinnerComponent
   ],
   exports: [
     HttpClientModule,
     CommonModule,
     RouterModule,
-    SpinnerDirective,
     PagerComponent,
-    CheckPasswordDirective
+    CheckPasswordDirective,
+    SpinnerComponent
   ],
   providers: [
-    SpinnerService,
     ExampleService,
     AuthGuardService,
     ValidatorService,
@@ -44,7 +43,7 @@ import { CheckPasswordDirective } from 'app/shared/utility/check-password.direct
       useClass: HttpInterceptorHandler,
       multi: true,
     },
-  ],
+  ]
 })
 
 export class SharedModule {

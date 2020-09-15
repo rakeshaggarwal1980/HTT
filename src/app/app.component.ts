@@ -14,6 +14,7 @@ import { UserDetailDialogComponent } from './user-list/shared/user-detail-dialog
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  userName: string = '';
   constructor(private translate: TranslateService, private router: Router, private location: Location,
     private utilityService: UtilityService) {
     translate.addLangs(['en']);
@@ -23,10 +24,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.location.path());
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.userName = user.name;
   }
 
-  openMenu()
-  {
+  openMenu() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
@@ -46,32 +48,31 @@ export class AppComponent implements OnInit {
 
   isAuthenticated(Action: any): boolean {
     let user = JSON.parse(localStorage.getItem('user'));
+    let isPermitted: boolean = false;
     if (!isNullOrUndefined(user) && user !== '') {
-      if (!isNullOrUndefined(user.role)) {
-        if (user.role.id == 1) {
-          if (Object.values(HR_ACTIONS).includes(Action)) {
-            return true;
+      if (!isNullOrUndefined(user.roles)) {
+        user.roles.forEach(role => {
+          switch (role.roleId) {
+            case 1:
+              if (Object.values(HR_ACTIONS).includes(Action)) {
+                isPermitted = true;
+              }
+              break;
+            case 2:
+              if (Object.values(SECURITY_ACTIONS).includes(Action)) {
+                isPermitted = true;
+              }
+              break;
+            case 3:
+              if (Object.values(EMPLOYEE_ACTIONS).includes(Action)) {
+                isPermitted = true;
+              }
+              break;
+            default:
+              isPermitted = false;
           }
-          else {
-            return false;
-          }
-        }
-        if (user.role.id == 2) {
-          if (Object.values(SECURITY_ACTIONS).includes(Action)) {
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
-        if (user.role.id == 3) {
-          if (Object.values(EMPLOYEE_ACTIONS).includes(Action)) {
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
+        });
+        return isPermitted;
       }
     }
   }
