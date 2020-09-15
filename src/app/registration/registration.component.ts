@@ -3,7 +3,6 @@ import { RegistrationService } from 'app/registration/shared/registration.servic
 import { ErrorService, SnackBarService, SpinnerService } from 'app/shared/index.shared';
 import { Router, FormGroup, FormBuilder, Validators } from 'vendor/angular';
 import { RESPONSE_STATUS_ENUM } from '../app.enum';
-import { CommonService } from '../shared/services/common.service';
 
 
 @Component({
@@ -14,7 +13,7 @@ import { CommonService } from '../shared/services/common.service';
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   submitted: boolean = false;
-  hasCreated : boolean = false;
+  hasCreated : boolean = true;
   constructor(private registrationService: RegistrationService, private router: Router,
     private snackBarService: SnackBarService, private fb: FormBuilder, private errorService: ErrorService,
     private spinnerService: SpinnerService ) {
