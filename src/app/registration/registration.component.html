@@ -1,84 +1,113 @@
-<div class="container">
-  <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationClick(registrationForm)" novalidate
-  style="width: 100%;">
-    <div class="row">
+<div class="container wrapper-white">
+  <ng-container *ngIf="!hasCreated">
+    <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationClick(registrationForm)" novalidate
+    style="width: 100%;" class="form-content-inner">
+    <div class="row mb-4">
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-            Name
+            <label> Name</label>
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="text" placeholder="" class="custom-input input-height" formControlName="name"
-            [ngClass]="{'error-field-highlighter':isControlInValid('name')}">
+            <input type="text" placeholder="" class="custom-input" formControlName="name"
+              [ngClass]="{'error-field-highlighter':isControlInValid('name')}">
           </div>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-            Email
+            <label> Employee Code</label>
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="text" placeholder="" class="custom-input input-height" 
-            formControlName="email"
-            [ngClass]="{'error-field-highlighter':isControlInValid('email')}">
+            <input type="text" placeholder="" class="custom-input" formControlName="employeeCode"
+              [ngClass]="{'error-field-highlighter':isControlInValid('employeeCode')}">
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row mb-5">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-            Password
-          </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="password" placeholder="" class="custom-input input-height" formControlName="password"
-            [ngClass]="{'error-field-highlighter':isControlInValid('password')}">
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-           Employee ID
-          </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="text" placeholder="" class="custom-input input-height" formControlName="employeeCode"
-            [ngClass]="{'error-field-highlighter':isControlInValid('employeeCode')}">
-          </div>
-        </div>
+
       </div>
     </div>
-    <div class="row mb-5">
+    <div class="row mb-4">
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-            Employee Type
+            <label> Email</label>
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <mat-form-field appearance="fill">
-              <mat-label>Employee Type</mat-label>
-              <mat-select formControlName="roleId" required>
-                <mat-option>-Select-</mat-option>
-                <mat-option *ngFor="let role of roles" [value]="role.id">
-                  {{role.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <input type="text" placeholder="" class="custom-input" formControlName="email"
+              [ngClass]="{'error-field-highlighter':isControlInValid('email')}">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+            <label> Password</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+            <input type="password" placeholder="" class="custom-input" formControlName="password"
+              [ngClass]="{'error-field-highlighter':isControlInValid('password')}">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row mb-4">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+            <label> Current Address</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+            <textarea placeholder="" class="custom-input textarea-rows" rows="5" formControlName="currentResidentialAddress"
+              [ngClass]="{'error-field-highlighter':isControlInValid('currentResidentialAddress')}"></textarea>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+            <label> Permanent Address</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+            <textarea placeholder="" rows="5" class="custom-input textarea-rows" formControlName="permanentResidentialAddress"
+              [ngClass]="{'error-field-highlighter':isControlInValid('permanentResidentialAddress')}"></textarea>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-4">
       <div class="col-12 text-right">
-        <button id="registration" type="submit" class="btn-primary login-btn" translate>
-          <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading"  mode="indeterminate" value="50">
+        <button id="registration" type="submit" class="btn-primary submit-btn" translate>
+          <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading" mode="indeterminate" value="50">
           </mat-progress-spinner>
           <span translate>Submit</span>
+        </button>
+
+        <button class="btn-primary btn-text-only" (click)="cancel()">
+          <span translate>Cancel</span>
         </button>
       </div>
     </div>
   </form>
+  </ng-container>
+ <ng-container *ngIf="hasCreated">
+    <div class="row">
+      <div class=" col-12">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p><span class="material-icons thanks">
+                check_circle_outline
+              </span></p>
+          </div>
+          <div class="col-12 text-center">
+            <p> Thank You for signing up!!</p>
+            <p>You have been registered successfully! Your account will be activated by Administrator shortly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ </ng-container>
 </div>
