@@ -13,7 +13,7 @@ import { RESPONSE_STATUS_ENUM } from '../app.enum';
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   submitted: boolean = false;
-  hasCreated : boolean = true;
+  hasCreated : boolean = false;
   constructor(private registrationService: RegistrationService, private router: Router,
     private snackBarService: SnackBarService, private fb: FormBuilder, private errorService: ErrorService,
     private spinnerService: SpinnerService ) {
