@@ -31,10 +31,10 @@ export class UserListComponent implements OnInit {
   }
 
   getRoles() {
-    this.spinnerService.startRequest();
+    this.spinnerService.startLoading();
     this.commonService.getRoles().subscribe(
       (data) => {
-        this.spinnerService.endRequest();
+        this.spinnerService.stopLoading();
         if (data !== null && data !== undefined) {
           if (data.body.length > 0) {
             this.allRoles = data.body;
@@ -44,7 +44,7 @@ export class UserListComponent implements OnInit {
         }
       },
       (err) => {
-        this.spinnerService.endRequest();
+        this.spinnerService.stopLoading();
         this.errorService.handleError(err);
       }
     );
@@ -53,10 +53,10 @@ export class UserListComponent implements OnInit {
   }
 
   getAllEmployees() {
-    this.spinnerService.startRequest();
+    this.spinnerService.startLoading();
     this.userService.getAllEmployees().subscribe(
       (data) => {
-        this.spinnerService.endRequest();
+        this.spinnerService.stopLoading();
         if (data !== null && data !== undefined) {
           if (data.body.length > 0) {
             this.employees$.next(data.body);
@@ -66,7 +66,7 @@ export class UserListComponent implements OnInit {
         }
       },
       (err) => {
-        this.spinnerService.endRequest();
+        this.spinnerService.stopLoading();
         this.errorService.handleError(err);
       }
     );
@@ -91,9 +91,9 @@ export class UserListComponent implements OnInit {
   }
 
   deleteEmployee(employeeId) {
-    this.spinnerService.startRequest();
+    this.spinnerService.startLoading();
     this.userService.deleteEmployee(employeeId).subscribe((data) => {
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       if (data !== null && data !== undefined) {
         if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
           this.snackbarService.showSuccess('Employee deleted successfully.');
@@ -104,7 +104,7 @@ export class UserListComponent implements OnInit {
       }
     },
       (err) => {
-        this.spinnerService.endRequest();
+        this.spinnerService.stopLoading();
         this.errorService.handleError(err);
       }
     );

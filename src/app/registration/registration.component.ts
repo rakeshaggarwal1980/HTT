@@ -39,11 +39,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegistrationClick(registrationForm: any) {
-    this.spinnerService.startRequest();
+    this.spinnerService.startLoading();
     if (registrationForm.valid) {
       this.registrationService.createEmployee(registrationForm.value).subscribe(
         data => {
-          this.spinnerService.endRequest();
+          this.spinnerService.stopLoading();
           if (data !== null && data !== undefined) {
             if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
               this.snackBarService.showSuccess('You have been registered successfully! Your account will be activated by Administrator shortly.');
@@ -56,12 +56,12 @@ export class RegistrationComponent implements OnInit {
           }
         },
         err => {
-          this.spinnerService.endRequest();
+          this.spinnerService.stopLoading();
           this.errorService.handleError(err);
         }
       );
     } else {
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       this.snackBarService.showError('Please enter mandatory fields.');
     }
     this.submitted = true;

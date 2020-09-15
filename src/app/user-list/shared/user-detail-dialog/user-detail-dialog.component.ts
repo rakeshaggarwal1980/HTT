@@ -54,9 +54,9 @@ export class UserDetailDialogComponent implements OnInit {
   }
 
   updateAccountStatus(userId, status) {
-    this.spinnerService.startRequest();
+    this.spinnerService.startLoading();
     this.userService.updateAccountStatus(userId, status).subscribe(data => {
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       if (data !== null && data.statusCode === 200) {
         this.dialogRef.close(true);
       } else {
@@ -64,7 +64,7 @@ export class UserDetailDialogComponent implements OnInit {
         this.errorService.handleFailure(data.statusCode);
       }
     }, error => {
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       this.dialogRef.close(false);
       this.errorService.handleError(error);
     });
@@ -73,10 +73,10 @@ export class UserDetailDialogComponent implements OnInit {
   updateEmployee(user) {
     console.log(user);
     user.roles = this.roleArr.filter(role => role.selected);
-    this.spinnerService.startRequest();
+    this.spinnerService.startLoading();
     this.userService.updateEmployee(user).subscribe((data) => {
       debugger;
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       if (data !== null && data.statusCode === 200) {
         this.dialogRef.close(true);
       } else {
@@ -85,7 +85,7 @@ export class UserDetailDialogComponent implements OnInit {
       }
     }, error => {
       debugger;
-      this.spinnerService.endRequest();
+      this.spinnerService.stopLoading();
       this.dialogRef.close(false);
       this.errorService.handleError(error);
     });
