@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ChangePasswordService } from 'app/change-password/shared/change-password.service';
 import { isNullOrUndefined } from 'util';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import * as moment from 'moment';
-import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
+import { ErrorService, SnackBarService } from 'app/shared/index.shared';
 import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
+import { UserAccountService } from '../shared/user-account.service';
 
 
 @Component({
   selector: 'evry-change-password',
   templateUrl: 'change-password.component.html',
-  styleUrls: ['./shared/change-password.component.scss'],
+  styleUrls: ['./change-password.component.scss'],
 })
 export class ChangePasswordComponent implements OnInit {
   isGetting: boolean = false;
@@ -21,15 +19,15 @@ export class ChangePasswordComponent implements OnInit {
   };
 
 
-  constructor(private snackBarService: SnackBarService, private spinnerService: SpinnerService, private changePasswordService: ChangePasswordService) {
+  constructor(private snackBarService: SnackBarService,
+    private spinnerService: SpinnerService, private userAccountService: UserAccountService,
+    private errorService: ErrorService) {
   }
 
   ngOnInit() {
-
-
   }
+
   onChangePassword(changePasswordForm: any) {
-    debugger;
     if (!changePasswordForm.valid && changePasswordForm.controls.passwords.errors == null) {
       this.snackBarService.showError('Please enter mandatory fields.');
     } else if (!changePasswordForm.valid && changePasswordForm.controls.passwords.errors.passwordCheck == 'failed') {
@@ -38,22 +36,16 @@ export class ChangePasswordComponent implements OnInit {
     else if (changePasswordForm.valid) {
       this.spinnerService.startLoading();
       let user = JSON.parse(localStorage.getItem('user'));
-      //   this.request.employee.employeeCode = this.request.employeeCode;
+
       const resetPasswordModel = {
-        token: '',
         password: changePasswordForm.value.passwords.password,
         confirmPassword: changePasswordForm.value.passwords.confirmPassword,
         email: user.email
       }
-      debugger;
-      this.changePasswordService.changePassword(resetPasswordModel).subscribe(
+      this.userAccountService.changePassword(resetPasswordModel).subscribe(
         data => {
-          console.log('this is change data response');
-          console.log(data);
-          debugger;
           this.spinnerService.stopLoading();
           if (!isNullOrUndefined(data)) {
-            debugger;
             if (data.statusCode == 200) {
               this.snackBarService.showSuccess('Your password has been changed successfully.');
               changePasswordForm.resetForm();
@@ -68,12 +60,8 @@ export class ChangePasswordComponent implements OnInit {
           }
         },
         err => {
-      
-          if (err.status > 300) {
-            console.log('error');
-            this.spinnerService.stopLoading();
-            this.snackBarService.showError('Error');
-          }
+          this.spinnerService.stopLoading();
+          this.errorService.handleError(err);
         }
       );
     }
@@ -81,5 +69,8 @@ export class ChangePasswordComponent implements OnInit {
 
       this.snackBarService.showError('Please enter mandatory fields.');
     }
+  }
+  cancel(changePasswordForm) {
+    changePasswordForm.resetForm();
   }
 }

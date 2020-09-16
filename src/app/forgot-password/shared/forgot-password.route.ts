@@ -11,11 +11,4 @@ const FORGOT_PASSWORD_ROUTES: Routes = [
     component: ForgotPasswordComponent
   },
 ];
-
-
-// @NgModule({
-//   imports: [RouterModule.forRoot(FORGOT_PASSWORD_ROUTES)],
-//   exports: [RouterModule]
-// })
-// export class ForgotPasswordRouterModule { }
 export let ForgotPasswordRouterModule = RouterModule.forRoot(FORGOT_PASSWORD_ROUTES);

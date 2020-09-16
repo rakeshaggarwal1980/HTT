@@ -1,6 +1,5 @@
 
 import { ValidatorService } from 'app/shared/utility/validation.service';
-import { ExampleService } from 'app/shared/utility/example.service';
 import { HttpInterceptorHandler } from './interceptor/HttpInterceptorHandler';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -35,7 +34,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SpinnerComponent
   ],
   providers: [
-    ExampleService,
     AuthGuardService,
     ValidatorService,
     {
