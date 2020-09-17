@@ -46,14 +46,58 @@ footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
 
   .loading{
     position: absolute;
-    top: 34%;
-    left: 40%;
+    top: 358px;
+    right: 435px;
     &::before{
     left: 20%;
     top: 30%;
     }
   
   }
+  
+.login-bg{
+  background: url(../../../assets/images/login-bg-01.jpg) no-repeat;
+  background-size:cover;
+}
+
+.login-wrapper{
+    width: 500px;
+    height: 100vh;
+    background: #ffffff;
+    float: right;
+    padding: 60px 40px;
+    box-sizing: border-box;
+}
+
+.form-gap{
+  margin-top:30px;
+}
+
+
+.form-gap .form-control{
+  border-radius: 0px;
+  font-size: 13px;
+}
+
+.form-gap .form-control:focus{
+  outline:none;
+  box-shadow: none;
+}
+
+.custom-font-size{
+  font-size: 13px;
+}
+
+
+.form-gap .btn-primary{
+  margin-top:30px;
+}
+
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle
+{
+	stroke:  white !important;
+}
+
 
 /*=================== Media CSS ===================*/
 
@@ -84,4 +128,32 @@ footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
   .middle-inner{
     padding-top: 170px;
   }
+}
+@media screen and (max-width:767px){
+  .login-main{
+      width:100%;
+  }
+
+  .mobile-inner, .align-text{
+    float: left;
+    text-align: left;
+    margin: 4px 0;
+  }
+
+  .mobile-inner, .ml-5{
+    margin-left: 0px !important;
+  }
+  .mobile-inner, .ml-neg-2{
+    margin: -21px 0 0 19px;
+  }
+
+  .fixed-top, .text-right{
+    padding-top:20px;
+  }
+}
+
+@media screen and (max-width:460px){
+.middle-inner{
+  padding-top: 170px;
+}
 }

@@ -22,21 +22,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('login-bg');
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('login-bg');
   }
 
   onLoginClick(formData: any) {
-    console.log('this is login');
-    console.log(this.loginDetails);
     if (formData.valid) {
-
-
       this.isGetting = true;
       localStorage.setItem('auth_token', '');
-
-
       this.loginService.login(this.loginDetails).subscribe(
         data => {
           console.log('this is data');
@@ -45,11 +39,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (!isNullOrUndefined(data)) {
             if (!isNullOrUndefined(data.body)) {
 
-                localStorage.setItem('auth_token', data.body.token);
-                console.log('this is user');
-                console.log(data.body);
-                localStorage.setItem('user', JSON.stringify(data.body));
-                this.router.navigate(['request']);
+              localStorage.setItem('auth_token', data.body.token);
+              console.log('this is user');
+              console.log(data.body);
+              localStorage.setItem('user', JSON.stringify(data.body));
+              this.router.navigate(['request']);
 
             }
             else {

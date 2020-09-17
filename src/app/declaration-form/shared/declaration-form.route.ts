@@ -6,27 +6,20 @@ import { NgModule } from '@angular/core';
 
 const DECLARATION_FORM_ROUTES: Routes = [
   {
-    path: 'declaration/:requestNumber',
+    path: 'selfdeclaration/:requestNumber',
     component: DeclarationFormComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path: 'declaration',
+    path: 'selfdeclaration',
     component: DeclarationFormComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path: 'declaration/:requestNumber/:employeeId',
+    path: 'selfdeclaration/:requestNumber/:employeeId',
     component: DeclarationFormComponent,
     canActivate: [AuthGuardService]
   },
 ];
-
-
-// @NgModule({
-//   imports: [RouterModule.forRoot(DECLARATION_FORM_ROUTES)],
-//   exports: [RouterModule]
-// })
-// export class DeclarationFormRouterModule { }
 
 export let DeclarationFormRouterModule = RouterModule.forRoot(DECLARATION_FORM_ROUTES);

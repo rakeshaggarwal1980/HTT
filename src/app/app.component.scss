@@ -40,6 +40,111 @@ footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
 {
   color: white;
 }
+
+
+
+header{ width:100%; float: left; background: rgba(255,255,255,.9); padding:0;}
+.navbar{ padding: 0;}
+.logo{ margin-top:18px; float: left;}
+.custom-nav li a{
+  font-size: 12px;
+  color: #777777;
+  cursor: pointer !important;
+  padding: 30px 16px 30px 16px !important;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.custom-nav li:hover a{
+  background-color: #fff;
+    border: none;
+    cursor: pointer !important;
+    padding:0;
+    -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+}
+.custom-nav li.active a{ color: #2F87CC;}
+
+.custom-nav .dropdown-menu {
+  background-color: #fff;
+    border-radius: 2px;
+    border: none;
+    padding:0;
+    z-index: 1050;
+    -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+    margin:-5px 0 0 0;
+}
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.custom-nav .dropdown-menu a{
+  padding: 7px 20px !important;
+  cursor: pointer !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding:0;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.custom-nav .dropdown-menu a:hover{
+  background: #dadada !important;
+}
+
+.profile-img{ width: 60px; height: 60px; margin-top:3px;
+   border-radius: 50%; background: #999999; float: right; margin: 0 0 0 0; overflow: hidden; text-align: center; line-height: 60px; font-size:26px; color:#fff;}
+.custom-dropdown{ float: right; margin-top:10px; }
+.custom-dropdown a{
+  font-size: 12px;
+  color: #777777;
+  padding: 30px 16px 30px 16px !important;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.custom-dropdown .dropdown-menu {
+  background-color: #fff;
+    border-radius: 2px;
+    border: none;
+    padding:0;
+    z-index: 1050;
+    -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+    margin:0px 0 0 0;
+}
+
+.custom-dropdown .dropdown-menu a{
+  font-size: 12px;
+  color: #777777;
+  padding: 7px 16px !important;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.custom-dropdown .dropdown-menu a:hover{
+  background-color: #d6d6d6;
+   cursor:  pointer;
+    border: 1px solid #d6d6d6;
+    padding:0;
+    -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+}
+.custom-dropdown a.active{
+  background-color: white;
+}
+.custom-dropdown a.active span{ color: #2F87CC;}
+
+.custom-dropdown .dropdown-toggle::after{
+  position: absolute;
+  bottom: 0px;
+  left: 61%;
+  color:#999999 !important;
+}
+
+li a.active
+{
+  color: #2F87CC !important;
+}
 /*=================== Media CSS ===================*/
 
 @media screen and (max-width:767px){
@@ -116,3 +221,32 @@ footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+@media screen and (max-width:767px){
+  .login-main{
+      width:100%;
+  }
+
+  .mobile-inner, .align-text{
+    float: left;
+    text-align: left;
+    margin: 4px 0;
+  }
+
+  .mobile-inner, .ml-5{
+    margin-left: 0px !important;
+  }
+  .mobile-inner, .ml-neg-2{
+    margin: -21px 0 0 19px;
+  }
+
+  .fixed-top, .text-right{
+    padding-top:20px;
+  }
+}
+
+@media screen and (max-width:460px){
+.middle-inner{
+  padding-top: 170px;
+}
+}

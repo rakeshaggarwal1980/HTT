@@ -1,35 +1,33 @@
-<section class="login-main">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 text-center "><a href="javascript:void(0)"><img src="../../assets/images/footer-logo.png"
-            class="mb-4" alt="POC" title="TietoEvry"></a>
-        <h6 class="mt-4">Welcome to TietoEvry Survey</h6>
-      </div>
-      <form #loginForm="ngForm" action="" style="width: 100%;" novalidate>
-        <div class="col-12">
-          <input type="text" placeholder="Email ID" class="custom-input" name="email" [(ngModel)]="loginDetails.email"
-            #email="ngModel" [ngClass]="{ 'error-field-highlighter': loginForm.submitted && email.invalid }" required>
-          <input type="password" placeholder="Password" class="custom-input" name="password"
+<div class="login-bg">
+  <section class="login-wrapper">
+    <div class="login-section">
+      <span class="logo-top">
+        <a href="javascript:void(0)"> <img src="../../../assets/images/logo.png" alt="TietoEVRY" title="TietoEVRY"></a>
+      </span>
+      <h6 class="pt-5">Sign in with your organizational account</h6>
+      <form class="form-gap" #loginForm="ngForm" action="" novalidate>
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="loginDetails.email"
+            #email="ngModel" [ngClass]="{ 'error-field-highlighter': loginForm.submitted && email.invalid }" required
+            email>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password"
             [(ngModel)]="loginDetails.password" #password="ngModel"
             [ngClass]="{ 'error-field-highlighter': loginForm.submitted && password.invalid }" required>
         </div>
-        <div class="col-12">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12"><a href="javascript:void(0)" title="Forgot Password"
-                routerLink="/forgot-password">Forgot Password</a></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right"> Don't have an account <a
-                [routerLink]="['/register']" title="Sign Up">Sign up</a></div>
-          </div>
+        <div class="row custom-font-size">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-12"><a href="javascript:void(0)" title="Forgot Password"
+              routerLink="/forgot-password">Forgot Password</a></div>
+          <div class="col-lg-7 col-md-7 col-sm-7 col-12 text-right"> Don't have an account? <a
+              [routerLink]="['/register']" title="Sign Up">Sign up</a></div>
         </div>
-
-        <div class="col-12 text-center mt-5">
-          <button id="login" title="Login" type="submit" class="btn btn-primary" (click)="onLoginClick(loginForm)">
-            Login
-            <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading" mode="indeterminate" value="50">
-            </mat-progress-spinner>
-          </button>
-        </div>
+        <button title="Login" type="submit" class="btn btn-primary action-btn" (click)="onLoginClick(loginForm)">
+          Login
+          <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading" mode="indeterminate" value="50">
+          </mat-progress-spinner>
+        </button>
       </form>
     </div>
-  </div>
-</section>
+  </section>
+</div>

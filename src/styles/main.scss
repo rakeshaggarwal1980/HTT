@@ -5,7 +5,7 @@ body {
   background: #efefef;
 }
 .login-bg {
-  background: url(../assets/images/login.jpg) no-repeat;
+  background: url(../assets/images/login-bg-01.jpg) no-repeat;
   background-size: cover;
 }
 
@@ -146,7 +146,7 @@ body {
   background-image: none !important;
 }
 
-     .mat-progress-spinner circle, .mat-spinner circle
+.mat-progress-spinner circle, .mat-spinner circle
 {
 	stroke:  #063a54 !important;
 }
