@@ -14,7 +14,6 @@ import { RequestModule } from 'app/request/shared/request.module';
 import { ForgotPasswordModule } from 'app/forgot-password/shared/forgot-password.module';
 import { ThankYouModule } from 'app/thank-you/shared/thank-you.module';
 import { DeclarationListModule } from 'app/declaration-list/shared/declaration-list.module';
-import { ChangePasswordModule } from 'app/change-password/shared/change-password.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 // translation
@@ -25,6 +24,7 @@ import { NgModule } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { UserAccountModule } from './user-account/shared/user-account.module';
 
 
 // create loader for translation
@@ -52,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DeclarationListModule,
     ForgotPasswordModule,
     ThankYouModule,
-    ChangePasswordModule,
+    UserAccountModule,
     // NavigationDestinationModule,
     // TableModule,
     ServiceModule,

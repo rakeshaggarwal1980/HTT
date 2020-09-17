@@ -5,7 +5,7 @@ import { ForgotPasswordService } from 'app/forgot-password/shared/forgot-passwor
 import { isNullOrUndefined } from 'util';
 import { Router } from 'vendor/angular';
 import * as moment from 'moment';
-import { SnackBarService } from 'app/shared/index.shared';
+import { ErrorService, SnackBarService } from 'app/shared/index.shared';
 import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
@@ -20,25 +20,18 @@ import { ActivatedRoute, NavigationEnd } from '@angular/router';
   styleUrls: ['./shared/forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit {
-  today: Date;
   isGetting: boolean = false;
   forgotPassword = { email: '' };
   valid: boolean = false;
-  constructor(private forgotPasswordService: ForgotPasswordService, private route: ActivatedRoute,
+  submitted = false;
+  constructor(private forgotPasswordService: ForgotPasswordService, private errorService: ErrorService,
     private router: Router, private snackBarService: SnackBarService, private spinnerService: SpinnerService) {
-    this.routeEvent(this.router);
+
   }
 
   ngOnInit() {
   }
 
-  routeEvent(router: Router) {
-    router.events.subscribe(e => {
-      if (e instanceof NavigationEnd) {
-        console.log(e)
-      }
-    });
-  }
   onSendClick(model: any) {
     if (model.valid) {
       this.isGetting = true;
@@ -48,10 +41,7 @@ export class ForgotPasswordComponent implements OnInit {
           this.isGetting = false;
           this.spinnerService.stopLoading();
           if (!isNullOrUndefined(data)) {
-
-            console.log(data);
-            if (data.statusCode == 200) {
-              console.log('valid user');
+            if (data.statusCode === 200) {
               this.router.navigate(['/thanks']);
             } else {
               this.snackBarService.showError('You are not a registered user.');
@@ -64,14 +54,14 @@ export class ForgotPasswordComponent implements OnInit {
           }
         },
         err => {
-          debugger;
-          if (err.status > 300) {
-            this.isGetting = false;
-            this.spinnerService.stopLoading();
-            this.snackBarService.showError('You are not a registered user');
-          }
+
+          this.isGetting = false;
+          this.spinnerService.stopLoading();
+          this.errorService.handleError(err);
+
         });
     }
+    this.submitted = true;
   }
 }
 
