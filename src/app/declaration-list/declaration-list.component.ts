@@ -301,10 +301,18 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
   }
 
   getSymptoms(symptoms: any, symptom = '') {
-    // let symptom = '';
-    symptoms.forEach(element => {
-      symptom += ',' + element.name
+    let hasSymptoms: boolean = false;
+    symptoms.forEach((element: any) => {
+      if (element.value == true) {
+        hasSymptoms = true;
+        symptom += ',' + element.name
+      }
     });
+    if (hasSymptoms == false) {
+      symptom = 'No symptom';
+    } else {
+      symptom = symptom.substring(1);
+    }
     return symptom;
   }
 

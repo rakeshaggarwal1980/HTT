@@ -29,11 +29,11 @@
         }
         &.disabled {
           .page-link {
-            color: #9DA3A7;
+            color: white;
             pointer-events: none;
             cursor: auto;
-            background-color: #3b4d56;
-            border-color: $pager-border-color;
+            background-color: #063752;
+            border-color: #2173a0;
           }
         }
         &::first-child {
@@ -46,10 +46,10 @@
         &.active {
           .page-link {
             z-index: 1;
-            color: $black-color-1;
-            background-color: $mustard-yellow-text;
+            color: white;
+            background-color: #2173a0;
             border-color: $primary-color;
-            border-color: $mustard-yellow-text;
+            border-color: #2173a0;
           }
         }
         &::last-child .page-link {
@@ -65,7 +65,7 @@
     margin-top: 10px;
     font-size: 13px;
     font-weight: 500;
-    color: $mustard-yellow-text;
+    color: #2F87CC;
     float: right;
     .total-count
     {

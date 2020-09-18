@@ -59,13 +59,10 @@
     text-align: center;}
   .search-btn:hover, .search-btn:focus{ outline: none; text-decoration: none; color: #FFFFFF; background: #2173a0; box-shadow: none;}
   .export-btn { 
-    position: absolute;
-    top: 5px;
-    /* float: right; */
-    left: 88%;
     background: #063752;
     border: none;
-    padding: 9px 49px;
+    padding:4px 12px;
+    cursor: pointer;
     color: #f5f5f5;
     font-size: 17px;
     text-align: center;}
@@ -81,9 +78,20 @@
     border-radius: 0 !important;
     padding:  0 !important;
     background: #fff !important;
-    border: 1px solid #454545 !important;
+    // border: 1px solid #454545 !important;
     width: 100% !important;
-    height:45px !important;
+     height:35px !important;
+     font-size: 13px;
+   }
+::ng-deep .mat-input-element
+{
+  margin-top:-14px !important;
+  padding-left: 14px !important;
+}
+
+   ::ng-deep .mat-form-field-infix
+   {
+     margin-bottom: auto;
    }
 
    .input-height
@@ -93,6 +101,12 @@
 label {
   &.toggle-label {
     width: 30px;
+    position: absolute;
+    top:87px;
+    cursor: pointer;
+    i {
+       font-size: 20px;
+    };
   }
 }
 
@@ -103,14 +117,22 @@ label {
 
 .search-margin
 {
+  width:42px;
+  height:37px;
   margin-left:1%;
-  padding:9px 23px !important;
+  padding:0px 9px !important;
+}
+
+.icon{
+padding-top:8px;
 }
 
 .search-margin-clear
 {
-  margin-left:8%;
-  padding:9px 23px !important;
+  width:42px;
+  height: 37px;
+  margin-left:6%;
+  padding:0px 9px !important;
 }
 .table{
 margin-top:75px;
@@ -134,4 +156,52 @@ margin-top:75px;
   }
 
 
+}
+.view-detail{
+  font-size: 20px;
+  color:#063a54;
+  cursor: pointer;
+}
+.form-gap{
+  margin-top:30px;
+}
+
+
+ select.form-control, input.form-control, ::ng-deep .mat-input-element.form-control.mat-form-field-appearance-fill .mat-form-field-flex{
+  border-radius: 0px !important;
+  font-size: 13px;
+}
+
+::ng-deep .mat-input-element.form-control.mat-form-field-appearance-fill .mat-form-field-flex{
+margin-top:-14px;
+padding: 0 0 0 5px;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
+border: 1px solid #ced4da;
+
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex:in-range{
+  border: 1px solid #2F87CC;
+  
+  }
+
+  ::ng-deep button.mat-focus-indicator
+  {
+   border: none !important;
+
+  }
+.form-gap select.form-control:focus,  input.form-control:hover{
+  outline:none;
+  box-shadow: none;
+}
+
+.custom-font-size{
+  font-size: 13px;
+  color: #2F87CC;
+}
+
+
+.form-gap .btn-primary{
+  margin-top:30px;
 }
