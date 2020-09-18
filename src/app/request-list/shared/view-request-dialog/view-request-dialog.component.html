@@ -1,5 +1,5 @@
 <div mat-dialog-title>
-    <h4>View Request <strong>#{{data.request.requestNumber}}</strong>
+  <h4>View Request <strong>#{{data.request.requestNumber}}</strong>
     <a class="float-right" (click)="dialogRef.close()" title="Close">
       <i class="material-icons">
         clear
@@ -22,30 +22,45 @@
     <div class="col-md-9 col-sm-9 col-12">{{data.request.employee.employeeCode}}</div>
   </div>
   <div class="row mb-3">
-    <div class="col-md-3 col-sm-3 col-12"><strong>Date of request</strong></div>
-    <div class="col-md-9 col-sm-9 col-12">{{data.request.dateOfRequest|date:'mediumDate'}}</div>
+    <div class="col-md-3 col-sm-3 col-12"><strong>Request Duration</strong></div>
+    <div class="col-md-9 col-sm-9 col-12">{{data.request.fromDate|date:'mediumDate'}} To
+      {{data.request.toDate|date:'mediumDate'}} </div>
   </div>
   <div class="row mb-3">
     <div class="col-md-3 col-sm-3 col-12"><strong>Request Status</strong></div>
     <div class="col-md-9 col-sm-9 col-12" *ngIf="data.request.isApproved"><span class="green">Approved</span></div>
     <div class="col-md-9 col-sm-9 col-12" *ngIf="data.request.isDeclined"><span class="red">Declined</span></div>
-    <div class="col-md-9 col-sm-9 col-12" *ngIf="!data.request.isApproved && !data.request.isDeclined"><span class="not-set">Pending</span></div>
-
+    <div class="col-md-9 col-sm-9 col-12" *ngIf="!data.request.isApproved && !data.request.isDeclined"><span
+        class="not-set">Pending</span></div>
   </div>
-
   <div class="row mb-3">
     <div class="col-md-3 col-sm-3 col-12"><strong> Comments</strong></div>
     <div class="col-md-9 col-sm-9 col-12">
-      <textarea ref-textarea [value]="data.request.hrComments" 
-      class="form-control inner-textarea" rows="3" 
-      [disabled]="data.request.isApproved || data.request.isDeclined"></textarea></div>
+
+      <ng-container *ngIf="(data.request.isApproved || data.request.isDeclined) ||
+      (location.path() === '/myrequests' && !data.request.isApproved && !data.request.isDeclined)">
+        {{data.request.hrComments}}
+      </ng-container>
+
+      <ng-container *ngIf="!data.request.isApproved && !data.request.isDeclined && location.path() !== '/myrequests'
+      && isAuthenticated('AcceptRequest') && isAuthenticated('DeclineRequest')">
+        <textarea ref-textarea [value]="data.request.hrComments" class="form-control inner-textarea"
+          rows="3"></textarea>
+      </ng-container>
+
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  
-    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined && isAuthenticated('AcceptRequest')" class="btn btn-primary btn-success" title="Approve" (click)="takeAction(1,textarea.value)">Approve</a>
-    <a href="javascript:void(0)" *ngIf="!data.request.isApproved && !data.request.isDeclined && isAuthenticated('DeclineRequest')" class="btn btn-primary btn-danger" title="Decline" (click)="takeAction(0,textarea.value)">Decline</a>
-    
-    <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" title="Close" (click)="dialogRef.close()">Close</a>
+
+  <a href="javascript:void(0)"
+    *ngIf="!data.request.isApproved && !data.request.isDeclined && isAuthenticated('AcceptRequest') && location.path() !== '/myrequests'"
+    class="btn btn-primary btn-success" title="Approve" (click)="takeAction(1,textarea.value)">Approve</a>
+  <a href="javascript:void(0)"
+    *ngIf="!data.request.isApproved && !data.request.isDeclined && isAuthenticated('DeclineRequest') && location.path() !== '/myrequests'"
+    class="btn btn-primary btn-danger" title="Decline" (click)="takeAction(0,textarea.value)">Decline</a>
+
+  <a href="javascript:void(0)" class="btn btn-primary btn-warning btn-white" title="Close"
+    (click)="dialogRef.close()">Close</a>
 
 </mat-dialog-actions>

@@ -91,7 +91,6 @@ export class UtilityService {
     }
 
     isActionAuthenticated(Action: any) {
-        debugger;
         let user = JSON.parse(localStorage.getItem('user'));
         if (!isNullOrUndefined(user) && user !== '') {
             if (!isNullOrUndefined(user.role)) {

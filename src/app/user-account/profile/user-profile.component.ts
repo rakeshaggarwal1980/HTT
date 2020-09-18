@@ -47,10 +47,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit(empForm: any) {
-    debugger;
     this.spinnerService.startLoading();
-
-
     if (empForm.valid) {
       var model = {
         id: this.user.userId,

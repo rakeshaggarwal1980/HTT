@@ -75,8 +75,7 @@ export class RequestComponent implements OnInit {
   }
 
   onRequestClick(requestForm: any) {
-    debugger;
-    if (requestForm.valid) {
+      if (requestForm.valid) {
       if (this.isControlValid('fromdate') && this.isControlValid('todate')) {
 
         this.isGetting = true;
