@@ -11,7 +11,7 @@ const USER_ACCOUNT_ROUTES: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path:'user-profile',
+    path:'profile',
     component: UserProfileComponent,
     canActivate: [AuthGuardService]
   }
