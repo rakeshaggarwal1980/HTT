@@ -10,14 +10,9 @@ export class ForgotPasswordService {
     }
 
     forgotPassword(email: string) {
-    debugger;
         const accountViewModel = {
             email: email.toString()
         }
-
-        console.log('final forgot password model');
-        console.log(accountViewModel);
-
         return this.apiClientService.Account_ForgotPassword(accountViewModel);
     }
 }

@@ -1,4 +1,4 @@
-<div class="container wrapper-white">
+<div class="container">
   <div class="row">
     <div class="col-12 mb-4">
       <h3>Sign Up</h3>
@@ -6,6 +6,8 @@
   </div>
 
   <ng-container *ngIf="!hasCreated">
+    <div class="row">
+      <div class="col-12 wrapper-form">
     <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationClick(registrationForm)" novalidate
       style="width: 100%;" class="form-content-inner">
       <evry-spinner></evry-spinner>
@@ -100,6 +102,8 @@
         </div>
       </div>
     </form>
+      </div>
+    </div>
   </ng-container>
   <ng-container *ngIf="hasCreated">
     <div class="row">

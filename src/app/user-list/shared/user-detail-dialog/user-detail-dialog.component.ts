@@ -75,7 +75,6 @@ export class UserDetailDialogComponent implements OnInit {
     user.roles = this.roleArr.filter(role => role.selected);
     this.spinnerService.startLoading();
     this.userService.updateEmployee(user).subscribe((data) => {
-      debugger;
       this.spinnerService.stopLoading();
       if (data !== null && data.statusCode === 200) {
         this.dialogRef.close(true);
@@ -84,7 +83,6 @@ export class UserDetailDialogComponent implements OnInit {
         this.errorService.handleFailure(data.statusCode);
       }
     }, error => {
-      debugger;
       this.spinnerService.stopLoading();
       this.dialogRef.close(false);
       this.errorService.handleError(error);

@@ -7,7 +7,6 @@ function validatePassword(): ValidatorFn {
     return (control: AbstractControl) => {
         let isValid = false;
         if (control && control instanceof FormGroup) {
-            debugger;
             let group = control as FormGroup;
             if (group.controls['password'] && group.controls['confirmPassword']) {
                 if (!isNullOrUndefined(group.controls['password']) && !isNullOrUndefined(group.controls['confirmPassword'])) {

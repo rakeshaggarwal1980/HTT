@@ -10,6 +10,7 @@ import { RequestListRouterModule } from 'app/request-list/shared/request-list.ro
 import { SharedModule } from 'app/shared/shared.module';
 
 import { RequestListService } from 'app/request-list/shared/request-list.service';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -19,13 +20,14 @@ import { RequestListService } from 'app/request-list/shared/request-list.service
     TranslateModule,
     SharedModule,
     MatDialogModule,
-    RequestListRouterModule
-  ],   
+    RequestListRouterModule,
+    MatIconModule
+  ],
   exports: [],
   declarations: [
     ViewRequestDialogComponent,
     RequestListComponent
-    
+
   ],
   providers: [RequestListService],
   entryComponents:[ViewRequestDialogComponent]
