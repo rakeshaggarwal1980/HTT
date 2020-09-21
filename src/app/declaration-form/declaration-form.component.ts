@@ -22,6 +22,7 @@ export class DeclarationFormComponent implements OnInit {
   zones: any[] = [];
   questions: any[] = [];
   locations: any[] = [];
+  currentDate=new Date();
   declarationForm: FormGroup;
   healthTrackSymptoms: FormArray;
   healthTrackQuestionAnswers: FormArray;
@@ -33,6 +34,8 @@ export class DeclarationFormComponent implements OnInit {
   isContactWithCovidPeopleValid: boolean = false;
   isTravelOustSideInLast15DaysValid: boolean = false;
   isConfirmInfoValid: boolean = false;
+  name: string = '';
+  employeeCode: number = 0;
 
   request: any =
     {
@@ -73,6 +76,13 @@ export class DeclarationFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log('user is');
+  console.log(user);
+    if (!isNullOrUndefined(user) && user !== '') {
+      this.name = user.name;
+      this.employeeCode=user.employeeCode;
+    }
     this.generateForm();
     console.log('reques no');
     this.requestNumber = this.activatedRoute.snapshot.params.requestNumber;

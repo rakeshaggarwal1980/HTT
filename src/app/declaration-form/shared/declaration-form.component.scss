@@ -32,9 +32,50 @@ header p{ margin:0;}
 .readonly{
 
   background-color:#efefef;
+  outline:none;
+  box-shadow: none;
 }
 .input-height
 {
   height:45px !important;
 }
 
+.radio{
+  float:left;  
+  margin: 7px 10px 0 0;
+}
+
+.margin-early-questions
+{
+  margin:-23px 0 0 19px !important;
+}
+
+input.form-control{
+  border-radius: 0px !important;
+  font-size: 13px;
+}
+ input.form-control:hover{
+  outline:none;
+  box-shadow: none;
+}
+input.readonly:focus{
+  outline:none;
+  box-shadow: none;
+}
+.min-width
+{
+  width:40%;
+}
+
+.heading{
+  margin-top:-30px;
+}
+
+.date{
+font-weight: bold;
+font-style: italic;
+}
+.margin-left-questions
+{
+  margin-left:-30px !important;
+}
