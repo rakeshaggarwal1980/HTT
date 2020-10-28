@@ -9,16 +9,12 @@ export class RequestListService {
   constructor(private apiClientService: ApiClientService) {
   }
 
-  getRequests() {
-    return this.apiClientService.Request_Requests();
+  getRequestsByUserId(searchSortModel: any) {
+    return this.apiClientService.Request_RequestsByUserId(searchSortModel);
   }
 
-  getRequestsByUserId(userId: number) {
-    return this.apiClientService.Request_RequestsByUserId(userId);
-  }
-  
-  getAllRequests() {
-    return this.apiClientService.Request_Requests();
+  getAllRequests(searchSortModel: any) {
+    return this.apiClientService.Request_Requests(searchSortModel);
   }
 
   updateRequest(request: any) {

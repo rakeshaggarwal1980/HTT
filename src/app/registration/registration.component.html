@@ -1,126 +1,107 @@
 <div class="container">
+  <evry-spinner></evry-spinner>
   <div class="row">
     <div class="col-12 mb-4">
       <h3>Sign Up</h3>
     </div>
   </div>
 
-  <ng-container *ngIf="!hasCreated">
-    <div class="row">
-      <div class="col-12 wrapper-form">
-    <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationClick(registrationForm)" novalidate
-      style="width: 100%;" class="form-content-inner">
-      <evry-spinner></evry-spinner>
-      <div class="row mb-4">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-              <label> Name</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-              <input type="text" placeholder="" class="custom-input" formControlName="name"
-                [ngClass]="{'error-field-highlighter':isControlInValid('name')}">
+  <div class="row">
+    <div class="col-12 wrapper-form">
+      <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationClick(registrationForm)" novalidate
+        style="width: 100%;" class="form-content-inner">
+
+        <div class="row mb-4">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+                <label> Name</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <input type="text" placeholder="" class="custom-input" formControlName="name"
+                  [ngClass]="{'error-field-highlighter':isControlInValid('name')}">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-              <label> Employee Code</label>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+                <label> Employee Code</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <input type="text" placeholder="" class="custom-input" formControlName="employeeCode"
+                  [ngClass]="{'error-field-highlighter':isControlInValid('employeeCode')}">
+              </div>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-              <input type="text" placeholder="" class="custom-input" formControlName="employeeCode"
-                [ngClass]="{'error-field-highlighter':isControlInValid('employeeCode')}">
+
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+                <label> Email</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <input type="text" placeholder="" class="custom-input" formControlName="email"
+                  [ngClass]="{'error-field-highlighter':isControlInValid('email')}">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+                <label> Password</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <input type="password" placeholder="" class="custom-input" formControlName="password"
+                  [ngClass]="{'error-field-highlighter':isControlInValid('password')}">
+              </div>
             </div>
           </div>
 
         </div>
-      </div>
-      <div class="row mb-4">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-              <label> Email</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-              <input type="text" placeholder="" class="custom-input" formControlName="email"
-                [ngClass]="{'error-field-highlighter':isControlInValid('email')}">
+        <div class="row mb-4">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+                <label> Current Address</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <textarea placeholder="" class="custom-input textarea-rows" rows="5"
+                  formControlName="currentResidentialAddress"
+                  [ngClass]="{'error-field-highlighter':isControlInValid('currentResidentialAddress')}"></textarea>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-              <label> Password</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-              <input type="password" placeholder="" class="custom-input" formControlName="password"
-                [ngClass]="{'error-field-highlighter':isControlInValid('password')}">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
+                <label> Permanent Address</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <textarea placeholder="" rows="5" class="custom-input textarea-rows"
+                  formControlName="permanentResidentialAddress"
+                  [ngClass]="{'error-field-highlighter':isControlInValid('permanentResidentialAddress')}"></textarea>
+              </div>
             </div>
           </div>
         </div>
 
-      </div>
-      <div class="row mb-4">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-              <label> Current Address</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-              <textarea placeholder="" class="custom-input textarea-rows" rows="5"
-                formControlName="currentResidentialAddress"
-                [ngClass]="{'error-field-highlighter':isControlInValid('currentResidentialAddress')}"></textarea>
-            </div>
+        <div class="row mt-4">
+          <div class="col-12 text-right">
+            <button id="registration" type="submit" class="btn-primary login-btn" translate>
+              <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading" mode="indeterminate" value="50">
+              </mat-progress-spinner>
+              <span translate>Sign Up</span>
+            </button>
+
+            <button class="btn-primary btn-text-only" (click)="cancel()">
+              <span translate>Cancel</span>
+            </button>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-              <label> Permanent Address</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-              <textarea placeholder="" rows="5" class="custom-input textarea-rows"
-                formControlName="permanentResidentialAddress"
-                [ngClass]="{'error-field-highlighter':isControlInValid('permanentResidentialAddress')}"></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-12 text-right">
-          <button id="registration" type="submit" class="btn-primary submit-btn" translate>
-            <mat-progress-spinner diameter="20" *ngIf="isGetting" class="loading" mode="indeterminate" value="50">
-            </mat-progress-spinner>
-            <span translate>Submit</span>
-          </button>
-
-          <button class="btn-primary btn-text-only" (click)="cancel()">
-            <span translate>Cancel</span>
-          </button>
-        </div>
-      </div>
-    </form>
-      </div>
+      </form>
     </div>
-  </ng-container>
-  <ng-container *ngIf="hasCreated">
-    <div class="row">
-      <div class=" col-12">
-        <div class="row">
-          <div class="col-12 text-center">
-            <p><span class="material-icons thanks">
-                check_circle_outline
-              </span></p>
-          </div>
-          <div class="col-12 text-center">
-            <p> Thank You for signing up!!</p>
-            <p>You have been registered successfully! Your account will be activated by Administrator shortly.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </ng-container>
+  </div>
 </div>

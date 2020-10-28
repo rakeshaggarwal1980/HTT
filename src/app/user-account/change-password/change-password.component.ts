@@ -3,6 +3,8 @@ import { isNullOrUndefined } from 'util';
 import { ErrorService, SnackBarService } from 'app/shared/index.shared';
 import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 import { UserAccountService } from '../shared/user-account.service';
+import { UtilityService } from 'app/shared/services/utility.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,6 +14,8 @@ import { UserAccountService } from '../shared/user-account.service';
 })
 export class ChangePasswordComponent implements OnInit {
   isGetting: boolean = false;
+  previousUrl: string = '';
+  error: boolean = false;
   changePassword: any = {
     password: '',
     confirmPassword: ''
@@ -21,19 +25,23 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private snackBarService: SnackBarService,
     private spinnerService: SpinnerService, private userAccountService: UserAccountService,
-    private errorService: ErrorService) {
+    private errorService: ErrorService, private utilityService: UtilityService, private router: Router) {
   }
 
   ngOnInit() {
   }
 
   onChangePassword(changePasswordForm: any) {
+    debugger;
     if (!changePasswordForm.valid && changePasswordForm.controls.passwords.errors == null) {
-      this.snackBarService.showError('Please enter mandatory fields.');
+      this.snackBarService.showError('Please enter password of minimum 6 characters.');
+      this.error = true;
     } else if (!changePasswordForm.valid && changePasswordForm.controls.passwords.errors.passwordCheck == 'failed') {
       this.snackBarService.showError('Passwords do not match');
+      this.error = true;
     }
     else if (changePasswordForm.valid) {
+      this.error = false;
       this.spinnerService.startLoading();
       let user = JSON.parse(localStorage.getItem('user'));
 
@@ -42,6 +50,7 @@ export class ChangePasswordComponent implements OnInit {
         confirmPassword: changePasswordForm.value.passwords.confirmPassword,
         email: user.email
       }
+      debugger;
       this.userAccountService.changePassword(resetPasswordModel).subscribe(
         data => {
           this.spinnerService.stopLoading();
@@ -72,5 +81,13 @@ export class ChangePasswordComponent implements OnInit {
   }
   cancel(changePasswordForm) {
     changePasswordForm.resetForm();
+
+    this.utilityService.previousUrl$.subscribe(url => {
+      this.previousUrl = url.toString();
+    });
+    if (this.previousUrl !== '') {
+      this.router.navigate([this.previousUrl]);
+    }
+
   }
 }

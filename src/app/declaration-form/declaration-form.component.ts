@@ -6,7 +6,7 @@ import { EntityStatus } from 'app/app.enum';
 import { Router, ActivatedRoute, Validators } from 'vendor/angular';
 import { SnackBarService } from 'app/shared/index.shared';
 import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
-
+import { UtilityService } from 'app/shared/services/utility.service';
 
 @Component({
   selector: 'evry-declaration-form',
@@ -19,15 +19,18 @@ export class DeclarationFormComponent implements OnInit {
   isGetting: boolean = false;
   viewMode: boolean = false;
   symptoms: any[] = [];
+  previousUrl: string = '';
   zones: any[] = [];
   questions: any[] = [];
   locations: any[] = [];
-  currentDate=new Date();
+  currentDate = new Date();
   declarationForm: FormGroup;
   healthTrackSymptoms: FormArray;
   healthTrackQuestionAnswers: FormArray;
+  canAddDeclaration: boolean = true;
   alphabet = 'abcdefghijklmnopqrstuvwxyz';
   submitted: boolean = false;
+  currentResidentialAddress: string = '';
   isLocationValid: boolean = false;
   isZoneValid: boolean = false;
   isPreExistHealthIssueValid: boolean = false;
@@ -36,7 +39,7 @@ export class DeclarationFormComponent implements OnInit {
   isConfirmInfoValid: boolean = false;
   name: string = '';
   employeeCode: number = 0;
-
+  user: any;
   request: any =
     {
       id: 0,
@@ -72,26 +75,27 @@ export class DeclarationFormComponent implements OnInit {
 
   constructor(private declarationService: DeclarationService, private fb: FormBuilder,
     private router: Router, private activatedRoute: ActivatedRoute,
-    private snackBarService: SnackBarService, private spinnerService: SpinnerService) {
+    private snackBarService: SnackBarService, private spinnerService: SpinnerService, private utilityService: UtilityService) {
   }
 
   ngOnInit() {
     let user = JSON.parse(localStorage.getItem('user'));
-    console.log('user is');
-  console.log(user);
     if (!isNullOrUndefined(user) && user !== '') {
       this.name = user.name;
-      this.employeeCode=user.employeeCode;
+      this.employeeCode = user.employeeCode;
+      this.currentResidentialAddress = user.currentResidentialAddress;
+      this.user = user;
     }
     this.generateForm();
     console.log('reques no');
     this.requestNumber = this.activatedRoute.snapshot.params.requestNumber;
     this.employeeId = this.activatedRoute.snapshot.params.employeeId;
-    if (!isNullOrUndefined(this.employeeId)) {
+    if (!isNullOrUndefined(this.employeeId) && this.requestNumber !== '') {
       this.viewMode = true;
       this.getEmployeeSelfDeclaration(this.employeeId, this.requestNumber);
     } else {
       this.viewMode = false;
+      this.getEmployeeExistingSelfDeclaration(this.user.userId);
     }
     this.getDeclarationFormData();
   }
@@ -99,15 +103,15 @@ export class DeclarationFormComponent implements OnInit {
   private generateForm() {
     this.declarationForm = this.fb.group({
       id: [0],
-      name: ['', Validators.required],
-      residentialAddress: ['', Validators.required],
+      name: [this.name],
+      residentialAddress: [this.currentResidentialAddress],
       preExistHealthIssue: [''],
       contactWithCovidPeople: [''],
       travelOustSideInLast15Days: [''],
       dateOfTravel: [new Date()],
       locationId: [''],
       zoneId: [''],
-      employeeId: ['', Validators.required],
+      employeeId: [this.employeeCode],
       healthTrackSymptoms: this.fb.array([this.fb.group({
         id: [0],
         healthTrackId: [0],
@@ -319,6 +323,44 @@ export class DeclarationFormComponent implements OnInit {
     console.log(this.declarationForm);
   }
 
+  getEmployeeExistingSelfDeclaration(employeeId: number) {
+    this.declarationService.getExistingSelfDeclarationOfEmployee(employeeId).subscribe(
+      data => {
+        console.log('this is data');
+        console.log(data);
+        //  this.isGetting = false;
+        if (!isNullOrUndefined(data)) {
+          // this.setLocalUserProfileData(data);
+          //  this.dialog.closeAll();
+          if (!isNullOrUndefined(data.body)) {
+            //   this.canAddDeclaration = true;
+
+          }
+        } else {
+
+          //  this.messageKey = 'landingPage.menu.login.invalidCredentials';
+        }
+      },
+      err => {
+        //// this.isGetting = false;
+        if (err.status > 300) {
+          console.log('error');
+          this.snackBarService.showError(err.error.message);
+          this.utilityService.previousUrl$.subscribe(url => {
+            this.previousUrl = url.toString();
+          });
+          if (this.previousUrl !== '') {
+            this.router.navigate([this.previousUrl]);
+          }
+          // this.messageKey = 'landingPage.menu.login.invalidCredentials';
+        }
+      }
+    );
+    console.log('this is view mode');
+    console.log(this.declarationForm);
+  }
+
+
   get healthSymptoms(): FormArray {
     // console.log('getting the test array', this.declarationForm.get('healthTrackSymptoms'));
     return this.declarationForm.get('healthTrackSymptoms') as FormArray;
@@ -330,12 +372,18 @@ export class DeclarationFormComponent implements OnInit {
   }
 
   onDeclarationClick(formData: any) {
+    debugger;
     this.submitted = true;
     if (formData.valid) {
-      if (!this.isLocationValid || !this.isZoneValid || !this.isPreExistHealthIssueValid || !this.isContactWithCovidPeopleValid || !this.isTravelOustSideInLast15DaysValid || !this.isConfirmInfoValid) {
+      if (!this.isLocationValid || !this.isZoneValid || !this.isPreExistHealthIssueValid || !this.isContactWithCovidPeopleValid || !this.isTravelOustSideInLast15DaysValid) {
         this.snackBarService.showError("Please enter or select mandatory fields.");
-      } else {
+      }
+      else if (!this.isConfirmInfoValid) {
+        this.snackBarService.showError("Please confirm the information filled.");
+      }
+      else {
         this.spinnerService.startLoading();
+        window.scroll(0, 0);
         let user = JSON.parse(localStorage.getItem('user'));
         this.isGetting = true;
         this.request.id = 0;
@@ -383,7 +431,7 @@ export class DeclarationFormComponent implements OnInit {
                 this.snackBarService.showError(data.message);
               } else {
                 this.snackBarService.showSuccess('Declaration submitted successfully!!');
-
+                this.router.navigate(['mydeclarations']);
               }
             } else {
               this.spinnerService.stopLoading();
@@ -472,7 +520,7 @@ export class DeclarationFormComponent implements OnInit {
         break;
       case 'confirm':
         if (!isNullOrUndefined(value) && value !== '') {
-          this.isConfirmInfoValid = true;
+          this.isConfirmInfoValid = value.currentTarget.checked;
         } else {
           this.isConfirmInfoValid = false;
         }

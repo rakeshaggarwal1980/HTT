@@ -13,7 +13,11 @@ export class DeclarationListService {
     return this.apiClientService.Health_Declarations(searchSortModel);
   }
 
-  getDeclarationToExport() {
-    return this.apiClientService.Health_GetDeclarationsToExport();
+  getMyDeclarations(searchSortModel: any) {
+    return this.apiClientService.Health_MyDeclarations(searchSortModel);
+  }
+
+  getDeclarationToExport(searchSortModel: any) {
+    return this.apiClientService.Health_GetDeclarationsToExport(searchSortModel);
   }
 }

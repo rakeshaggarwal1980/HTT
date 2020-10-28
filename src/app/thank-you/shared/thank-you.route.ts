@@ -6,14 +6,9 @@ import { NgModule } from '@angular/core';
 
 const THANK_YOU_ROUTES: Routes = [
   {
-    path: 'thanks',
+    path: 'thanks/:target',
     component: ThankYouComponent
   },
 ];
 
-// @NgModule({
-//   imports: [RouterModule.forRoot(THANK_YOU_ROUTES)],
-//   exports: [RouterModule]
-// })
-// export class ThankYouRouterModule { }
 export let ThankYouRouterModule = RouterModule.forRoot(THANK_YOU_ROUTES);

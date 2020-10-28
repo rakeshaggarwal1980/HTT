@@ -19,7 +19,8 @@ export class RequestService {
             isApproved: false,
             isDeclined: false,
             employeeId: Number(request.employeeId),
-            hrComments: ''
+            hrComments: '',
+            employee: request.employee
         }
 
         console.log('final request');

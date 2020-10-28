@@ -5,28 +5,27 @@ import { Observable } from 'rxjs';
 import { TypeScriptEmitter } from '@angular/compiler';
 
 @Injectable()
-export class DeclarationService {
+export class CovidFormService {
 
     constructor(private apiClientService: ApiClientService) {
     }
 
 
+    getCovidDeclaration(declarationId: number) {
+        return this.apiClientService.Health_GetEmployeeCovidDeclaration(declarationId);
+    }
 
     getDeclarationData() {
         return this.apiClientService.Health_DeclarationData();
     }
 
-    PostDeclarationData(declarationData: any) {
+    PostCovidDeclarationData(declarationData: any) {
         console.log(declarationData);
-        return this.apiClientService.Health_PostDeclarationData(declarationData);
+        return this.apiClientService.Health_PostCovidDeclarationData(declarationData);
     }
 
     getEmployeeSelfDeclaration(employeeId: number, requestNumber: string) {
         return this.apiClientService.Health_GetEmployeeSelfDeclaration(employeeId, requestNumber);
-    }
-
-    getExistingSelfDeclarationOfEmployee(employeeId: number) {
-        return this.apiClientService.Health_GetEmployeeExistingSelfDeclaration(employeeId);
     }
 }
 

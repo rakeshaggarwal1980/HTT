@@ -2,47 +2,174 @@
   <evry-spinner></evry-spinner>
   <div class="row">
     <div class="col-12 mb-4">
-      <h3 *ngIf="location.path() === '/requests'">Requests</h3>
+      <h3 *ngIf="location.path() === '/requests'">All Requests</h3>
       <h3 *ngIf="location.path() === '/myrequests'">My Requests</h3>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
+
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Search</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row form-group">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12 search-category-margin">
+              <select name="category" #category id="category" class="form-control min-height"
+                (change)="onCategoryChange(category.value)">
+                <option value="0">-Select Category-</option>
+                <option *ngFor="let category of categories"  [value]="category.id">{{category.value}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="propertyName=='status'">
+              <select name="status" #status id="status" class="form-control min-height"
+                (change)="onStatusChange(status.value)">
+                <option value="0">-Select Status-</option>
+                <option *ngFor="let status of requestStatus" [value]="status.id">{{status.value}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12"
+              *ngIf="propertyName!=='daterange' && propertyName!=='status'">
+              <input class="form-control min-height" #search [value]="searchInput" placeholder="Search Requests">
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="propertyName=='daterange'">
+              <mat-form-field appearance="fill" id="fromDatePicker">
+                <input matInput #fromInput [matDatepicker]="fromPicker"
+                  (dateInput)="addEvent('fromDate','input', $event)"
+                  (dateChange)="addEvent('fromDate','change', $event)">
+                <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12 dateRange" *ngIf="propertyName=='daterange'">
+              <mat-form-field appearance="fill" id="toDatePicker">
+                <input matInput #toInput [matDatepicker]="toPicker" (dateInput)="addEvent('toDate','input', $event)"
+                  (dateChange)="addEvent('toDate','change', $event)">
+                <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                <mat-datepicker #toPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="onSearch(category.value)" title="Search"
+            [ngClass]="{'searchDateRange':(propertyName=='daterange')}" class="search-btn search-margin"><span
+              class="material-icons icon">
+              search
+            </span></button>
+          <button mat-button (click)="category.value='0';onSearch('')" title="Reset"
+            [ngClass]="{'clearDateRange':(propertyName=='daterange')}" class="search-btn search-margin-clear"><span
+              class="material-icons icon">
+              clear
+            </span></button>
+        </mat-card-actions>
+
+      </mat-card>
+
+
+    </div>
+    <div class="col-12">
+      <button *ngIf="location.path()=='/myrequests' && !isSuperAdmin" title="New Declaration" type="button" [routerLink]="['/selfdeclaration']"
+      class="btn-primary login-btn float-right mb-2 mt-4 ml-2" translate>
+      <span translate>New Declaration</span>
+    </button>
+      <button *ngIf="location.path()=='/myrequests' && !isSuperAdmin" title="New Request" type="button" [routerLink]="['/request']"
+        class="btn-primary login-btn float-right mb-2 mt-4" translate>
+        <span translate>New Request</span>
+      </button>
+
       <table class="table table-bordered table-custom">
         <thead>
           <tr>
             <ng-container *ngIf="location.path() === '/requests'">
-              <th>Requested By</th>
-              <th>Employee Code</th>
+              <th>Requested By
+                <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.employeename===0"
+                  (click)="onSortClick('employeename')">
+                  <i class="material-icons sort-icon">
+                    arrow_upward
+                  </i>
+                </label>
+                <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.employeename===1"
+                  (click)="onSortClick('employeename')">
+                  <i class="material-icons sort-icon">
+                    arrow_downward
+                  </i>
+                </label>
+
+              </th>
+              <th>Employee Code
+              </th>
             </ng-container>
             <th>Request #</th>
-            <th>From Date</th>
-            <th>To Date</th>
+            <th>From Date
+              <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.fromDate===0"
+                (click)="onSortClick('fromDate')">
+                <i class="material-icons sort-icon">
+                  arrow_upward
+                </i>
+              </label>
+              <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.fromDate===1"
+                (click)="onSortClick('fromDate')">
+                <i class="material-icons sort-icon">
+                  arrow_downward
+                </i>
+              </label>
+            </th>
+            <th>To Date
+              <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.toDate===0"
+                (click)="onSortClick('toDate')">
+                <i class="material-icons sort-icon">
+                  arrow_upward
+                </i>
+              </label>
+              <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.toDate===1"
+                (click)="onSortClick('toDate')">
+                <i class="material-icons sort-icon">
+                  arrow_downward
+                </i>
+              </label>
+            </th>
             <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let request of Requests">
-            <ng-container *ngIf="location.path() === '/requests'">
-              <td>{{request.employee.name}}</td>
-              <td> {{request.employee.employeeCode}} </td>
-            </ng-container>
+          <ng-container *ngIf="Requests.length==0">
+            <tr>
+              <td colspan="7">
+                No Record Found
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="Requests.length>0">
+            <tr *ngFor="let request of Requests">
+              <ng-container *ngIf="location.path() === '/requests'">
+                <td>{{request.employee.name}}</td>
+                <td> {{request.employee.employeeCode}} </td>
+              </ng-container>
 
-            <td>{{request.requestNumber}}</td>
-            <td>{{request.fromDate|date:'mediumDate'}}</td>
-            <td>{{request.toDate|date:'mediumDate'}}</td>
-            <td>
-              <span class="green" *ngIf="request.isApproved">Approved</span>
-              <span *ngIf="request.isDeclined" class="red">Declined</span>
-              <span class="not-set" *ngIf="!request.isApproved && !request.isDeclined">Pending</span>
-            </td>
-            <td> <a href="javascript:void(0)" title="View Request" (click)="viewRequest(request)"
-                ><mat-icon>preview</mat-icon></a>
-            </td>
-          </tr>
+              <td>{{request.requestNumber}}</td>
+              <td>{{request.fromDate|date:'mediumDate'}}</td>
+              <td>{{request.toDate|date:'mediumDate'}}</td>
+              <td>
+                <span class="green" *ngIf="request.isApproved">Approved</span>
+                <span *ngIf="request.isDeclined" class="red">Declined</span>
+                <span class="not-set" *ngIf="!request.isApproved && !request.isDeclined">Pending</span>
+              </td>
+              <td> <a href="javascript:void(0)" title="View Request" class="view-detail" (click)="viewRequest(request)">
+                  <mat-icon>preview</mat-icon>
+                </a>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
+      <div class="pager-inner bom-elements-pager col-12" *ngIf="Requests.length>0">
+        <evry-pager [data]="pageInfo" (onPageChange)="onPageChange($event)"></evry-pager>
+      </div>
     </div>
   </div>
 </div>

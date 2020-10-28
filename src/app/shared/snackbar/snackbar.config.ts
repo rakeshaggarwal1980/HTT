@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
 
 const snackBarConfig: any = {
-  duration: '5000',
+  duration: '30000',
   horizontalPosition: 'right',
-  panelClass: ''
+  panelClass: 'snackbarPosition'
 };
 
 

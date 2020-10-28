@@ -3,7 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from 'vendor/angular';
 import { MatCardModule } from '@angular/material/card';
-
+import { MatIconModule } from '@angular/material/icon';
 
 // components
 import { DeclarationListComponent } from 'app/declaration-list/declaration-list.component';
@@ -35,7 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatMomentDateModule,
     MatDatepickerModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   exports: [],
   declarations: [

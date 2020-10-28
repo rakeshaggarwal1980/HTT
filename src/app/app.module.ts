@@ -5,7 +5,9 @@ import { SharedModule } from 'app/shared/index.shared';
 import { AppRouterModule } from 'app/app.routes';
 import { RegistrationModule } from 'app/registration/index.registration';
 import { DeclarationFormModule } from 'app/declaration-form/index.declaration-form';
+import { CovidFormModule } from 'app/covid-form/index.covid-form';
 import { RequestListModule } from 'app/request-list/index.request-list';
+import { CovidDeclarationListModule } from 'app/covid-declaration-list/shared/covid-declaration-list.module';
 import { UserListModule } from 'app/user-list/shared/user-list.module';
 import { ErrorModule } from 'app/error/index.error';
 import { ServiceModule } from 'app/shared/services/service.module';
@@ -50,9 +52,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     UserListModule,
     DeclarationListModule,
+    CovidFormModule,
     ForgotPasswordModule,
     ThankYouModule,
     UserAccountModule,
+    CovidDeclarationListModule,
     // NavigationDestinationModule,
     // TableModule,
     ServiceModule,

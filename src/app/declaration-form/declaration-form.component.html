@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row heading">
-        <div class="col-12 mb-4">
+        <div class="col-12 mb-4 mt-4">
             <h3>Self Declaration</h3>
         </div>
     </div>
@@ -64,13 +64,10 @@
 
         </div>
         <div class="row common-text mb-4">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12"><span class="sr-no mr-3">2.</span> Please Specify your
-                full current residential address:</div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12"><span class="sr-no mr-3">2.</span> Current residential
+                address:</div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                <!-- <input type="text" class="form-control" formControlName="residentialAddress"
-                    [ngClass]="{'error-field-highlighter':isControlInValid('residentialAddress'),'readonly':(viewMode==true)}"
-                    [readOnly]="viewMode==true"> -->
-                <label>{{residentialAddress}}</label>
+                <label>{{currentResidentialAddress}}</label>
 
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-12"></div>
@@ -376,21 +373,32 @@
             </div>
         </div>
 
-        <div class="row common-text mt-4 mb-4" *ngIf="viewMode==false">
+        <div class="row common-text mt-4 mb-4">
             <div class="col-12">
-                <input type="radio" class="mr-2 mb-3" (change)="onChange('confirm',0,true)">I confrim that the above
-                information is complete and accurate
-                to the best of my knowledge that
-                withoutholding any information is unethical and against of the gloabl population fighting the
-                covid-19
-                pandemic.
-                <span class="error-field-highlighter-star">*</span>
-                <div class="mt-4 text-right mb-4">
-                    <button id="declaration" title="Save" type="submit" class="btn-primary login-btn">
-                        Save
+                <div *ngIf="viewMode==false">
+                    <input type="checkbox" id="chkConfirm" #chkConfirm class="mr-2 mb-3"
+                        (change)="onChange('confirm',0,$event)">
+                    <div class="row common-text confirm-margin">
+                        I confrim that the above
+                        information is complete and accurate
+                        to the best of my knowledge that
+                        withoutholding any information is unethical and against of the gloabl population fighting the
+                        covid-19
+                        pandemic.
+                    </div>
+                    <div class="mt-4 text-right mb-4">
+                        <button id="declaration" title="Save" type="submit" class="btn-primary login-btn">
+                            Save
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4 text-right mb-4" *ngIf="viewMode==true">
+                    <button title="Back" type="button" [routerLink]="['/declarations']" class="btn-primary login-btn">
+                        Back
                     </button>
                 </div>
             </div>
         </div>
+
     </form>
 </div>

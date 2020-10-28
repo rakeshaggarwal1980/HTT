@@ -1,4 +1,5 @@
 <div class="container">
+  <evry-spinner></evry-spinner>
   <div class="row">
     <div class="col-12 mb-4">
       <h3>Users</h3>
@@ -6,12 +7,85 @@
   </div>
   <div class="row">
     <div class="col-12">
+
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Search</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row form-group">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12 search-category-margin">
+              <select name="category" #category id="category" class="form-control min-height"
+                (change)="onCategoryChange(category.value)">
+                <option value="0">-Select Category-</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{category.value}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12" *ngIf="propertyName=='role'">
+              <select name="roles" #roles id="roles" class="form-control min-height"
+                (change)="onRoleChange(roles.value)">
+                <option value="0">-Select Role-</option>
+                <option *ngFor="let role of allRoles" [value]="role.id">{{role.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12"
+              *ngIf="propertyName!=='role'">
+              <input class="form-control min-height" #search [value]="searchInput" placeholder="Search Users">
+            </div>
+
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="onSearch(propertyName)" title="Search"
+            class="search-btn search-margin"><span
+              class="material-icons icon">
+              search
+            </span></button>
+          <button mat-button (click)="category.value='0';onSearch('')" title="Reset"
+             class="search-btn search-margin-clear"><span
+              class="material-icons icon">
+              clear
+            </span></button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-12 mt-4">
       <table class="table table-bordered table-custom">
         <thead>
           <tr>
-            <th>Employee Code</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Employee Code
+              <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.employeecode===0"
+              (click)="onSortClick('employeecode')">
+              <i class="material-icons sort-icon">
+                arrow_upward
+              </i>
+            </label>
+            <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.employeecode===1"
+              (click)="onSortClick('employeecode')">
+              <i class="material-icons sort-icon">
+                arrow_downward
+              </i>
+            </label>
+            </th>
+            <th>Name
+              <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.employeename===0"
+              (click)="onSortClick('employeename')">
+              <i class="material-icons sort-icon">
+                arrow_upward
+              </i>
+            </label>
+            <label class="toggle-label" title="Click to toggle sort" *ngIf="sortDirectionStatus.employeename===1"
+              (click)="onSortClick('employeename')">
+              <i class="material-icons sort-icon">
+                arrow_downward
+              </i>
+            </label>
+            </th>
+            <th>Email
+              
+            </th>
             <th>Role</th>
             <th>Status</th>
             <th>Action</th>
@@ -36,16 +110,19 @@
               <span *ngIf="employee.status==0" class="not-set">Pending</span>
 
             </td>
-            <td> <a href="javascript:void(0)" title="View Detail" (click)="viewUser(employee)">
+            <td> <a href="javascript:void(0)" title="View Detail" class="view-detail" (click)="viewUser(employee)">
                 <mat-icon>edit</mat-icon>
               </a>
-              <a href="javascript:void(0)" title="Delete" (click)="deleteEmployee(employee.id)">
+              <a href="javascript:void(0)" title="Delete" class="view-detail" (click)="deleteEmployee(employee.id)">
                 <mat-icon>delete</mat-icon>
               </a>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="pager-inner bom-elements-pager col-12">
+        <evry-pager [data]="pageInfo" (onPageChange)="onPageChange($event)"></evry-pager>
+      </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+@import 'src/styles/partials/_variable.scss';
+
 .action-btn {
   background: #2173a0;
   border: none;
@@ -34,4 +36,240 @@
 ::ng-deep .cdk-overlay-container
 {
   z-index: 9999 !important;
+}
+.view-detail{
+  font-size: 20px;
+  color:#063a54;
+  cursor: pointer;
+ .mat-icon
+  {
+    cursor: pointer !important;
+  }
+  &:hover{
+    color:#2F87CC;
+  }
+}
+
+.custom-input{ font-size:14px; color:#343434; background: #fffefe;; border:none; width:100%; border:1px solid #343434; height:40px; padding: 0 15px; margin-bottom: 20px; border-radius:0px;}
+.custom-select, .custom-date{ font-size:14px; color:#343434; background: #fffefe;; border:none; width:100%; border:1px solid #343434; height:40px; padding: 0 15px; margin-bottom: 20px; border-radius:0px;}
+.custom-input:focus{ outline: none;}
+  ::placeholder { 
+    color:#ECECEC;
+    opacity: 1; 
+  }
+
+  .search-btn { 
+    position: absolute;
+    top: 57px;
+    /* float: right; */
+    left: 69%;
+    background: #063752;
+    border: none;
+    padding: 8px 47px;
+    color: #f5f5f5;
+    font-size: 17px;
+    text-align: center;}
+  .search-btn:hover, .search-btn:focus{ outline: none; text-decoration: none; color: #FFFFFF; background: #2173a0; box-shadow: none;}
+  .export-btn { 
+    background: #063752;
+    border: none;
+    padding:5px 10px;
+    cursor: pointer;
+    color: #f5f5f5;
+    font-size: 17px;
+    text-align: center;}
+  .export-btn:hover, .export-btn:focus{ outline: none; text-decoration: none; color: #FFFFFF; background: #2173a0; box-shadow: none;}
+
+ 
+  mat-form-field {
+    margin-right: 12px;
+    width:100%!important;
+  }
+   ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex
+   {
+    border-radius: 0 !important;
+    padding:  0 !important;
+    background: #fff !important;
+    // border: 1px solid #454545 !important;
+    width: 100% !important;
+     height:35px !important;
+     font-size: 13px;
+   }
+::ng-deep .mat-input-element
+{
+  margin-top:-14px !important;
+  padding-left: 14px !important;
+}
+
+   ::ng-deep .mat-form-field-infix
+   {
+     margin-bottom: auto;
+   }
+
+   .input-height
+{
+  height:35px !important;
+}
+label {
+  &.toggle-label {
+    width: 30px;
+    position: absolute;
+    // top:87px;
+    cursor: pointer;
+    i {
+       font-size: 20px;
+    };
+  }
+}
+
+.search-category-margin
+{
+  margin-left: 57px !important;
+}
+
+.searchDateRange
+  {
+    margin-left:12% !important;
+  }
+
+
+.search-margin
+{
+  width:42px;
+  height:37px;
+  margin-left:-13%;
+  padding:0px 9px !important;
+}
+
+.icon{
+padding-top:8px;
+}
+
+.dateRange{
+  margin-top:-1px;
+}
+
+.min-height
+{
+  height:36px;
+}
+.clearDateRange
+{
+  margin-left:16.5% !important;
+}
+
+.search-margin-clear
+{
+  width:42px;
+  height: 37px;
+  margin-left:-8.5%;
+  padding:0px 9px !important;
+}
+.table{
+margin-top:46px;
+}
+.bom-elements-pager
+{ 
+ .dataTables_paginate{
+    position: fixed;
+    left: 98px;
+    top: 87%;
+    z-index:99999;
+    cursor: pointer;
+    @media screen and (min-width: $ipad-xl-screen) {
+      left: 165px;
+      top: 88%;
+    }
+  }
+  .paging-stats
+  {
+    display: none;
+  }
+
+
+}
+.view-detail{
+  font-size: 20px;
+  color:#063a54;
+  cursor: pointer;
+ .mat-icon {
+    cursor: pointer !important;
+  }
+  &:hover{
+    color:#2F87CC;
+  }
+}
+.form-gap{
+  margin-top:30px;
+}
+
+
+ select.form-control, input.form-control, ::ng-deep .mat-input-element.form-control.mat-form-field-appearance-fill .mat-form-field-flex{
+  border-radius: 0px !important;
+  font-size: 13px;
+}
+
+::ng-deep .mat-input-element.form-control.mat-form-field-appearance-fill .mat-form-field-flex{
+margin-top:-14px;
+padding: 0 0 0 5px;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex{
+border: 1px solid #ced4da;
+
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex:in-range{
+  border: 1px solid #2F87CC;
+  
+  }
+
+  ::ng-deep button.mat-focus-indicator
+  {
+   border: none !important;
+
+  }
+.form-gap select.form-control:focus,  input.form-control:hover{
+  outline:none;
+  box-shadow: none;
+}
+
+.custom-font-size{
+  font-size: 13px;
+  color: #2F87CC;
+}
+
+
+.form-gap .btn-primary{
+  margin-top:30px;
+}
+.bom-elements-pager
+{ 
+ .dataTables_paginate{
+    position: fixed;
+    left: 98px;
+    top: 87%;
+    z-index:99999;
+    cursor: pointer;
+    @media screen and (min-width: $ipad-xl-screen) {
+      left: 165px;
+      top: 88%;
+    }
+  }
+  .paging-stats
+  {
+    display: none;
+  }
+
+
+}
+label {
+  &.toggle-label {
+    width: 30px;
+    position: absolute;
+    // top:84px;
+    cursor: pointer;
+    i {
+       font-size: 20px;
+    };
+  }
 }

@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { isNullOrUndefined } from 'util';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HR_ACTIONS, SECURITY_ACTIONS, EMPLOYEE_ACTIONS } from 'app/app.enum';
 
 
 @Injectable()
 export class UtilityService {
-
+    private previousUrl: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public previousUrl$: Observable<string> = this.previousUrl.asObservable();
     constructor(private translateService: TranslateService) {
+    }
+
+    setPreviousUrl(previousUrl: string) {
+        this.previousUrl.next(previousUrl);
     }
 
     showTranslatedText(key): any {

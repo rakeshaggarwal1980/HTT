@@ -1,6 +1,6 @@
 
 
-header{ width:100%; float: left; background: #fff; padding: 20px 0;}
+header{ width:100%; float: left; background: white; padding: 20px 0;}
 
 
 
@@ -10,7 +10,7 @@ header{ width:100%; float: left; background: #fff; padding: 20px 0;}
 .align-text{float: right; text-align: right;}
 .ml-neg-2{ margin-left:-22px;}
 
-.middle-inner{ margin-bottom:40px; padding-top: 170px;}
+.middle-inner{ margin-bottom:40px; padding-top: 130px;}
 footer{ width:100%; float: left; margin-top: 20px; background: #063a54; padding: 20px 0;}
 footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
 
@@ -43,9 +43,9 @@ footer p{ color: #f7f7f7; font-size: 14px; margin: 10px 0 0 0;}
 
 
 
-header{ width:100%; float: left; background: rgba(255,255,255,.9); padding:0;}
+header{ width:100%; float: left; background: white; padding:0;}
 .navbar{ padding: 0;}
-.logo{ margin-top:18px; float: left;}
+.logo{ margin-top:18px; float: left; margin-bottom: 18px;}
 .custom-nav li a{
   font-size: 12px;
   color: #777777;
@@ -90,6 +90,7 @@ header{ width:100%; float: left; background: rgba(255,255,255,.9); padding:0;}
 
 .custom-nav .dropdown-menu a:hover{
   background: #dadada !important;
+  color: #2F87CC;
 }
 
 .profile-img{ width: 60px; height: 60px; margin-top:3px;
@@ -126,8 +127,8 @@ header{ width:100%; float: left; background: rgba(255,255,255,.9); padding:0;}
    cursor:  pointer;
     border: 1px solid #d6d6d6;
     padding:0;
-    -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .3);
+    color: #2F87CC;
+
 }
 .custom-dropdown a.active{
   background-color: white;

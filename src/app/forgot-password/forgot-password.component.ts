@@ -30,6 +30,9 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
+    localStorage.setItem('auth_token', '');
+    localStorage.setItem('user', '');
   }
 
   onSendClick(model: any) {
@@ -38,11 +41,12 @@ export class ForgotPasswordComponent implements OnInit {
       this.spinnerService.startLoading();
       this.forgotPasswordService.forgotPassword(model.value.email).subscribe(
         data => {
+          debugger;
           this.isGetting = false;
           this.spinnerService.stopLoading();
           if (!isNullOrUndefined(data)) {
             if (data.statusCode === 200) {
-              this.router.navigate(['/thanks']);
+              this.router.navigate(['/thanks/fgt']);
             } else {
               this.snackBarService.showError('You are not a registered user.');
             }

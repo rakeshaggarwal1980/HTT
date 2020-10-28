@@ -13,10 +13,9 @@ import { RESPONSE_STATUS_ENUM } from '../app.enum';
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   submitted: boolean = false;
-  hasCreated : boolean = false;
   constructor(private registrationService: RegistrationService, private router: Router,
     private snackBarService: SnackBarService, private fb: FormBuilder, private errorService: ErrorService,
-    private spinnerService: SpinnerService ) {
+    private spinnerService: SpinnerService) {
   }
 
   ngOnInit() {
@@ -46,11 +45,10 @@ export class RegistrationComponent implements OnInit {
           this.spinnerService.stopLoading();
           if (data !== null && data !== undefined) {
             if (data.status === RESPONSE_STATUS_ENUM.SUCCESS) {
-              this.snackBarService.showSuccess('You have been registered successfully! Your account will be activated by Administrator shortly.');
-              this.hasCreated = true;
-            } else if(data.status === RESPONSE_STATUS_ENUM.FAILED){
+              this.router.navigate(['/thanks/rgt']);
+            } else if (data.status === RESPONSE_STATUS_ENUM.FAILED) {
               this.snackBarService.showError(data.message);
-            } else{
+            } else {
               this.errorService.handleFailure(data.statusCode);
             }
           }

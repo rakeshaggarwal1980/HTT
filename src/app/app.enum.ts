@@ -72,6 +72,19 @@ export enum EntityStatus {
     Deny = 5
 }
 
+export enum SUPERADMIN_ACTIONS {
+    REGISTRATION = 'Registration',
+    LOGIN = 'Login',
+    CHANGE_PASSWORD = 'ChangePassword',
+    EMPLOYEE_REQUESTS = 'EmployeeRequests',
+    VIEW_USERS = 'ViewUsers',
+    ACCEPT_REQUEST = 'AcceptRequest',
+    DECLINE_REQUEST = 'DeclineRequest',
+    VIEW_DECLARATIONS = 'ViewDeclarations',
+    DOWNLOAD_DECLARATIONS = 'DownloadDeclarations',
+    COVID_DECLARATIONS = 'CovidDeclarations'
+}
+
 export enum HR_ACTIONS {
     REGISTRATION = 'Registration',
     LOGIN = 'Login',
@@ -84,7 +97,9 @@ export enum HR_ACTIONS {
     ACCEPT_REQUEST = 'AcceptRequest',
     DECLINE_REQUEST = 'DeclineRequest',
     VIEW_DECLARATIONS = 'ViewDeclarations',
-    DOWNLOAD_DECLARATIONS = 'DownloadDeclarations'
+    DOWNLOAD_DECLARATIONS = 'DownloadDeclarations',
+    COVID_DECLARATION = 'NewCovidDeclaration',
+    COVID_DECLARATIONS = 'CovidDeclarations'
 }
 export enum SECURITY_ACTIONS {
     REGISTRATION = 'Registration',
@@ -93,7 +108,8 @@ export enum SECURITY_ACTIONS {
     MY_REQUESTS = 'MyRequests',
     NEW_REQUEST = 'NewRequest',
     NEW_DECLARATION = 'NewDeclaration',
-    VIEW_DECLARATIONS = 'ViewDeclarations'
+    VIEW_DECLARATIONS = 'ViewDeclarations',
+    COVID_DECLARATION = 'NewCovidDeclaration'
 }
 export enum EMPLOYEE_ACTIONS {
     REGISTRATION = 'Registration',
@@ -101,5 +117,6 @@ export enum EMPLOYEE_ACTIONS {
     CHANGE_PASSWORD = 'ChangePassword',
     MY_REQUESTS = 'MyRequests',
     NEW_REQUEST = 'NewRequest',
-    NEW_DECLARATION = 'NewDeclaration'
+    NEW_DECLARATION = 'NewDeclaration',
+    COVID_DECLARATION = 'NewCovidDeclaration'
 }

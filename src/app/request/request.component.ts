@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import { MatInput } from '@angular/material/input';
 import { SnackBarService, ValidatorService, ErrorService } from 'app/shared/index.shared';
 import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
+import { EntityStatus } from '../app.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'evry-request',
@@ -15,15 +17,23 @@ import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
 export class RequestComponent implements OnInit {
   today: Date;
   isGetting: boolean = false;
+  minDate: any;
   request: any = {
-    id: 0, requestNumber: '', employeeCode: '', fromDate: '', toDate: '', isApproved: false, isDeclined: false,
-    employeeId: 0, employee: {
+    id: 0, requestNumber: '', employeeCode: '',
+    fromDate: '', toDate: '', isApproved: false, isDeclined: false,
+    employeeId: 0,
+    employee: {
       id: 0,
       name: '',
       email: '',
-      password: '',
-      employeeCode: 0
-    }
+      employeeCode: 0,
+      status: EntityStatus.Active,
+      roles: [],
+      currentResidentialAddress: '',
+      permanentResidentialAddress: ''
+    },
+    hRComments: ''
+
   };
 
   @ViewChild('fromInput', {
@@ -34,14 +44,16 @@ export class RequestComponent implements OnInit {
     read: MatInput
   }) toInput: MatInput;
 
-  constructor(private requestService: RequestService, private spinnerService: SpinnerService, private snackBarService: SnackBarService) {
+  constructor(private requestService: RequestService, private router: Router, private spinnerService: SpinnerService, private snackBarService: SnackBarService) {
   }
 
   ngOnInit() {
 
     let user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
-
+    this.request.employeeCode = user.employeeCode;
+    this.request.employee.name = user.name;
+    this.minDate = moment(new Date());
   }
 
 
@@ -49,87 +61,108 @@ export class RequestComponent implements OnInit {
     if (datePickerType.toLowerCase() == 'fromdate') {
       this.request.fromDate = new Date(event.value);
     } else if (datePickerType.toLowerCase() == 'todate') {
-      this.request.toDate = new Date(event.value);
+      let toDate = new Date(event.value);
+      this.request.toDate = toDate;
     }
   }
 
   isControlValid(dateType: string) {
+    debugger;
+    let validField: any = { valid: true, message: '' };
     if (dateType.toLowerCase() == 'fromdate') {
       if (isNullOrUndefined(this.request.fromDate) || this.request.fromDate == '' || this.request.fromDate == 'Invalid date') {
         document.getElementById('fromDatePicker').classList.add('error-field-highlighter');
-        return false;
+        validField.valid = false;
       } else {
         document.getElementById('fromDatePicker').classList.remove('error-field-highlighter');
-        return true;
+        validField.valid = true;
       }
     }
     else if (dateType.toLowerCase() == 'todate') {
+      debugger;
       if (isNullOrUndefined(this.request.toDate) || this.request.toDate == '' || this.request.toDate == 'Invalid date') {
         document.getElementById('toDatePicker').classList.add('error-field-highlighter');
-        return false;
+        validField.valid = false;
       } else {
-        document.getElementById('toDatePicker').classList.remove('error-field-highlighter');
-        return true;
+        if (new Date(this.request.toDate).getTime() > new Date(this.request.fromDate).getTime()) {
+          document.getElementById('toDatePicker').classList.remove('error-field-highlighter');
+          validField.valid = true;
+        }
+        else {
+          document.getElementById('toDatePicker').classList.add('error-field-highlighter');
+          validField.valid = false;
+          validField.message = 'To Date should be greater than From Date'
+        }
       }
     }
+    return validField;
   }
 
   onRequestClick(requestForm: any) {
-      if (requestForm.valid) {
-      if (this.isControlValid('fromdate') && this.isControlValid('todate')) {
+    if (this.isControlValid('fromdate').valid && this.isControlValid('todate').valid) {
+      this.isGetting = true;
+      this.spinnerService.startLoading();
+      let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+      this.request.requestNumber = random.toString();
+      let user = JSON.parse(localStorage.getItem('user'));
 
-        this.isGetting = true;
-        this.spinnerService.startLoading();
-        let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-        this.request.requestNumber = random.toString();
-        let user = JSON.parse(localStorage.getItem('user'));
+      this.request.employee.employeeCode = this.request.employeeCode;
 
-        this.request.employee.employeeCode = this.request.employeeCode;
+      this.request.fromDate = moment(this.request.fromDate).format();
 
-        this.request.fromDate = moment(this.request.fromDate).format();
-
-        this.request.toDate = moment(this.request.toDate).format();
-        this.request.employeeId = user.userId;
-        this.request.employee.id = user.userId;
-        this.request.employee.email = user.email;
-        this.request.employee.password = '123456';
-        this.requestService.createRequest(this.request).subscribe(
-          data => {
+      this.request.toDate = moment(this.request.toDate).format();
+      let employee = {
+        id: user.userId,
+        name: user.name,
+        email: user.email,
+        employeeCode: user.employeeCode,
+        status: EntityStatus.Active,
+        roles: user.roles,
+        currentResidentialAddress: user.CurrentResidentialAddress,
+        permanentResidentialAddress: user.PermanentResidentialAddress
+      };
+      this.request.employeeId = user.userId;
+      this.request.employee = employee;
+      debugger;
+      this.requestService.createRequest(this.request).subscribe(
+        (data: any) => {
+          this.isGetting = false;
+          debugger;
+          this.spinnerService.stopLoading();
+          if (!isNullOrUndefined(data)) {
+            if (isNullOrUndefined(data.body)) {
+              this.snackBarService.showError(data.message);
+            } else {
+              this.snackBarService.showSuccess('Request has been submitted to the designated authority!');
+              requestForm.resetForm();
+              this.fromInput.value = '';
+              this.toInput.value = '';
+              this.router.navigate(['/myrequests']);
+            }
+          } else {
             this.isGetting = false;
             this.spinnerService.stopLoading();
-            if (!isNullOrUndefined(data)) {
-              if (isNullOrUndefined(data.body)) {
-                this.snackBarService.showError(data.message);
-              } else {
-                this.snackBarService.showSuccess('Request has been submitted to the designated authority!');
-                requestForm.resetForm();
-                this.fromInput.value = '';
-                this.toInput.value = '';
-              }
-            } else {
-              this.isGetting = false;
-              this.spinnerService.stopLoading();
-              this.snackBarService.showError('Error');
-            }
-          },
-          err => {
-            if (err.status > 300) {
-              console.log('error');
-              this.isGetting = false;
-              this.spinnerService.stopLoading();
-              this.snackBarService.showError('Error');
-            }
+            this.snackBarService.showError('Error');
           }
-        );
-      } else {
-        this.snackBarService.showError('Please select date for request.');
-      }
+        },
+        err => {
+          if (err.status > 300) {
+            console.log('error');
+            this.isGetting = false;
+            this.spinnerService.stopLoading();
+            this.snackBarService.showError(err.error.message);
 
-    }
-    else {
-      this.isControlValid('fromdate');
-      this.isControlValid('todate');
-      this.snackBarService.showError('Please enter mandatory fields.');
+          }
+        }
+      );
+    } else {
+      let responseFromDate = this.isControlValid('fromdate');
+      let responseToDate = this.isControlValid('todate');
+      if (responseFromDate.message == '' && responseToDate.message == '') {
+        this.snackBarService.showError('Please select date for request.');
+      } else {
+        this.snackBarService.showError(responseToDate.message);
+      }
     }
   }
 }

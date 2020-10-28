@@ -9,22 +9,22 @@ export class UserService {
   constructor(private apiClientService: ApiClientService) {
   }
 
-  getUserDetail(userId){
+  getUserDetail(userId) {
     return this.apiClientService.Employee_EmployeebyId(userId);
   }
 
-  updateAccountStatus(employeeId, status){
+  updateAccountStatus(employeeId, status) {
     return this.apiClientService.Employee_UpdateAccountStatus(employeeId, status);
   }
-  getAllEmployees() {
-    return this.apiClientService.Employee_Employees();
+  getAllEmployees(searchSortModel: any) {
+    return this.apiClientService.Employee_Employees(searchSortModel);
   }
 
-  updateEmployee(employee){
-   return this.apiClientService.Employee_UpdateEmployee(employee);
+  updateEmployee(employee) {
+    return this.apiClientService.Employee_UpdateEmployee(employee);
   }
 
-  deleteEmployee(employeeId){
+  deleteEmployee(employeeId) {
     return this.apiClientService.Employee_DeleteEmployee(employeeId);
   }
 

@@ -43,6 +43,7 @@ header p{ margin:0;}
   height:35px !important;
 }
 
+.custom-date{ font-size:14px; color:#343434; background: #fffefe;; border:none; width:100%; border:1px solid #343434; height:40px; padding: 0 15px; margin-bottom: 20px; border-radius:0px;}
 .radio{
   float:left;  
   margin: 7px 10px 0 0;
@@ -82,3 +83,61 @@ font-style: italic;
 {
   margin-left:-30px !important;
 }
+
+mat-form-field {
+  margin-right: 12px;
+  width:100%!important;
+}
+ ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex
+ {
+  border-radius: 0 !important;
+  padding:  0 !important;
+  background: #fff !important;
+  border: 1px solid #ced4da !important;
+  width: 100% !important;
+   height:35px !important;
+   font-size: 13px;
+ }
+::ng-deep .mat-input-element
+{
+margin-top:-14px !important;
+padding-left: 14px !important;
+padding-bottom: 5px !important;
+}
+
+mat-form-field {
+  margin-right: 12px;
+  width:100%!important;
+}
+
+//  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex
+//  {
+//   border-radius: 0 !important;
+//   padding:  0 !important;
+//   background: #fff !important;
+//   border: 1px solid #454545 !important;
+//   width: 100% !important;
+//   height:45px !important;
+//  }
+// .input-height
+// {
+//   height:45px !important;
+// }
+
+::ng-deep .error-field-highlighter 
+{
+  .mat-form-field-wrapper{
+  .mat-form-field-flex 
+  {
+  border:1px solid #CC1526 !important;
+  height:35px !important;
+  }
+  .mat-form-field-underline{
+    width:0px !important;
+  }
+}
+}
+
+
+
+

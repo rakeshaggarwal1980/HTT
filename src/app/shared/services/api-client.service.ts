@@ -75,9 +75,9 @@ export class ApiClientService {
    * @name Request_Requests
    *
    */
-  public Request_Requests(): Observable<any> {
+  public Request_Requests(searchSortModel: any): Observable<any> {
     const queryParameters = [];
-    return this.sendRequest('/api/request/requests', HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    return this.sendRequest('/api/request/requests', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
   }
 
   /**
@@ -128,6 +128,19 @@ export class ApiClientService {
    *
    */
 
+  public Health_PostCovidDeclarationData(declarationData: any): Observable<any> {
+
+    return this.sendRequest('/api/health/covidDeclarationData', HTTP_REQUEST_TYPE.POST, JSON.stringify(declarationData), null);
+  }
+
+  /**
+   *
+   * @method
+   * @name
+   * @param {declarationData} any - object of data i.e. email, password etc.
+   *
+   */
+
   public Health_PostDeclarationData(declarationData: any): Observable<any> {
 
     return this.sendRequest('/api/health/declarationData', HTTP_REQUEST_TYPE.POST, JSON.stringify(declarationData), null);
@@ -152,6 +165,23 @@ export class ApiClientService {
     return this.sendRequest('/api/health/selfDeclaration', HTTP_REQUEST_TYPE.GET, null, queryParameters);
   }
 
+
+  /**
+    *
+    * @method
+    * @name Health_GetEmployeeSelfDeclaration
+    *
+  */
+  public Health_GetEmployeeCovidDeclaration(declarationId: number): Observable<any> {
+    const queryParameters = [];
+
+    if (!isNullOrUndefined(declarationId) && declarationId !== 0) {
+      queryParameters.push({ key: 'declarationId', value: declarationId });
+    }
+    return this.sendRequest('/api/health/covidDeclaration', HTTP_REQUEST_TYPE.GET, null, queryParameters);
+  }
+
+
   /**
    *
    * @method
@@ -168,9 +198,9 @@ export class ApiClientService {
 * @name Request_RequestsByUserId
 *
 */
-  public Request_RequestsByUserId(userId: number): Observable<any> {
+  public Request_RequestsByUserId(searchSortModel: any): Observable<any> {
     const queryParameters = [];
-    return this.sendRequest('/api/request/requests/' + userId, HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    return this.sendRequest('/api/request/requestsByUserId', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
   }
 
 
@@ -213,9 +243,9 @@ export class ApiClientService {
 * @name Employee_Employees
 *
 */
-  public Employee_Employees(): Observable<any> {
+  public Employee_Employees(searchSortModel: any): Observable<any> {
     const queryParameters = [];
-    return this.sendRequest('/api/employee/list', HTTP_REQUEST_TYPE.GET, null, queryParameters);
+    return this.sendRequest('/api/employee/list', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
   }
 
 
@@ -231,15 +261,41 @@ export class ApiClientService {
     return this.sendRequest('/api/health/declarations', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
   }
 
+
+  /**
+*
+* @method
+* @name
+* @param {SearchSortModel} searchSortModel - object of data i.e. name, password and employeeCode etc.
+*
+*/
+
+  public Health_CovidDeclarations(searchSortModel: any): Observable<any> {
+    return this.sendRequest('/api/health/coviddeclarations', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
+  }
+
+
+
+  /**
+*
+* @method
+* @name
+* @param {SearchSortModel} searchSortModel - object of data i.e. name, password and employeeCode etc.
+*
+*/
+
+  public Health_MyDeclarations(searchSortModel: any): Observable<any> {
+    return this.sendRequest('/api/health/declarationsByUserId', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
+  }
+
   /**
 *
 * @method
 * @name Health_GetDeclarationsToExport
 *
 */
-  public Health_GetDeclarationsToExport(): Observable<any> {
-    const queryParameters = [];
-    return this.sendRequest('/api/health/declarationList', HTTP_REQUEST_TYPE.GET, null, queryParameters);
+  public Health_GetDeclarationsToExport(searchSortModel: any): Observable<any> {
+    return this.sendRequest('/api/health/declarationList', HTTP_REQUEST_TYPE.POST, JSON.stringify(searchSortModel), null);
   }
 
 
@@ -265,7 +321,7 @@ export class ApiClientService {
   */
 
   public Account_ResetPassword(resetPasswordViewModel: any): Observable<any> {
-
+    debugger;
     return this.sendRequest('/api/account/resetpassword', HTTP_REQUEST_TYPE.POST, JSON.stringify(resetPasswordViewModel), null);
   }
 
@@ -279,5 +335,22 @@ export class ApiClientService {
     queryParameters.push({ key: 'id', value: employeeId });
     return this.sendRequest("/api/employee", HTTP_REQUEST_TYPE.DELETE, null, queryParameters);
   }
+
+  /**
+   *
+   * @method
+   * @name Health_GetEmployeeSelfDeclaration
+   *
+ */
+public Health_GetEmployeeExistingSelfDeclaration(employeeId: number): Observable<any> {
+  const queryParameters = [];
+
+  if (!isNullOrUndefined(employeeId) && employeeId !== 0) {
+    queryParameters.push({ key: 'employeeId', value: employeeId });
+  }
+
+  return this.sendRequest('/api/health/existingSelfDeclaration', HTTP_REQUEST_TYPE.GET, null, queryParameters);
+}
+
 
 }

@@ -7,9 +7,19 @@
               check_circle_outline
             </span></p>
         </div>
-        <div class="col-12 text-center">
+        <div class="col-12 text-center" *ngIf="target=='fgt'">
           <p> Thank You for being with us!!</p>
           <p>Your new password has been sent to your registered email.</p>
+        </div>
+        <div class="col-12 text-center" *ngIf="target=='rgt'">
+          <p> Thank You for signing up!!</p>
+          <p>You have been registered successfully! Your account will be activated by Administrator shortly.</p>
+
+        </div>
+
+        <div class="col-12 text-center" *ngIf="target=='covid'">
+          <p>You declaration has been submitted successfully.</p>
+
         </div>
       </div>
     </div>

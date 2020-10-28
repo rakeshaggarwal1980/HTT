@@ -11,6 +11,11 @@ const DECLARATION_LIST_ROUTES: Routes = [
     component: DeclarationListComponent,
     canActivate: [AuthGuardService]
   },
+  {
+    path: 'mydeclarations',
+    component: DeclarationListComponent,
+    canActivate: [AuthGuardService]
+  }
 ];
 
 

@@ -12,27 +12,23 @@
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
             Name
           </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="text" placeholder="" class="custom-input input-height" name="name"
-              [(ngModel)]="request.employee.name" #name="ngModel"
-              [ngClass]="{ 'error-field-highlighter': requestForm.submitted && name.invalid }" required>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-12 mt-2">
+            <span>{{request.employee.name}}</span>
           </div>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
-            Employee ID
+            Employee Code
           </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-            <input type="text" placeholder="" class="custom-input input-height" name="employeeCode"
-              #employeeCode="ngModel" [(ngModel)]="request.employeeCode"
-              [ngClass]="{ 'error-field-highlighter': requestForm.submitted && employeeCode.invalid }" required>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-12 mt-2">
+            <span>{{request.employeeCode}}</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="row mb-5">
+    <div class="row mb-5 mt-4">
       <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-12 mt-2">
@@ -42,7 +38,7 @@
             <mat-form-field appearance="fill" id="fromDatePicker">
               <mat-label></mat-label>
               <input matInput #fromInput [matDatepicker]="fromPicker" (dateInput)="addEvent('fromDate','input', $event)"
-                (dateChange)="addEvent('fromDate','change', $event)">
+                (dateChange)="addEvent('fromDate','change', $event)" [min]="minDate">
               <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
               <mat-datepicker #fromPicker></mat-datepicker>
             </mat-form-field>
@@ -58,7 +54,7 @@
             <mat-form-field appearance="fill" id="toDatePicker">
               <mat-label></mat-label>
               <input matInput #toInput [matDatepicker]="toPicker" (dateInput)="addEvent('toDate','input', $event)"
-                (dateChange)="addEvent('toDate','change', $event)">
+                (dateChange)="addEvent('toDate','change', $event)" [min]="minDate">
               <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
               <mat-datepicker #toPicker></mat-datepicker>
             </mat-form-field>
@@ -70,9 +66,10 @@
       <div class="col-12 text-right">
         <button id="registration" title="Save" type="submit" (click)="onRequestClick(requestForm)"
           class="btn-primary login-btn" translate>
-          <!-- <mat-progress-spinner diameter="20" *ngIf="isGetting" class="spinner" mode="indeterminate" value="50">
-          </mat-progress-spinner> -->
           <span translate>Save</span>
+        </button>
+        <button class="btn-primary btn-text-only" [routerLink]="['/myrequests']">
+          <span translate>Cancel</span>
         </button>
       </div>
     </div>

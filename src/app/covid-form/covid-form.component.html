@@ -1,0 +1,249 @@
+<div class="container">
+    <div class="row heading">
+        <div class="col-12 mb-4 mt-4">
+            <h3>Covid-19 Declaration</h3>
+        </div>
+    </div>
+</div>
+<div class="container mobile-inner" style="background-color: white;">
+
+    <form [formGroup]="covidForm" (ngSubmit)="onDeclarationClick(covidForm)" novalidate style="width: 100%;"
+        style="background-color: white;padding:20px 10px 0 10px;">
+        <evry-spinner></evry-spinner>
+
+        <div class="clearfix"></div>
+        <div class="row common-text mb-5">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-12">
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12 date text-right" *ngIf="viewMode==false">
+                <span class="sr-no mr-3">Date:</span>
+                <label class="">{{currentDate | date:'mediumDate' }}</label>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12 date text-right" *ngIf="viewMode==true">
+                <span class="sr-no mr-3">Submitted On :</span>
+                <label class="">{{submissionDate | date:'mediumDate' }}</label>
+            </div>
+        </div>
+        <div class="row common-text mb-1">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <span class="sr-no mr-3">Name:</span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12">
+                <label class="">{{name}}</label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12"></div>
+        </div>
+        <div class="row common-text mb-2">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <span class="sr-no mr-3">Emp ID:</span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12">
+                <label class="">{{employeeCode}}</label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12"></div>
+
+        </div>
+
+
+        <div class="row common-text mb-4">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12"> Where are you
+                currently Located?
+                <span [ngClass]="{'error-field-highlighter-star':isControlInValid('locationId')}"
+                    *ngIf="isControlInValid('locationId')">*</span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                <div *ngFor="let location of locations; let i=index;"><span class="align-text"
+                        *ngIf="location.id==covidForm.controls.locationId.value">{{location.name}}
+                        <input type="radio" name="location" checked (change)="onChange('location',0,location.id)"
+                            class="ml-1 radio" [ngClass]="{'readonly':(viewMode==true)}" [disabled]="viewMode==true">
+                        <br>
+                    </span>
+                    <span class="align-text" *ngIf="location.id!=covidForm.controls.locationId.value">{{location.name}}
+                        <input type="radio" name="location" class="ml-1 radio" [ngClass]="{'readonly':(viewMode==true)}"
+                            [disabled]="viewMode==true" (change)="onChange('location',0,location.id)"> <br>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row common-text mb-1">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <span class="sr-no mr-3">Last day of office:</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                <label *ngIf="viewMode==true">
+                    {{request.officeLastDay | date}}
+                </label>
+                <mat-form-field appearance="fill" id="officeDayPicker" *ngIf="viewMode==false">
+                    <mat-label></mat-label>
+                    <input matInput #officeDayInput [matDatepicker]="officeDayPicker"
+                        (dateInput)="addEvent('officeDayDate','input', $event)"
+                        (dateChange)="addEvent('officeDayDate','change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="officeDayPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #officeDayPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-12"></div>
+        </div>
+        <div class="row common-text mb-1">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <span class="sr-no mr-3">Date of symptoms:</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                <label *ngIf="viewMode==true">
+                    {{request.dateOfSymptoms | date}}
+                </label>
+                <mat-form-field appearance="fill" id="symptomsDatePicker" *ngIf="viewMode==false">
+                    <mat-label></mat-label>
+                    <input matInput #symptomsDateInput [matDatepicker]="symptomsDatePicker"
+                        (dateInput)="addEvent('symptomsDate','input', $event)"
+                        (dateChange)="addEvent('symptomsDate','change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="symptomsDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #symptomsDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-12"></div>
+        </div>
+        <div class="row common-text mb-1">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <span class="sr-no mr-3">Covid-19 confirmation date:</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                <label *ngIf="viewMode==true">
+                    {{request.covidConfirmationDate | date}}
+                </label>
+                <mat-form-field appearance="fill" id="confimationDatePicker" *ngIf="viewMode==false">
+                    <mat-label></mat-label>
+                    <input matInput #confirmationDateInput [matDatepicker]="confimationDatePicker"
+                        (dateInput)="addEvent('confirmationDate','input', $event)"
+                        (dateChange)="addEvent('confirmationDate','change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="confimationDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #confimationDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-12"></div>
+        </div>
+        <div class="row common-text mb-4">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12"> Others infected in family?
+                <span [ngClass]="{'error-field-highlighter-star':isControlInValid('othersInfectedInFamily')}"
+                    *ngIf="isControlInValid('othersInfectedInFamily')">*</span>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true">
+                <span class="align-text" *ngIf="request.othersInfectedInFamily==true">Yes<input type="radio"
+                        (change)="onChange('othersInfectedInFamily',0,true)" name="othersInfected"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="true" checked class="ml-1 radio">
+                </span>
+                <span class="align-text" *ngIf="request.othersInfectedInFamily!=true">Yes<input type="radio"
+                        (change)="onChange('othersInfectedInFamily',0,true)" name="othersInfected"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="true" class="ml-1 radio">
+                </span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
+                <span class="align-text">Yes<input type="radio" name="othersInfected"
+                        (change)="onChange('othersInfectedInFamily',0,true)" class="ml-1 radio">
+                </span>
+
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true">
+                <span class="align-text" *ngIf="request.othersInfectedInFamily!=true">No<input type="radio"
+                        (change)="onChange('othersInfectedInFamily',0,false)" name="othersInfected"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="true" class="ml-1 radio" checked>
+                </span>
+                <span class="align-text" *ngIf="request.othersInfectedInFamily==true">No<input type="radio"
+                        (change)="onChange('othersInfectedInFamily',0,false)" name="othersInfected"
+                        [ngClass]="{'readonly':(viewMode==true)}" [disabled]="true" class="ml-1 radio">
+                </span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
+                <span class="align-text">No<input type="radio" name="othersInfected"
+                        (change)="onChange('othersInfectedInFamily',0,false)" class="ml-1 radio">
+                </span>
+
+            </div>
+        </div>
+        <div class="row common-text mb-2" [hidden]="!request.othersInfectedInFamily==true">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <span class="sr-no mr-3">How many members are there in family?</span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12">
+                <input type="text" [disabled]="viewMode==true" [ngClass]="{'readonly':(viewMode==true)}"
+                    formControlName="familyMembersCount" class="form-control min-width">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12"></div>
+
+        </div>
+        <div class="row common-text mb-4">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12"> Is there any need of hospitalization ?
+                <span [ngClass]="{'error-field-highlighter-star':isControlInValid('hospitalizationNeed')}"
+                    *ngIf="isControlInValid('hospitalizationNeed')">*</span>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true">
+                <span class="align-text" *ngIf="request.hospitalizationNeed==true">Yes
+                    <input type="radio" checked [disabled]="true" [ngClass]="{'readonly':(viewMode==true)}"
+                        (change)="onChange('hospitalizationNeed',0,true)" name="hospitalizationNeed" class="ml-1 radio">
+                </span>
+                <span class="align-text" *ngIf="request.hospitalizationNeed!=true">Yes
+                    <input type="radio" [disabled]="true" [ngClass]="{'readonly':(viewMode==true)}"
+                        (change)="onChange('hospitalizationNeed',0,true)" name="hospitalizationNeed" class="ml-1 radio">
+                </span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
+                <span class="align-text">Yes
+                    <input type="radio" name="hospitalizationNeed" (change)="onChange('hospitalizationNeed',0,true)"
+                        class="ml-1 radio">
+                </span>
+
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==true">
+                <span class="align-text" *ngIf="request.hospitalizationNeed!=true">No
+                    <input type="radio" [disabled]="true" name="hospitalizationNeed"
+                        [ngClass]="{'readonly':(viewMode==true)}" checked
+                        (change)="onChange('hospitalizationNeed',0,false)" class="ml-1 radio">
+                </span>
+                <span class="align-text" *ngIf="request.hospitalizationNeed==true">No
+                    <input type="radio" [disabled]="true" name="hospitalizationNeed"
+                        [ngClass]="{'readonly':(viewMode==true)}" (change)="onChange('hospitalizationNeed',0,false)"
+                        class="ml-1 radio">
+                </span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="viewMode==false">
+                <span class="align-text">No
+                    <input type="radio" name="hospitalizationNeed" (change)="onChange('hospitalizationNeed',0,false)"
+                        class="ml-1 radio">
+                </span>
+            </div>
+        </div>
+
+        <div class="row common-text mt-4 mb-4">
+            <div class="col-12">
+                <div *ngIf="viewMode==false">
+                    <input type="checkbox" id="chkConfirm" #chkConfirm class="mr-2 mb-3"
+                        (change)="onChange('confirm',0,$event)">
+                    <div class="row common-text confirm-margin">
+                        I confrim that the above
+                        information is complete and accurate
+                        to the best of my knowledge that
+                        withoutholding any information is unethical and against of the gloabl population fighting
+                        the
+                        covid-19
+                        pandemic.
+                    </div>
+                    <div class="mt-4 text-right mb-4">
+                        <button id="declaration" title="Save" type="submit" class="btn-primary login-btn">
+                            Save
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-4 text-right mb-4" *ngIf="viewMode==true">
+                    <button title="Back" type="button" (click)="goBack()" class="btn-primary login-btn">
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

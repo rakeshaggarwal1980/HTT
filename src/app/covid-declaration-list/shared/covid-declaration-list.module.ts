@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from 'vendor/angular';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 // components
-import { UserListComponent } from 'app/user-list/user-list.component';
+import { CovidDeclarationListComponent } from 'app/covid-declaration-list/covid-declaration-list.component';
 // modules
-import { UserListRouterModule } from 'app/user-list/shared/user-list.route';
+import { CovidDeclarationListRouterModule } from 'app/covid-declaration-list/shared/covid-declaration-list.route';
 import { SharedModule } from 'app/shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { UserService } from 'app/user-list/shared/user.service';
-import { UserDetailDialogComponent } from './user-detail-dialog/user-detail-dialog.component';
-import { MatIconModule } from '@angular/material/icon';
+import { CovidDeclarationListService } from 'app/covid-declaration-list/shared/covid-declaration-list.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,8 +26,8 @@ import { MatSelectModule } from '@angular/material/select';
     TranslateModule,
     SharedModule,
     MatDialogModule,
-    UserListRouterModule,
-    MatIconModule,
+    CovidDeclarationListRouterModule,
+    FormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -40,11 +40,10 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   exports: [],
   declarations: [
-    UserDetailDialogComponent,
-    UserListComponent
+    CovidDeclarationListComponent
+
   ],
-  providers: [UserService],
-  entryComponents: [UserDetailDialogComponent]
+  providers: [CovidDeclarationListService]
 })
-export class UserListModule {
+export class CovidDeclarationListModule {
 }

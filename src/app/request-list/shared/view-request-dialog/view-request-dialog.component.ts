@@ -6,6 +6,7 @@ import { isNullOrUndefined } from 'util';
 import { HR_ACTIONS, EMPLOYEE_ACTIONS, SECURITY_ACTIONS } from 'app/app.enum';
 import { ErrorService } from 'app/shared/index.shared';
 import { SpinnerService } from 'app/shared/spinner/shared/spinner.service';
+import { SnackBarService } from 'app/shared/index.shared';
 import { Location } from '@angular/common';
 @Component({
   selector: 'evry-view-request',
@@ -13,10 +14,11 @@ import { Location } from '@angular/common';
   styleUrls: ['view-request-dialog.component.scss']
 })
 export class ViewRequestDialogComponent implements OnInit {
+  comments: string = '';
   constructor(public dialogRef: MatDialogRef<ViewRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public requestListService: RequestListService, private utilityService: UtilityService, public spinnerService: SpinnerService,
-    public errorService: ErrorService, private location: Location) { }
+    public errorService: ErrorService, private location: Location, private snackBarService: SnackBarService) { }
   ngOnInit() {
   }
 
@@ -42,6 +44,9 @@ export class ViewRequestDialogComponent implements OnInit {
                 isPermitted = true;
               }
               break;
+            case 4:
+              isPermitted = true;
+              break;
             default:
               isPermitted = false;
           }
@@ -51,8 +56,9 @@ export class ViewRequestDialogComponent implements OnInit {
     }
   }
 
-  takeAction(value, comments) {
-    this.data.request.hrComments = comments;
+  takeAction(value) {
+    debugger
+    this.data.request.hrComments = this.comments;
     if (value === 1) {
       this.data.request.isApproved = true;
     } else if (value === 0) {
@@ -66,6 +72,11 @@ export class ViewRequestDialogComponent implements OnInit {
     this.requestListService.updateRequest(request).subscribe(data => {
       this.spinnerService.stopLoading();
       if (data !== null && data.statusCode === 200) {
+        if (this.data.request.isApproved) {
+          this.snackBarService.showSuccess("Request has been approved successfully");
+        } else if (this.data.request.isDeclined) {
+          this.snackBarService.showSuccess("Request has been declined successfully");
+        }
         this.dialogRef.close(true);
       } else {
         this.dialogRef.close(false);

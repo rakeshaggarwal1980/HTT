@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('login-bg');
+    let user = localStorage.getItem('user');
+    if (user !== '' && user !== undefined && user !== null) {
+      window.history.forward();
+    }
   }
   ngOnDestroy() {
     const body = document.getElementsByTagName('body')[0];
@@ -43,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               console.log('this is user');
               console.log(data.body);
               localStorage.setItem('user', JSON.stringify(data.body));
-              this.router.navigate(['request']);
+              this.router.navigate(['myrequests']);
 
             }
             else {

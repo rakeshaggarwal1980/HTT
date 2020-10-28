@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from '../user.service';
 import { EntityStatus } from 'app/app.enum';
-import { ErrorService, SpinnerService } from 'app/shared/index.shared';
+import { ErrorService, SpinnerService, SnackBarService } from 'app/shared/index.shared';
 
 @Component({
   selector: 'evry-user-detail',
@@ -11,12 +11,30 @@ import { ErrorService, SpinnerService } from 'app/shared/index.shared';
 })
 export class UserDetailDialogComponent implements OnInit {
   roleArr: any[] = [];
+  isSuperAdmin: boolean = false;
+  isHR: boolean = false;
   constructor(public dialogRef: MatDialogRef<UserDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService,
-    private errorService: ErrorService, private spinnerService: SpinnerService) {
+    private errorService: ErrorService, private spinnerService: SpinnerService, private snackBarService: SnackBarService) {
   }
 
   ngOnInit() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user != null && user != '') {
+      debugger;
+      let roleSuperAdmin = user.roles.filter(role => role.roleId == 4);
+      if (roleSuperAdmin.length > 0) {
+        this.isSuperAdmin = true;
+      } else {
+        this.isSuperAdmin = false;
+      }
+      let roleHR = user.roles.filter(role => role.roleId == 1);
+      if (roleHR.length > 0) {
+        this.isHR = true;
+      } else {
+        this.isHR = false;
+      }
+    }
     this.bindRoles();
   }
 

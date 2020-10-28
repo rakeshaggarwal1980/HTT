@@ -20,17 +20,17 @@ import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/Subscription';
 import { ExportService } from 'app/shared/services/export.service';
-import { DeclarationListService } from 'app/declaration-list/shared/declaration-list.service';
+import { CovidDeclarationListService } from 'app/covid-declaration-list/shared/covid-declaration-list.service';
 import { SnackBarService } from 'app/shared/index.shared';
 import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 
 @Component({
-  selector: 'evry-declaration-list',
-  templateUrl: 'declaration-list.component.html',
-  styleUrls: ['./shared/declaration-list.component.scss'],
+  selector: 'evry-covid-declaration-list',
+  templateUrl: 'covid-declaration-list.component.html',
+  styleUrls: ['./shared/covid-declaration-list.component.scss'],
 })
-export class DeclarationListComponent implements OnInit, AfterViewInit {
+export class CovidDeclarationListComponent implements OnInit, AfterViewInit {
   declarations: any[] = [];
   userId: number = 0;
   isSuperAdmin: boolean = false;
@@ -61,7 +61,7 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
   @ViewChild('toInput', {
     read: MatInput
   }) toInput: MatInput;
-  constructor(public dialog: MatDialog, private declarationListService: DeclarationListService,
+  constructor(public dialog: MatDialog, private covidDeclarationListService: CovidDeclarationListService,
     private router: Router, private ngzone: NgZone, private cdref: ChangeDetectorRef,
     private appref: ApplicationRef, private snackBarService: SnackBarService,
     private exportService: ExportService, private spinnerService: SpinnerService, private location: Location) {
@@ -95,16 +95,8 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
       this.roleId = this.user.roles.find(r => r.roleId == 4) ? 4 : 1;
 
     }
-    if (this.location.path() === '/declarations') {
-      this.isMyDeclarations = false;
-      this.getAllDeclarations();
-    }
-    else {
-      this.isMyDeclarations = true;
-      this.categories.splice(0, 2);
-      this.getAllDeclarationsByUserId();
-    }
-    this.isAuthenticated('NewDeclaration');
+    this.getAllCovidDeclarations();
+    this.isAuthenticated('NewCovidDeclaration');
   }
 
 
@@ -158,7 +150,7 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
         this.sortDirectionStatus[val] = (this.sortDirectionStatus[val] === SORT_DIRECTION.ASC) ?
           SORT_DIRECTION.DESC : SORT_DIRECTION.ASC;
         this.sortDirection = this.sortDirectionStatus[val];
-        this.getAllDeclarations();
+        this.getAllCovidDeclarations();
       } else {
         this.sortDirectionStatus[val] = SORT_DIRECTION.DESC;
       }
@@ -171,55 +163,55 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
     this.submissionDate = moment(this.submissionDate).format();
     if (this.propertyName !== '') {
       if (this.propertyName.toLowerCase() == 'date' && !isNullOrUndefined(this.submissionDate) && this.submissionDate !== '') {
-        if (this.isMyDeclarations) {
-          this.getAllDeclarationsByUserId();
-        } else {
-          this.getAllDeclarations();
-        }
+        // if (this.isMyDeclarations) {
+        //   this.getAllDeclarationsByUserId();
+        // } else {
+        this.getAllCovidDeclarations();
+        // }
       } else if ((this.propertyName.toLowerCase() == 'employeeid' || this.propertyName.toLowerCase() == 'employeename')
         && !isNullOrUndefined(this.searchInput) && this.searchInput !== '') {
         debugger;
-        if (this.isMyDeclarations) {
-          this.getAllDeclarationsByUserId();
-        } else {
-          this.getAllDeclarations();
-        }
+        // if (this.isMyDeclarations) {
+        //   this.getAllDeclarationsByUserId();
+        // } else {
+        this.getAllCovidDeclarations();
+        // }
       } else {
         if (this.propertyName.toLowerCase() == 'date' && isNullOrUndefined(this.submissionDate) && this.submissionDate == '') {
           this.errorDate = true;
           this.errorInput = false;
-          if (this.isMyDeclarations) {
-            this.getAllDeclarationsByUserId();
-          } else {
-            this.getAllDeclarations();
-          }
+          // if (this.isMyDeclarations) {
+          //   this.getAllDeclarationsByUserId();
+          //  } else {
+          this.getAllCovidDeclarations();
+          //  }
         } if ((this.propertyName.toLowerCase() == 'employeeid' || this.propertyName.toLowerCase() == 'employeename') && isNullOrUndefined(this.searchInput) && this.searchInput == '') {
           this.errorDate = false;
           this.errorInput = true;
-          if (this.isMyDeclarations) {
-            this.getAllDeclarationsByUserId();
-          } else {
-            this.getAllDeclarations();
-          }
+          // if (this.isMyDeclarations) {
+          //   this.getAllDeclarationsByUserId();
+          // } else {
+          this.getAllCovidDeclarations();
+          //}
         }
       }
     }
     else {
       this.searchInput = '';
       this.toInput.value = '';
-      if (this.isMyDeclarations) {
-        this.getAllDeclarationsByUserId();
-      } else {
-        this.getAllDeclarations();
-      }
+      // if (this.isMyDeclarations) {
+      //   this.getAllDeclarationsByUserId();
+      // } else {
+      this.getAllCovidDeclarations();
+      //}
     }
   }
-  onExport() {
-    this.getDeclarationsToExport();
+  // onExport() {
+  //   this.getDeclarationsToExport();
 
 
-  }
-  getAllDeclarations() {
+  // }
+  getAllCovidDeclarations() {
 
     if (this.userId !== 0 && !isNullOrUndefined(this.userId)) {
 
@@ -238,7 +230,7 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
       };
       console.log('search Model');
       console.log(searchSortModel);
-      this.declarationListService.getDeclarations(searchSortModel).subscribe(
+      this.covidDeclarationListService.getCovidDeclarations(searchSortModel).subscribe(
         data => {
           debugger;
           if (!isNullOrUndefined(data)) {
@@ -246,7 +238,7 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
               this.declarations = data.body.searchResult;
               this.setPagingInfoFromResponse(data.body);
               this.spinnerService.stopLoading();
-              console.log('these are declarations');
+              console.log('these are declarations of covid');
               console.log(data.body.searchResult);
 
             }
@@ -276,181 +268,104 @@ export class DeclarationListComponent implements OnInit, AfterViewInit {
 
   }
 
-  getAllDeclarationsByUserId() {
-
-    if (this.userId !== 0 && !isNullOrUndefined(this.userId)) {
-
-      this.spinnerService.startLoading();
-      let searchSortModel = {
-        propertyName: this.propertyName,
-        searchString: this.propertyName.toLowerCase() !== 'date' ? this.searchInput : this.submissionDate,
-        sortColumn: this.sortColumn,
-        sortDirection: this.sortDirection,
-        userId: this.userId,
-        roleId: this.roleId,
-        page: 1,
-        pageSize: 10,
-        totalRecords: 0,
-        SearchResult: {}
-      };
-      console.log('search Model');
-      console.log(searchSortModel);
-      this.declarationListService.getMyDeclarations(searchSortModel).subscribe(
-        data => {
-          debugger;
-          if (!isNullOrUndefined(data)) {
-            if (!isNullOrUndefined(data.body)) {
-              this.declarations = data.body.searchResult;
-              this.setPagingInfoFromResponse(data.body);
-              this.spinnerService.stopLoading();
-              console.log('these are declarations');
-              console.log(data.body.searchResult);
-
-            }
-            else {
-              this.declarations = [];
-              this.spinnerService.stopLoading();
-              //this.snackBarService.showError('No declaration found.');
-            }
-          } else {
-            this.declarations = [];
-            this.spinnerService.stopLoading();
-            //   this.snackBarService.showError('No declaration found.');
-          }
-        },
-        err => {
-          //// this.isGetting = false;
-          if (err.status >= 300) {
-            this.declarations = [];
-            this.spinnerService.stopLoading();
-            //   this.snackBarService.showError('No declaration found.');
-
-          }
-
-        }
-      );
-    }
-
-  }
 
 
-  getDeclarationsToExport() {
-    if (this.userId !== 0 && !isNullOrUndefined(this.userId)) {
-      this.spinnerService.startLoading();
-      let searchSortModel = {
-        propertyName: this.propertyName,
-        searchString: this.propertyName.toLowerCase() !== 'date' ? this.searchInput : this.submissionDate,
-        sortColumn: this.sortColumn,
-        sortDirection: this.sortDirection,
-        userId: this.userId,
-        roleId: this.roleId,
-        page: 1,
-        pageSize: 10,
-        totalRecords: 0,
-        SearchResult: {}
-      };
-      this.declarationListService.getDeclarationToExport(searchSortModel).subscribe(
-        data => {
-          debugger;
-          if (!isNullOrUndefined(data)) {
-            if (!isNullOrUndefined(data.body)) {
-              console.log('dec');
-              console.log(data.body);
-              let arrdeclarationsToExport = [];
-              data.body.forEach((element: any, index) => {
-                debugger;
-                arrdeclarationsToExport.push(
-                  {
 
-                    Id: element.id,
-                    locationId: element.locationId,
-                    preExistHealthIssue: element.preExistHealthIssue,
-                    requestNumber: element.requestNumber,
-                    residentialAddress: element.residentialAddress,
-                    status: element.status == true ? 'Active' : 'In Active',
-                    travelOustSideInLast15Days: element.travelOustSideInLast15Days == true ? 'Yes' : 'No',
-                    zoneId: element.zoneId,
-                    contactWithCovidPeople: element.contactWithCovidPeople == true ? 'Yes' : 'No',
-                    createdDate: element.createdDate,
-                    employeeId: element.employeeId,
-                    employeename: element.employee.name,
-                    employeeCode: element.employee.employeeCode,
-                    symptoms: this.getSymptoms(element.healthTrackSymptoms, ''),
+  // getDeclarationsToExport() {
+  //   if (this.userId !== 0 && !isNullOrUndefined(this.userId)) {
+  //     this.spinnerService.startLoading();
+  //     let searchSortModel = {
+  //       propertyName: this.propertyName,
+  //       searchString: this.propertyName.toLowerCase() !== 'date' ? this.searchInput : this.submissionDate,
+  //       sortColumn: this.sortColumn,
+  //       sortDirection: this.sortDirection,
+  //       userId: this.userId,
+  //       roleId: this.roleId,
+  //       page: 1,
+  //       pageSize: 10,
+  //       totalRecords: 0,
+  //       SearchResult: {}
+  //     };
+  //     this.declarationListService.getDeclarationToExport(searchSortModel).subscribe(
+  //       data => {
+  //         debugger;
+  //         if (!isNullOrUndefined(data)) {
+  //           if (!isNullOrUndefined(data.body)) {
+  //             console.log('dec');
+  //             console.log(data.body);
+  //             let arrdeclarationsToExport = [];
+  //             data.body.forEach((element: any, index) => {
+  //               debugger;
+  //               arrdeclarationsToExport.push(
+  //                 {
 
-                  }
-                )
-                console.log('questions');
-                let result = this.getQuestions(element.healthTrackQuestionAnswers);
-                // result.forEach(function (val, key) {
-                //   arrdeclarationsToExport.push({ key: val });
-                // });
-                let dataToExport = Object.assign(arrdeclarationsToExport[index], result)
-                // let    abc = arrdeclarationsToExport[index].merge({}, arrdeclarationsToExport[index], result)
-                console.log('arr : ');
-                console.log(dataToExport);
-                console.log(result);
-                this.declarationsToExport.push(dataToExport);
-                console.log(this.declarationsToExport);
-                // console.log(arrdeclarationsToExport);
-                // this.declarationsToExport = arrdeclarationsToExport;
-                //this.declarationsToExport.concat(this.getQuestions(element.healthTrackQuestionAnswers, []));
-              });
+  //                   Id: element.id,
+  //                   locationId: element.locationId,
+  //                   preExistHealthIssue: element.preExistHealthIssue,
+  //                   requestNumber: element.requestNumber,
+  //                   residentialAddress: element.residentialAddress,
+  //                   status: element.status == true ? 'Active' : 'In Active',
+  //                   travelOustSideInLast15Days: element.travelOustSideInLast15Days == true ? 'Yes' : 'No',
+  //                   zoneId: element.zoneId,
+  //                   contactWithCovidPeople: element.contactWithCovidPeople == true ? 'Yes' : 'No',
+  //                   createdDate: element.createdDate,
+  //                   employeeId: element.employeeId,
+  //                   employeename: element.employee.name,
+  //                   employeeCode: element.employee.employeeCode,
+  //                   symptoms: this.getSymptoms(element.healthTrackSymptoms, ''),
 
-              // this.declarationsToExport = data.body;
-              console.log('these are declarations to Export');
-              console.log(this.declarationsToExport);
-              this.exportService.exportExcel(this.declarationsToExport, 'Declarations');
-              this.spinnerService.stopLoading();
-            }
-            else {
-              // this.declarations = [];
-              this.spinnerService.stopLoading();
-              this.snackBarService.showError('No declaration found.');
-            }
-          } else {
-            // this.declarations = [];
-            this.spinnerService.stopLoading();
-            this.snackBarService.showError('No declaration found.');
-          }
-        },
-        err => {
-          //// this.isGetting = false;
-          this.spinnerService.stopLoading();
-          if (err.status >= 300) {
-            // this.declarations = [];
-            this.snackBarService.showError('No declaration found.');
+  //                 }
+  //               )
+  //               console.log('questions');
+  //               let result = this.getQuestions(element.healthTrackQuestionAnswers);
+  //               // result.forEach(function (val, key) {
+  //               //   arrdeclarationsToExport.push({ key: val });
+  //               // });
+  //               let dataToExport = Object.assign(arrdeclarationsToExport[index], result)
+  //               // let    abc = arrdeclarationsToExport[index].merge({}, arrdeclarationsToExport[index], result)
+  //               console.log('arr : ');
+  //               console.log(dataToExport);
+  //               console.log(result);
+  //               this.declarationsToExport.push(dataToExport);
+  //               console.log(this.declarationsToExport);
+  //               // console.log(arrdeclarationsToExport);
+  //               // this.declarationsToExport = arrdeclarationsToExport;
+  //               //this.declarationsToExport.concat(this.getQuestions(element.healthTrackQuestionAnswers, []));
+  //             });
 
-          }
+  //             // this.declarationsToExport = data.body;
+  //             console.log('these are declarations to Export');
+  //             console.log(this.declarationsToExport);
+  //             this.exportService.exportExcel(this.declarationsToExport, 'Declarations');
+  //             this.spinnerService.stopLoading();
+  //           }
+  //           else {
+  //             // this.declarations = [];
+  //             this.spinnerService.stopLoading();
+  //             this.snackBarService.showError('No declaration found.');
+  //           }
+  //         } else {
+  //           // this.declarations = [];
+  //           this.spinnerService.stopLoading();
+  //           this.snackBarService.showError('No declaration found.');
+  //         }
+  //       },
+  //       err => {
+  //         //// this.isGetting = false;
+  //         this.spinnerService.stopLoading();
+  //         if (err.status >= 300) {
+  //           // this.declarations = [];
+  //           this.snackBarService.showError('No declaration found.');
 
-        }
-      );
-    }
+  //         }
 
-  }
+  //       }
+  //     );
+  //   }
 
-  getQuestions(questions: any) {
-    var result = questions.reduce(function (map, obj) {
-      map[obj.question] = obj.value;
-      return map;
-    }, {});
-    return result;
-  }
+  // }
 
-  getSymptoms(symptoms: any, symptom = '') {
-    let hasSymptoms: boolean = false;
-    symptoms.forEach((element: any) => {
-      if (element.value == true) {
-        hasSymptoms = true;
-        symptom += ',' + element.name
-      }
-    });
-    if (hasSymptoms == false) {
-      symptom = 'No symptom';
-    } else {
-      symptom = symptom.substring(1);
-    }
-    return symptom;
-  }
+
 
   onPageChange(pageNumber) {
     this.pageNumber = pageNumber;
